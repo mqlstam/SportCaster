@@ -4,8 +4,6 @@
 
 A smart sports recommendation system powered by real-time weather data
 
-[Overview](#overview) • [Features](#features) • [Setup](#setup) • [Development](#development) • [Team](#team)
-
 </div>
 
 ---
@@ -61,7 +59,7 @@ SportCaster helps users choose the perfect sport activity based on current weath
 2. **Installation**
 ```bash
 # Clone repository
-git clone https://github.com/your-org/sportcaster.git
+git clone https://github.com/mqlstm/sportcaster.git
 cd sportcaster
 
 # Frontend setup
