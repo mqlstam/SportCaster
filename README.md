@@ -27,18 +27,18 @@ SportCaster helps users choose the perfect sport activity based on current weath
 ### Frontend
 ```json
 {
-  "framework": "Angular 19.0.x",
+  "framework": "Angular 19",
   "ui": "Angular Material",
   "state": "NgRx",
-  "styling": "Tailwind CSS 3.3.3"
+  "styling": "Tailwind CSS"
 }
 ```
 
 ### Backend
 ```json
 {
-  "runtime": "Node.js 20.11.1",
-  "framework": "Express 5.0.0",
+  "runtime": "Node.js",
+  "framework": "Express",
   "auth": "JWT",
   "docs": "Swagger"
 }
@@ -47,8 +47,8 @@ SportCaster helps users choose the perfect sport activity based on current weath
 ### Database & Tools
 ```json
 {
-  "database": "MongoDB 7.0",
-  "orm": "Mongoose 7.5.0",
+  "database": "MongoDB",
+  "orm": "Mongoose",
   "containerization": "Docker"
 }
 ```
@@ -109,19 +109,6 @@ cd frontend && npm test
 cd backend && npm test
 ```
 
-## 📁 Project Structure
-```
-sportcaster/
-├── frontend/     # Angular application
-│   ├── src/
-│   └── tests/
-├── backend/      # Node.js API
-│   ├── src/
-│   └── tests/
-├── docker/       # Docker configurations
-├── docs/         # Documentation
-└── README.md
-```
 
 ## 🛠️ Tools & Extensions
 
@@ -132,30 +119,10 @@ sportcaster/
 - Docker
 - MongoDB
 
-## 👥 Team
-
-### Frontend Developers
-- [Name 1]
-- [Name 2]
-
-### Backend Developer
-- [Name 3]
-
-### DevOps Engineer
-- [Name 4]
-
-## 📝 Contributing
-
-1. Create feature branch from development
-2. Make changes
-3. Create pull request
-4. Ensure tests pass
-5. Request review
-
 ---
 
 <div align="center">
 
-**Made with ☔️ by Team [X]** | Avans University
+**Made with ☔️ by Team SportCaster** | Avans Hogeschool
 
 </div>
