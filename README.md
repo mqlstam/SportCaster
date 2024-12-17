@@ -27,10 +27,13 @@ SportCaster helps users choose the perfect sport activity based on current weath
 ### Frontend
 ```json
 {
-  "framework": "Angular 19",
-  "ui": "Angular Material",
-  "state": "NgRx",
-  "styling": "Tailwind CSS"
+  "framework": "Angular 19.0.4",
+  "ui": "Angular Material 19.0.3",
+  "styling": "Tailwind CSS 3.4.16",
+  "dependencies": {
+    "rxjs": "7.8.1",
+    "zone.js": "0.15.0"
+  }
 }
 ```
 
@@ -38,18 +41,9 @@ SportCaster helps users choose the perfect sport activity based on current weath
 ```json
 {
   "runtime": "Node.js",
-  "framework": "Express",
-  "auth": "JWT",
-  "docs": "Swagger"
-}
-```
-
-### Database & Tools
-```json
-{
-  "database": "MongoDB",
-  "orm": "Mongoose",
-  "containerization": "Docker"
+  "framework": "Express 4.21.2",
+  "database": "MongoDB 8.9.1",
+  "security": "Helmet 8.0.0"
 }
 ```
 
@@ -58,9 +52,10 @@ SportCaster helps users choose the perfect sport activity based on current weath
 1. **Prerequisites**
 ```bash
 # Required tools
-- Docker Desktop
 - Node.js 20.11.1
 - Git
+- Docker Desktop
+- VS Code (recommended)
 ```
 
 2. **Installation**
@@ -69,50 +64,53 @@ SportCaster helps users choose the perfect sport activity based on current weath
 git clone https://github.com/your-org/sportcaster.git
 cd sportcaster
 
-# Setup environment
-cp .env.example .env
-
-# Start containers
-docker-compose up -d
-```
-
-3. **Access Points**
-```json
-{
-  "frontend": "http://localhost:4200",
-  "backend": "http://localhost:3000",
-  "api-docs": "http://localhost:3000/api-docs"
-}
-```
-
-## 🔧 Development
-
-### Local Development
-```bash
-# Frontend
+# Frontend setup
 cd frontend
 npm install
 npm start
 
-# Backend
-cd backend
+# Backend setup
+cd ../backend
 npm install
 npm run dev
 ```
 
-### Testing
-```bash
-# Run frontend tests
-cd frontend && npm test
+## 🔧 Development
 
-# Run backend tests
-cd backend && npm test
+### Structure
+```
+sportcaster/
+├── frontend/         # Angular application
+├── backend/          # Node.js API
+├── documentation/    # Project documentation
+│   ├── architecture/
+│   └── database/
+└── docker/          # Docker configurations
 ```
 
+### Available Scripts
 
-## 🛠️ Tools & Extensions
+**Frontend:**
+```bash
+npm start     # Start development server
+npm run build # Build production version
+npm test      # Run tests
+```
 
-### VS Code Extensions
+**Backend:**
+```bash
+npm run dev   # Start development server
+npm run build # Build TypeScript
+npm start     # Run production server
+npm test      # Run tests
+```
+
+## 📚 Documentation
+Project documentation, including architecture diagrams and database schemas, can be found in the `/documentation` directory:
+- System Architecture: `/documentation/architecture/system-architecture-overview.drawio`
+- Database Schema: `/documentation/database/erd-schema.drawio`
+
+## 🛠️ Required VS Code Extensions
 - Angular Language Service
 - ESLint
 - Prettier
