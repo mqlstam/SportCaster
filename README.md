@@ -4,6 +4,7 @@
 
 A smart sports recommendation system powered by real-time weather data
 
+
 </div>
 
 ---
@@ -45,75 +46,71 @@ SportCaster helps users choose the perfect sport activity based on current weath
 }
 ```
 
-## 💻 Setup
+## 💻 Development Setup
 
 1. **Prerequisites**
 ```bash
 # Required tools
-- Node.js 20.11.1
-- Git
 - Docker Desktop
-- VS Code (recommended)
+- Git
 ```
 
-2. **Installation**
+2. **Project Structure**
+```
+SportCaster/
+├── docker/               # Docker configurations
+├── frontend/            # Angular application
+├── backend/             # Node.js API
+└── documentation/       # Project documentation
+```
+
+3. **Installation & Running**
 ```bash
 # Clone repository
 git clone https://github.com/mqlstm/sportcaster.git
 cd sportcaster
 
-# Frontend setup
-cd frontend
-npm install
-npm start
-
-# Backend setup
-cd ../backend
-npm install
-npm run dev
+# Start all services with Docker
+cd docker
+docker-compose up
 ```
 
-## 🔧 Development
-
-### Structure
-```
-sportcaster/
-├── frontend/         # Angular application
-├── backend/          # Node.js API
-├── documentation/    # Project documentation
-│   ├── architecture/
-│   └── database/
-└── docker/          # Docker configurations
+4. **Access Points**
+```json
+{
+  "frontend": "http://localhost:4200",
+  "backend": "http://localhost:3000",
+  "mongodb": "mongodb://localhost:27017"
+}
 ```
 
-### Available Scripts
-
-**Frontend:**
-```bash
-npm start     # Start development server
-npm run build # Build production version
-npm test      # Run tests
+## 📁 Frontend Structure
 ```
-
-**Backend:**
-```bash
-npm run dev   # Start development server
-npm run build # Build TypeScript
-npm start     # Run production server
-npm test      # Run tests
+frontend/src/app/
+├── core/
+│   ├── services/
+│   └── guards/
+├── shared/
+│   ├── components/
+│   └── models/
+├── features/
+│   ├── weather/
+│   └── sports/
+└── layout/
+    ├── header/
+    └── footer/
 ```
 
 ## 📚 Documentation
-Project documentation, including architecture diagrams and database schemas, can be found in the `/documentation` directory:
+Project documentation can be found in the `/documentation` directory:
 - System Architecture: `/documentation/architecture/system-architecture-overview.drawio`
 - Database Schema: `/documentation/database/erd-schema.drawio`
 
-## 🛠️ Required VS Code Extensions
+## 🛠️ Recommended VS Code Extensions
 - Angular Language Service
-- ESLint
-- Prettier
 - Docker
-- MongoDB
+- MongoDB for VS Code
+- Draw.io Integration
 
 ---
 

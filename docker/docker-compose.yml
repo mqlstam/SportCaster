@@ -1,53 +1,40 @@
-version: '3.8'
 
 services:
   frontend:
     build:
-      context: ../frontend
-      dockerfile: Dockerfile
-      args:
-          VERSION: 1.0.0
+      context: ..
+      dockerfile: docker/frontend.dockerfile
     ports:
-      - "4200:80"
+      - "4200:4200"
     volumes:
       - ../frontend:/app
       - /app/node_modules
-    restart: unless-stopped
-    networks:
-      - my-network
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
 
   backend:
     build:
-      context: ../backend
-      dockerfile: Dockerfile
-      args:
-          VERSION: 1.0.0
+      context: ..
+      dockerfile: docker/backend.dockerfile
     ports:
       - "3000:3000"
     volumes:
       - ../backend:/app
       - /app/node_modules
-    depends_on:
-      - mongo
     environment:
-      MONGO_URI: mongodb://mongo:27017/mydb
-    restart: unless-stopped
-    networks:
-      - my-network
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://mongodb:27017/sportcaster
+    depends_on:
+      - mongodb
 
-  mongo:
-    image: mongo:6.0
+  mongodb:
+    image: mongo:latest
     ports:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
-    restart: unless-stopped
-    networks:
-      - my-network
 
 volumes:
   mongodb_data:
-
-networks:
-  my-network:
-    driver: bridge
