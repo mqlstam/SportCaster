@@ -1,5 +1,6 @@
 import { connectDB } from "./database";
 import { Sport, User } from "../models";
+import mongoose from "mongoose";
 
 const sports = [
   {
@@ -101,15 +102,19 @@ const users = [
 ];
 
 const seed = async () => {
-  try {
-    await connectDB();
-    await Sport.deleteMany({});
-    await User.deleteMany({});
-    await Sport.insertMany(sports);
-    await User.insertMany(users);
-    console.log("Database seeded successfully");
-  } catch (error) {
-    console.error("Database seeding failed", error);
-  }
+    try {
+        await connectDB();
+        await Sport.deleteMany({});
+        await User.deleteMany({});
+        await Sport.insertMany(sports);
+        await User.insertMany(users);
+        console.log("Database seeded successfully");
+    } catch (error) {
+        console.error("Database seeding failed", error);
+    } finally {
+       mongoose.connection.close();
+       console.log("MongoDB connection closed");
+    }
 };
+
 seed();
