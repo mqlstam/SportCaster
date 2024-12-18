@@ -72,7 +72,7 @@ cd sportcaster
 
 # Start all services with Docker
 cd docker
-docker-compose up
+docker-compose up --build
 ```
 
 4. **Access Points**
@@ -84,22 +84,6 @@ docker-compose up
 }
 ```
 
-## 📁 Frontend Structure
-```
-frontend/src/app/
-├── core/
-│   ├── services/
-│   └── guards/
-├── shared/
-│   ├── components/
-│   └── models/
-├── features/
-│   ├── weather/
-│   └── sports/
-└── layout/
-    ├── header/
-    └── footer/
-```
 
 ## 📚 Documentation
 Project documentation can be found in the `/documentation` directory:
