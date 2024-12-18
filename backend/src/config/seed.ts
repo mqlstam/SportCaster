@@ -101,20 +101,25 @@ const users = [
   },
 ];
 
-const seed = async () => {
+export const seedDatabase = async () => { // Export the function
     try {
-        await connectDB();
-        await Sport.deleteMany({});
-        await User.deleteMany({});
-        await Sport.insertMany(sports);
-        await User.insertMany(users);
-        console.log("Database seeded successfully");
+      console.log("Connecting to MongoDB...");
+      await connectDB();
+      console.log("Connected to MongoDB");
+  
+      console.log("Clearing existing collections...");
+      await Sport.deleteMany({});
+      await User.deleteMany({});
+      console.log("Collections cleared");
+  
+      console.log("Inserting seed data...");
+      await Sport.insertMany(sports);
+      await User.insertMany(users);
+      console.log("Seed data inserted successfully");
     } catch (error) {
-        console.error("Database seeding failed", error);
+      console.error("Database seeding failed:", error);
     } finally {
-       mongoose.connection.close();
-       console.log("MongoDB connection closed");
+      await mongoose.connection.close();
+      console.log("MongoDB connection closed");
     }
-};
-
-seed();
+  };

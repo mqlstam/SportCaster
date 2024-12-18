@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { connectDB } from './config/database';
 import router from './routes';
+import { seedDatabase } from './config/seed'; // Import the seeding logic
 
 const app: Express = express();
 
@@ -22,7 +23,14 @@ const PORT = process.env.PORT ?? 3000;
 
 const startServer = async () => {
   try {
+    console.log('Connecting to database...');
     await connectDB();
+    console.log('Database connection established.');
+
+    console.log('Seeding database...');
+    await seedDatabase(); // Seed the database before starting the server
+    console.log('Database seeded successfully.');
+
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
