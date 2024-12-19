@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';  // Voeg deze import toe
 import { WeatherService } from '../weather.service';
 
 @Component({
   selector: 'app-weather-dashboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, HttpClientModule],  // Voeg HttpClientModule toe aan imports
   templateUrl: './weather-dashboard.component.html',
   styleUrls: ['./weather-dashboard.component.css'],
 })
