@@ -1,46 +1,47 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const sportSchema = new mongoose.Schema({
-  name: { 
-    type: String, 
+  name: {
+    type: String,
     required: true,
-    unique: true
+    unique: true,
   },
-  isOutdoor: { 
-    type: Boolean, 
-    required: true 
+  isOutdoor: {
+    type: Boolean,
+    required: true,
   },
-  rainSuitable: { 
-    type: Boolean, 
-    default: false 
+  rainSuitable: {
+    type: Boolean,
+    default: false,
   },
-  windSpeedLimit: { 
-    type: Number 
+  windSpeedLimit: {
+    type: Number,
   },
-  minTemp: { 
-    type: Number 
+  minTemp: {
+    type: Number,
   },
-  maxTemp: { 
-    type: Number 
+  maxTemp: {
+    type: Number,
   },
   duration: {
     min: { type: Number, required: true },
-    max: { type: Number, required: true }
+    max: { type: Number, required: true },
   },
-  intensity: { 
-    type: String, 
-    enum: ['low', 'medium', 'high'], 
-    required: true 
+  intensity: {
+    type: String,
+    enum: ["low", "medium", "high"],
+    required: true,
   },
   isTeamSport: {
     type: Boolean,
-    default: false
+    default: false,
   },
-  equipment: [{
-    item: { type: String, required: true },
-    required: { type: Boolean, default: true },
-    alternatives: [{ type: String }]
-  }]
+  equipment: [
+    {
+      item: { type: String, required: true },
+      required: { type: Boolean, default: true },
+    },
+  ],
 });
 
-export const Sport = mongoose.model('Sport', sportSchema);
+export const Sport = mongoose.model("Sport", sportSchema);
