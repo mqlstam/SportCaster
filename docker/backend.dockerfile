@@ -5,10 +5,9 @@ WORKDIR /app
 # Copy package files
 COPY backend/package*.json ./
 
-# Install dependencies
+# Clean install dependencies
+RUN npm cache clean --force
 RUN npm install 
-
-RUN npm install -g axios
 
 # Copy project files
 COPY backend/ .
