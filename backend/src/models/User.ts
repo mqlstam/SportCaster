@@ -16,10 +16,8 @@ const userSchema = new mongoose.Schema({
   },
   location: {
     city: { type: String },
-    coordinates: {
-      lat: { type: Number },
-      lon: { type: Number }
-    }
+    lat: { type: Number },
+    lon: { type: Number }
   },
   preferences: {
     preferredSports: [{ 
