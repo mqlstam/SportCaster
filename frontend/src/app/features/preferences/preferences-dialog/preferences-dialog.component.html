@@ -1,0 +1,42 @@
+<div class="p-6">
+    <h2 class="text-2xl font-bold mb-6">Sport Preferences</h2>
+  
+    <div class="space-y-6">
+      <!-- Intensity Selection -->
+      <mat-form-field class="w-full">
+        <mat-label>Intensity Level</mat-label>
+        <mat-select [(ngModel)]="preferences.intensity">
+          <mat-option value="low">Low</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="high">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Duration Selection -->
+      <mat-form-field class="w-full">
+        <mat-label>Duration (minutes)</mat-label>
+        <mat-select [(ngModel)]="preferences.duration">
+          <mat-option [value]="15">15 minutes</mat-option>
+          <mat-option [value]="30">30 minutes</mat-option>
+          <mat-option [value]="45">45 minutes</mat-option>
+          <mat-option [value]="60">60 minutes</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Location Preference -->
+      <mat-form-field class="w-full">
+        <mat-label>Location Preference</mat-label>
+        <mat-select [(ngModel)]="preferences.location">
+          <mat-option value="indoor">Indoor</mat-option>
+          <mat-option value="outdoor">Outdoor</mat-option>
+          <mat-option value="both">No Preference</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <!-- Dialog Actions -->
+    <div class="flex justify-end space-x-4 mt-8">
+      <button mat-button (click)="onCancel()">Cancel</button>
+      <button mat-raised-button color="primary" (click)="onSave()">Save Preferences</button>
+    </div>
+  </div>
