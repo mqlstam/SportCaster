@@ -34,3 +34,6 @@ yarn-error.log*
 
 # Angular specific
 .angular/
+
+#repoprompt
+.repo_ignore
