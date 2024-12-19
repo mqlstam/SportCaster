@@ -1,1 +1,15 @@
-<p>weather-dashboard works!</p>
+<div *ngIf="currentWeather">
+    <h2>Huidig Weer in {{ currentWeather.location.name }}</h2>
+    <p>Temperatuur: {{ currentWeather.current.temp_c }}°C</p>
+    <p>Conditie: {{ currentWeather.current.condition.text }}</p>
+    <img [src]="'http:' + currentWeather.current.condition.icon" alt="Weericoon" />
+  </div>
+  
+  <div *ngIf="forecast">
+    <h2>Weersvoorspelling</h2>
+    <ul>
+      <li *ngFor="let hour of forecast.forecast.forecastday[0].hour.slice(0, 3)">
+        Tijd: {{ hour.time }} - Temperatuur: {{ hour.temp_c }}°C - Kans op regen: {{ hour.chance_of_rain }}%
+      </li>
+    </ul>
+  </div>
