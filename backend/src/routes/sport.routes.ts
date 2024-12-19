@@ -9,5 +9,10 @@ const router = express.Router();
 router.get('/', sportController.getSports);
 router.get('/:id', sportController.getSportById);
 
+router.post('/', sportController.createSport);
+router.put('/:id', sportController.updateSport);
+router.delete('/:id', sportController.deleteSport);
+
+
 
 export default router;

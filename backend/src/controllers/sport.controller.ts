@@ -21,6 +21,34 @@ export const sportController = {
         } catch(error){
             res.status(500).json({error: 'Internal server error'});
         }
-    }
+    },
+
+    createSport: async (req : Request, res: Response) => {
+        try{
+            let sport = await Sport.create(req.body);
+            res.status(201).json({sport});
+        } catch(error){
+            res.status(500).json({error: 'Internal server error'});
+        }
+    },
+
+    updateSport: async (req : Request, res: Response) => {
+        try{
+            let sport = await Sport.findByIdAndUpdate(req.params.id, req.body, {new: true});
+            res.status(200).json({sport});
+        } catch(error){
+            res.status(500).json({error: 'Internal server error'});
+        }
+    },
+
+    deleteSport: async (req : Request, res: Response) => {
+        try{
+            await Sport.findByIdAndDelete(req.params.id);
+            res.status(204).json();
+        } catch(error){
+            res.status(500).json({error: 'Internal server error'});
+        }
+    },
+
     
-}
+} 
