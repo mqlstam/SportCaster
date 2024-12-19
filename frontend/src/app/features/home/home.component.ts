@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { WeatherDashboardComponent } from '../../weather/weather-dashboard/weather-dashboard.component';
-import { SportRecommendationsComponent } from '../../sports/sport-recommendations/sport-recommendations.component';
+import { WeatherDashboardComponent } from '../weather/weather-dashboard/weather-dashboard.component';
+import { SportRecommendationsComponent } from '../sports/sport-recommendations/sport-recommendations.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PreferencesDialogComponent } from '../../preferences/preferences-dialog/preferences-dialog.component';
+import { PreferencesDialogComponent } from '../preferences/preferences-dialog/preferences-dialog.component';
 
 @Component({
   selector: 'app-home',
