@@ -34,7 +34,7 @@ interface AppState {
             <button 
               *ngFor="let type of weatherTypes"
               (click)="setWeatherType(type)"
-              class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+              class="px-4 py-2 bg-slate-500 text-white rounded hover:bg-slate-600 transition-colors"
               [class.bg-blue-700]="(currentWeather$ | async) === type">
               {{type | titlecase}}
             </button>
