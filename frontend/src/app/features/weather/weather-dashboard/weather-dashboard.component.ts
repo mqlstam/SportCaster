@@ -1,40 +1,66 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';  // Voeg deze import toe
 import { WeatherService } from '../weather.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-weather-dashboard',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],  // Voeg HttpClientModule toe aan imports
+  imports: [CommonModule],
   templateUrl: './weather-dashboard.component.html',
   styleUrls: ['./weather-dashboard.component.css'],
 })
 export class WeatherDashboardComponent implements OnInit {
-  currentWeather: any = null;
-  forecast: any = null;
+  weatherData: any;
+  forecastData: any[] = [];
+  errorMessage: string | null = null;
 
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit(): void {
-    const location = 'Breda'; // Of gebruik een dynamische locatie
-    this.weatherService.getCurrentWeather(location).subscribe(
+    this.getUserLocation();
+  }
+
+  getUserLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          this.fetchWeather(lat, lon);
+        },
+        (error) => {
+          this.errorMessage = 'Unable to retrieve your location. Please allow location access.';
+        }
+      );
+    } else {
+      this.errorMessage = 'Geolocation is not supported by your browser.';
+    }
+  }
+
+  fetchWeather(lat: number, lon: number): void {
+    const location = `${lat},${lon}`;
+    this.weatherService.getWeather(location).subscribe(
       (data) => {
-        this.currentWeather = data;
-        console.log('Current Weather:', data);
+        this.weatherData = data;
+        this.fetchForecast(location);
       },
-      (error) => {
-        console.error('Error fetching current weather:', error);
+      () => {
+        this.errorMessage = 'Error fetching current weather.';
       }
     );
+  }
 
-    this.weatherService.getWeatherForecast(location).subscribe(
+  fetchForecast(location: string): void {
+    this.weatherService.getForecast(location).subscribe(
       (data) => {
-        this.forecast = data;
-        console.log('Weather Forecast:', data);
+        const currentHour = new Date().getHours();
+        const hourlyData = data.forecast.forecastday[0].hour;
+        this.forecastData = hourlyData.filter(
+          (hour: any) => new Date(hour.time).getHours() >= currentHour
+        ).slice(0, 3);
       },
-      (error) => {
-        console.error('Error fetching weather forecast:', error);
+      () => {
+        this.errorMessage = 'Error fetching weather forecast.';
       }
     );
   }
