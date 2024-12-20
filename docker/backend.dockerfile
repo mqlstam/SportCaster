@@ -5,8 +5,9 @@ WORKDIR /app
 # Copy package files
 COPY backend/package*.json ./
 
-# Install dependencies
-RUN npm install
+# Clean install dependencies
+RUN npm cache clean --force
+RUN npm install 
 
 # Copy project files
 COPY backend/ .
