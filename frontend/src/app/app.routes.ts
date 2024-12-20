@@ -4,8 +4,8 @@ import { HomeComponent } from './features/home/home.component';
 import { WeatherDashboardComponent } from './features/weather/weather-dashboard/weather-dashboard.component';
 
 export const routes: Routes = [
-    { path: '', component: WeatherDashboardComponent }, 
-    { path: 'home', component: HomeComponent },
+    { path: 'weer',component: WeatherDashboardComponent}, 
+    { path: '', component: HomeComponent },
     { path: 'settings', component: UserSettingsComponent },
     { path: '**', redirectTo: '' }
 ];

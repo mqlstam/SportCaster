@@ -1,97 +1,109 @@
-:host {
-    display: block;
+.weather-dashboard {
+    border: 2px solid black;
+    background: rgba(255, 255, 255, 0.7); /* Lichtere doorzichtige achtergrond */
+    color: black; /* Zwarte tekst */
+    padding: 20px;
     max-width: 600px;
     margin: 20px auto;
-    padding: 20px;
+    border-radius: 10px;
     font-family: 'Arial', sans-serif;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
-  h2, h3 {
+  h2 {
     font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #333;
-    text-align: center;
-  }
-  
-  p {
-    font-size: 1em;
-    line-height: 1.5;
-    color: #555;
-  }
-  
-  :host > div:first-child {
     margin-bottom: 20px;
-    padding: 15px;
-    background: linear-gradient(to right, #66a6ff, #89f7fe);
-    border-radius: 10px;
-    color: #fff;
-    text-align: center;
+    text-align: left;
+    color: black; /* Zwarte tekst */
   }
   
-  :host > div:first-child h2 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
-  }
-  
-  :host > div:first-child p {
-    font-size: 1.2em;
-    margin: 5px 0;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    margin: 10px 0;
-    padding: 15px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+  .current-weather {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
   }
   
-  li p {
+  .location {
+    font-size: 1.2em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  
+  .location-icon {
+    margin-right: 10px;
+  }
+  
+  .temperature {
+    font-size: 2.5em;
+    font-weight: bold;
+  }
+  
+  .feels-like {
+    font-size: 1em;
+    color: black; /* Zwarte tekst */
+  }
+  
+  .condition-description {
+    font-size: 1em;
+    font-style: italic;
+    color: black; /* Zwarte tekst */
+  }
+  
+  .condition-icon {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .weather-details {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .weather-details p {
+    margin: 5px 10px;
+    font-size: 1em;
+    color: black; /* Zwarte tekst */
+  }
+  
+  h3 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    text-align: left;
+    color: black; /* Zwarte tekst */
+  }
+  
+  .forecast {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .forecast-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.5); /* Doorzichtige achtergrond */
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2); /* Lichte zwarte rand */
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .forecast-row img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .forecast-row p {
     margin: 0;
     font-size: 0.9em;
-    color: #333;
+    color: black; /* Zwarte tekst */
   }
   
-  li p:first-child {
-    font-weight: bold;
-    font-size: 1em;
-  }
-  
-  li:hover {
-    background: #f0f8ff;
-    transition: background 0.3s ease;
-  }
-  
-  @media (max-width: 600px) {
-    :host {
-      padding: 15px;
-    }
-  
-    li {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    li p {
-      margin: 5px 0;
-    }
-  }
-
   .error {
     color: red;
     text-align: center;
-    margin: 10px 0;
+    margin-bottom: 20px;
   }

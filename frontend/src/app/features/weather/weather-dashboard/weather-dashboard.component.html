@@ -1,18 +1,43 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
-<div *ngIf="weatherData">
-  <h2>Weather for {{ weatherData.location.name }}</h2>
-  <p>Temperature: {{ weatherData.current.temp_c }}°C</p>
-  <p>Condition: {{ weatherData.current.condition.text }}</p>
-</div>
+<div class="weather-dashboard">
+  <h2>Current Weather</h2>
 
-<div *ngIf="forecastData.length">
-  <h3>Upcoming 3 Hours </h3>
-  <ul>
-    <li *ngFor="let hour of forecastData">
+  <div class="current-weather">
+    <div class="left-section">
+      <p class="location">
+        <span class="location-icon">📍</span> {{ weatherData?.location?.name }}
+      </p>
+      <p class="temperature">{{ weatherData?.current?.temp_c }}°C</p>
+      <p class="feels-like">Feels like: {{ weatherData?.current?.feelslike_c }}°C</p>
+      <p class="condition-description">{{ weatherData?.current?.condition?.text }}</p>
+    </div>
+
+    <div class="right-section">
+      <img 
+        class="condition-icon"
+        [src]="weatherData?.current?.condition?.icon"
+        alt="Weather condition"
+      />
+    </div>
+  </div>
+
+  <div class="weather-details">
+    <p>Wind: {{ weatherData?.current?.wind_kph }} kph</p>
+    <p>Chance of Rain: {{ weatherData?.forecast?.forecastday[0]?.day?.daily_chance_of_rain }}%</p>
+    <p>Sunset: {{ weatherData?.forecast?.forecastday[0]?.astro?.sunset }}</p>
+    <p>UV Index: {{ weatherData?.current?.uv }}</p>
+  </div>
+
+  <h3>Weather Forecast</h3>
+
+  <div class="forecast">
+    <div *ngFor="let hour of forecastData" class="forecast-row">
       <p>Time: {{ hour.time }}</p>
+      <img [src]="hour.condition.icon" alt="Condition icon" />
       <p>Temperature: {{ hour.temp_c }}°C</p>
-      <p>Condition: {{ hour.condition.text }}</p>
-    </li>
-  </ul>
+      <p>Wind: {{ hour.wind_kph }} kph</p>
+      <p>Chance of Rain: {{ hour.chance_of_rain }}%</p>
+    </div>
+  </div>
 </div>
