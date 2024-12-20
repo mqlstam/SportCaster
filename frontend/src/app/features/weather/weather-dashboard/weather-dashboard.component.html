@@ -24,8 +24,7 @@
 
   <div class="weather-details">
     <p>Wind: {{ weatherData?.current?.wind_kph }} kph</p>
-    <p>Chance of Rain: {{ weatherData?.forecast?.forecastday[0]?.day?.daily_chance_of_rain }}%</p>
-    <p>Sunset: {{ weatherData?.forecast?.forecastday[0]?.astro?.sunset }}</p>
+    <p>Chance of Rain: {{ forecastWeatherData?.forecast?.forecastday[0]?.hour[0]?.chance_of_rain }}%</p>
     <p>UV Index: {{ weatherData?.current?.uv }}</p>
   </div>
 

@@ -11,9 +11,9 @@ import { CommonModule } from '@angular/common';
 })
 export class WeatherDashboardComponent implements OnInit {
   weatherData: any;
+  forecastWeatherData: any;
   forecastData: any[] = [];
   errorMessage: string | null = null;
-  sunStatus: string | null = null;
 
 
   constructor(private weatherService: WeatherService) {}
@@ -55,6 +55,7 @@ export class WeatherDashboardComponent implements OnInit {
   fetchForecast(location: string): void {
     this.weatherService.getForecast(location).subscribe(
       (data) => {
+        this.forecastWeatherData = data
         const currentHour = new Date().getHours();
         const hourlyData = data.forecast.forecastday[0].hour;
         this.forecastData = hourlyData.filter(
@@ -65,22 +66,5 @@ export class WeatherDashboardComponent implements OnInit {
         this.errorMessage = 'Error fetching weather forecast.';
       }
     );
-  }
-  
-  determineSunStatus(): void {
-    if (this.weatherData) {
-      const currentTime = new Date();
-      const sunrise = new Date(`1970-01-01T${this.weatherData.forecast.forecastday[0].astro.sunrise}`);
-      const sunset = new Date(`1970-01-01T${this.weatherData.forecast.forecastday[0].astro.sunset}`);
-
-      // Check if current time is before sunrise or after sunset
-      if (currentTime >= sunset) {
-        this.sunStatus = `Sunrise at ${this.weatherData.forecast.forecastday[0].astro.sunrise}`;
-      } else if (currentTime <= sunrise) {
-        this.sunStatus = `Sunset at ${this.weatherData.forecast.forecastday[0].astro.sunset}`;
-      } else {
-        this.sunStatus = null; // Sun is currently up
-      }
-    }
   }
 }
