@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './weather-dashboard.component.html',
-  styleUrls: ['./weather-dashboard.component.css'],
+  styleUrl: './weather-dashboard.component.css'
 })
 export class WeatherDashboardComponent implements OnInit {
   weatherData: any;
