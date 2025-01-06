@@ -5,7 +5,7 @@ import { WeatherAnimationComponent } from '../../shared/components/weather-anima
 import { WeatherDashboardComponent } from '../weather/weather-dashboard/weather-dashboard.component';
 import * as WeatherActions from '../../store/weather/weather.actions';
 import { CommonModule } from '@angular/common';
-import { RcmdService } from '../../rcmd/rcmd.service';
+import { RcmdService } from '../../service/rcmd.service';
 
 interface AppState {
   weather: {
