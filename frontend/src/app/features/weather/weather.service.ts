@@ -62,8 +62,9 @@ export class WeatherService {
 
   constructor(
     private http: HttpClient,
-    private store: Store<{ weather: WeatherState }>
-  ) {}
+    private store: Store<{ weather: WeatherState }>,
+  ) {
+  }
 
   getWeather(location: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/current.json?key=${this.apiKey}&q=${location}`);
@@ -76,4 +77,5 @@ export class WeatherService {
   getMockWeather(type: WeatherType): Observable<MockWeatherData> {
     return of(mockWeatherData[type]);
   }
+
 }
