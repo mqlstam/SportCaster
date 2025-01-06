@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(WeatherActions.loadWeather());
 
     console.log("RCMD SERVICE!!");
-    this.rcmdService.getWeatherData();
+    this.rcmdService.listSuitableSports();
   }
 
   setWeatherType(type: string) {
