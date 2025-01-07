@@ -1,1 +1,12 @@
-<p>sport-recommendations works!</p>
+<p>sport-recommendations works!!!</p>
+<div class="p-4 bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Recommended Sports</h2>
+    <ul *ngIf="suggestedSports.length > 0; else noSports">
+      <li *ngFor="let sport of suggestedSports" class="mb-2">
+        <strong>{{ sport.name }}</strong> - Suitable for current weather conditions.
+      </li>
+    </ul>
+    <ng-template #noSports>
+      <p>No suitable sports found for the current weather.</p>
+    </ng-template>
+  </div>
