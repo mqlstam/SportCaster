@@ -44,12 +44,16 @@ export class RcmdService {
 
                 if (Array.isArray(sports)) {
                   const filteredSports = sports.filter((sport: any) => {
-                    return sport.minTemp <= this.temp &&
+                    if (!sport.isOutdoor){
+                      return sport;
+                    } else {
+                      return sport.minTemp <= this.temp &&
                       sport.maxTemp >= this.temp &&
                       sport.windSpeedLimit >= this.wind_kph &&
-                      (this.precip_mm > 0 ? sport.rainSuitable === true : true) &&
-                      (!sport.isOutdoor || sport.isOutdoor === false);
+                      (this.precip_mm > 0 ? sport.rainSuitable === true : true)
+                    }
                   });
+                  
                   console.log('Filtered Sports:', filteredSports);
                 } else {
                   console.error('Sports data is not an array:', response);
