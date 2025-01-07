@@ -1,18 +1,29 @@
-<p>sport-recommendations works!!!</p>
-<div *ngFor="let sport of suggestedSports" class="p-6 bg-white rounded-lg mb-6">
-    <h2 class="text-2xl mb-4">Recommended workout:</h2>
-    <div>
 
-
-      
+<div *ngFor="let sport of suggestedSports" class="p-8 bg-white rounded-2xl mb-6 max-w-xl">
+  <h2 class="text-base mb-4">Recommended workout:</h2>
+  <div *ngIf="suggestedSports.length > 0; else noSports">
+    <div class="inline-flex items-center space-x-5 mb-5">
+      <div class="w-20 h-20 bg-gray-200 rounded-full justify-center items-center inline-flex">
+        ಥ_ಥ
+      </div>
+      <h2 class="text-3xl font-bold">{{ sport.name }}</h2>
     </div>
-    <ul *ngIf="suggestedSports.length > 0; else noSports">
-      <li class="mb-2">
-        <strong>{{ sport.name }}</strong>
-    </ul>
-    <h2 class="text-2xl mb-4">Expected weather during workout:</h2>
-    <h2 class="text-2xl mb-4">Suggested equipment:</h2>
-    <ng-template #noSports>
-      <p>No sports found.</p>
-    </ng-template>
+    <h2 class="text-base mb-4">Weather during your workout:</h2>
+    <div class="bg-gray-200 p-5 mb-5 rounded-2xl">
+      <p class="mb-2">Filler text at 2°</p>
+      <div class="flex flex-col gap-2">
+        <span><i class="not-italic mr-1">💨</i>test</span>
+        <span><i class="not-italic mr-1">☂️</i>test</span>
+        <span><i class="not-italic mr-1">💧</i>test</span>
+      </div>
+    </div>
+    <h2 class="text-base mb-4">Suggested equipment:</h2>
+    <div class="inline-flex space-x-2 items-center justify-center">
+      <span *ngFor="let item of sport.equipment" class="bg-gray-200 px-3 py-1 rounded-md"> {{item.item}} </span>
+    </div>
   </div>
+  <ng-template #noSports>
+    <p>No sports found.</p>
+  </ng-template>
+</div>
+
