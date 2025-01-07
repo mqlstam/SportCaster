@@ -48,7 +48,7 @@ interface AppState {
             Use Mock Weather
           </label>
         </div>
-
+        
         <!-- Weather Dashboard -->
         <div class="mt-8">
           <app-weather-dashboard></app-weather-dashboard>
