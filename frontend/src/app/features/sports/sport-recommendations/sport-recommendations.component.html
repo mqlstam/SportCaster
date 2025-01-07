@@ -1,11 +1,18 @@
 <p>sport-recommendations works!!!</p>
-<div *ngFor="let sport of suggestedSports" class="p-4 bg-white rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-4">Recommended Sports</h2>
+<div *ngFor="let sport of suggestedSports" class="p-6 bg-white rounded-lg mb-6">
+    <h2 class="text-2xl mb-4">Recommended workout:</h2>
+    <div>
+
+
+      
+    </div>
     <ul *ngIf="suggestedSports.length > 0; else noSports">
       <li class="mb-2">
         <strong>{{ sport.name }}</strong>
     </ul>
+    <h2 class="text-2xl mb-4">Expected weather during workout:</h2>
+    <h2 class="text-2xl mb-4">Suggested equipment:</h2>
     <ng-template #noSports>
-      <p>No suitable sports found for the current weather.</p>
+      <p>No sports found.</p>
     </ng-template>
   </div>
