@@ -1,6 +1,7 @@
 import { WeatherService } from "../features/weather/weather.service";
 import { Injectable } from '@angular/core';
 import { SportService } from "./sport.service";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class RcmdService {
   constructor(
     private weatherService: WeatherService,
     private sportService: SportService,
+    
   ) { }
 
   lat: number = 0;
@@ -20,7 +22,10 @@ export class RcmdService {
   precip_mm: number = 0;
 
 
-  listSuitableSports(): void {
+  private suggestedSports = new BehaviorSubject<any[]>([]);
+  suggestedSports$ = this.suggestedSports.asObservable();
+
+  listSuggestedSports(): void {
     //get current weather stats
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -51,6 +56,7 @@ export class RcmdService {
                       (!sport.isOutdoor || sport.isOutdoor === false);
                   });
                   console.log('Filtered Sports:', filteredSports);
+                  this.suggestedSports.next(filteredSports);
                 } else {
                   console.error('Sports data is not an array:', response);
                 }
