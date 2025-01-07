@@ -16,14 +16,15 @@ export class SportRecommendationsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(`Sport recommendations console called`)
-    this.getSuggestedSports;
+    this.getSuggestedSports();
   }
 
   getSuggestedSports() {
     this.rcmdService.listSuggestedSports();
     this.rcmdService.suggestedSports$.subscribe(sports => {
+      console.log(`SuggestedSports in component: ${sports}`)
       this.suggestedSports = sports;
-    })
+    });
   }
 
 }
