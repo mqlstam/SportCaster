@@ -4,7 +4,7 @@
   <div *ngIf="suggestedSports.length > 0; else noSports">
     <div class="inline-flex items-center space-x-5 mb-5">
       <div class="w-20 h-20 bg-gray-200 rounded-full justify-center items-center inline-flex">
-        ಥ_ಥ
+        <img class="w-11 h-11" src="{{ iconMap[sport.name] || iconMap['Default'] }}">
       </div>
       <h2 class="text-3xl font-bold">{{ sport.name }}</h2>
     </div>

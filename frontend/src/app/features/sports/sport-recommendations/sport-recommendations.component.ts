@@ -12,6 +12,17 @@ import { WeatherService } from '../../weather/weather.service';
 })
 export class SportRecommendationsComponent implements OnInit {
   suggestedSports: any[] = [];
+
+  //TEMPORARY IMPLEMENTATION
+  iconMap: { [key: string]: string } = {
+    'Soccer': 'https://www.reshot.com/preview-assets/icons/5Y3TB47EMK/football-player-5Y3TB47EMK.svg',
+    'Boxing': 'https://www.svgrepo.com/show/171268/soccer-player-running-behind-the-ball.svg',
+    'Yoga': 'https://www.reshot.com/preview-assets/icons/9NGDPVTH4B/yoga-9NGDPVTH4B.svg',
+    'Skiing': 'https://www.svgrepo.com/show/171268/soccer-player-running-behind-the-ball.svg',
+    'Table Tennis': 'https://www.reshot.com/preview-assets/icons/T42E8JLPBU/tennis-player-T42E8JLPBU.svg',
+    'Default': ''
+  };
+
   weatherData: any;
   errorMessage: string | null = null;
   lat: any;
