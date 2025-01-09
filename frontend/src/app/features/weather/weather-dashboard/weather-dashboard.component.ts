@@ -1,5 +1,5 @@
 // frontend/src/app/features/weather/weather-dashboard/weather-dashboard.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { WeatherService } from '../weather.service';
 import { CommonModule } from '@angular/common';
@@ -10,11 +10,14 @@ import * as WeatherActions from '../../../store/weather/weather.actions';
 @Component({
   selector: 'app-weather-dashboard',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,],
   templateUrl: './weather-dashboard.component.html',
   styleUrl: './weather-dashboard.component.css'
 })
 export class WeatherDashboardComponent implements OnInit {
+  city: string = '';
+  selectedLat: number = 0;
+  selectedLon: number = 0;
   weatherData: any;
   forecastWeatherData: any;
   forecastData: any[] = [];
@@ -132,6 +135,20 @@ export class WeatherDashboardComponent implements OnInit {
     }
   }
 
+  getCoordinatesFromCity(city: string): void {
+    this.weatherService.getLocation(city).subscribe(
+      (coords) => {
+        console.log(`Coordinates for ${city}: Latitude ${coords.lat}, Longitude ${coords.lon}`);
+        this.fetchWeather(coords.lat, coords.lon);
+        this.errorMessage = null;
+      },
+      (error) => {
+        console.error('Error fetching coordinates:', error);
+        this.errorMessage = 'Could not retrieve coordinates for the entered city. Please try again.';
+      }
+    );
+  }
+
   setLocation(lat: number, lon: number): void {
     console.log('Setting location to:', lat, lon);
     this.fetchWeather(lat, lon);
@@ -175,18 +192,28 @@ export class WeatherDashboardComponent implements OnInit {
     );
   }
 
+  // onSubmit(): void {
+  //   console.log('Manual input:', this.manualLat, this.manualLon);
+  //   if (
+  //     this.manualLat !== null &&
+  //     this.manualLon !== null &&
+  //     this.manualLat >= -90 && this.manualLat <= 90 &&
+  //     this.manualLon >= -180 && this.manualLon <= 180
+  //   ) {
+  //     this.setLocation(this.manualLat, this.manualLon);
+  //     this.errorMessage = null;
+  //   } else {
+  //     this.errorMessage = 'Please enter valid latitude (-90 to 90) and longitude (-180 to 180).';
+  //   }
+  // }
+
   onSubmit(): void {
-    console.log('Manual input:', this.manualLat, this.manualLon);
-    if (
-      this.manualLat !== null &&
-      this.manualLon !== null &&
-      this.manualLat >= -90 && this.manualLat <= 90 &&
-      this.manualLon >= -180 && this.manualLon <= 180
-    ) {
-      this.setLocation(this.manualLat, this.manualLon);
-      this.errorMessage = null;
+    if (this.city.trim()) {
+      console.log('Fetching location for city:', this.city);
+      this.getCoordinatesFromCity(this.city);
     } else {
-      this.errorMessage = 'Please enter valid latitude (-90 to 90) and longitude (-180 to 180).';
+      this.errorMessage = 'Please enter a valid city name.';
     }
   }
+  
 }
