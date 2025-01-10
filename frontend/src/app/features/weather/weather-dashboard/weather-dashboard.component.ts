@@ -1,4 +1,3 @@
-// frontend/src/app/features/weather/weather-dashboard/weather-dashboard.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { WeatherService } from '../weather.service';
@@ -25,14 +24,11 @@ export class WeatherDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Subscribe to mockEnabled state
     this.store.select(state => state.weather.mockWeatherEnabled).subscribe(isMockEnabled => {
       if (isMockEnabled) {
-        // Subscribe to selected weather type
         this.store.select(state => state.weather.selectedWeatherType).subscribe(weatherType => {
           this.weatherService.getMockWeather(weatherType as any).subscribe(data => {
             this.weatherData = { current: data };
-            // Create mock forecast data based on the current weather
             this.createMockForecast(data);
           });
         });
