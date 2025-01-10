@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class EventsComponent implements OnInit {
   events: any[] = [];
-  errorMessage: string | null = null;
   currentEventIndex: number = 0;
+  errorMessage: string | null = null;
 
   constructor(private eventService: EventService) {}
 
@@ -23,7 +23,10 @@ export class EventsComponent implements OnInit {
   fetchEvents(): void {
     this.eventService.getMarathonsInNetherlands().subscribe(
       (data) => {
-        this.events = data.results;
+        const now = new Date();
+        this.events = data.results
+          .filter((event: any) => new Date(event.start) > now)
+          .sort((a: any, b: any) => new Date(a.start).getTime() - new Date(b.start).getTime());
       },
       (error) => {
         this.errorMessage = 'Error fetching events.';
