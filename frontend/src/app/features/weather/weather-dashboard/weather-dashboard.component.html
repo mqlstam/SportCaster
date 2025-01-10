@@ -1,7 +1,7 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
 <div class="weather-dashboard">
-  <h2>Current Weather</h2>
+  <h2 class="font-bold">Current Weather</h2>
 
   <div class="current-weather">
     <div class="left-section">
@@ -23,9 +23,9 @@
   </div>
 
   <div class="weather-details">
-    <p>Wind: {{ weatherData?.current?.wind_kph }} kph</p>
-    <p>Chance of Rain: {{ forecastWeatherData?.forecast?.forecastday[0]?.hour[0]?.chance_of_rain }}%</p>
-    <p>UV Index: {{ weatherData?.current?.uv }}</p>
+    <p class="bg-gray-200 px-3 py-1 rounded-md">Wind: {{ weatherData?.current?.wind_kph }} kph</p>
+    <p class="bg-gray-200 px-3 py-1 rounded-md">Chance of Rain: {{ forecastWeatherData?.forecast?.forecastday[0]?.hour[0]?.chance_of_rain }}%</p>
+    <p class="bg-gray-200 px-3 py-1 rounded-md">UV Index: {{ weatherData?.current?.uv }}</p>
   </div>
 
   <h3>Weather Forecast</h3>
