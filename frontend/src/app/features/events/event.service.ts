@@ -18,7 +18,7 @@ export class EventService {
 
     const params = {
       category: 'sports',
-      label: 'marathon',
+      label: 'running',
       country: 'NL'
     };
 
