@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WeatherState } from '../../../store/weather/weather.reducer';
 import * as WeatherActions from '../../../store/weather/weather.actions';
+import { LocationService } from '../../../service/location.service';
 
 @Component({
   selector: 'app-weather-dashboard',
@@ -27,7 +28,8 @@ export class WeatherDashboardComponent implements OnInit {
 
   constructor(
     private weatherService: WeatherService,
-    private store: Store<{ weather: WeatherState }>
+    private store: Store<{ weather: WeatherState }>,
+    private locationService: LocationService
   ) {}
 
   ngOnInit(): void {
@@ -36,13 +38,20 @@ export class WeatherDashboardComponent implements OnInit {
         this.store.select(state => state.weather.selectedWeatherType).subscribe(weatherType => {
           this.weatherService.getMockWeather(weatherType as any).subscribe(data => {
             this.weatherData = { current: data };
-            this.createMockForecast(data);
+            // this.createMockForecast(data);
           });
         });
       } else {
-        this.getUserLocation();
+        this.initializeLocation();
       }
     });
+
+    this.locationService.location$.subscribe(location => {
+      if (location) {
+        this.fetchWeather(location.lat, location.lon);
+      }
+    });
+
   }
 
   private mapWeatherConditionToType(condition: string): string {
@@ -118,6 +127,17 @@ export class WeatherDashboardComponent implements OnInit {
     }));
   }
 
+  private initializeLocation(): void {
+    this.locationService.fetchUserLocation().subscribe(
+      location => {
+        console.log('User location fetched:', location);
+      },
+      error => {
+        this.errorMessage = error;
+      }
+    );
+  }
+
   getUserLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -135,24 +155,24 @@ export class WeatherDashboardComponent implements OnInit {
     }
   }
 
-  getCoordinatesFromCity(city: string): void {
-    this.weatherService.getLocation(city).subscribe(
-      (coords) => {
-        console.log(`Coordinates for ${city}: Latitude ${coords.lat}, Longitude ${coords.lon}`);
-        this.fetchWeather(coords.lat, coords.lon);
-        this.errorMessage = null;
-      },
-      (error) => {
-        console.error('Error fetching coordinates:', error);
-        this.errorMessage = 'Could not retrieve coordinates for the entered city. Please try again.';
-      }
-    );
-  }
+  // getCoordinatesFromCity(city: string): void {
+  //   this.weatherService.getLocation(city).subscribe(
+  //     (coords) => {
+  //       console.log(`Coordinates for ${city}: Latitude ${coords.lat}, Longitude ${coords.lon}`);
+  //       this.fetchWeather(coords.lat, coords.lon);
+  //       this.errorMessage = null;
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching coordinates:', error);
+  //       this.errorMessage = 'Could not retrieve coordinates for the entered city. Please try again.';
+  //     }
+  //   );
+  // }
 
-  setLocation(lat: number, lon: number): void {
-    console.log('Setting location to:', lat, lon);
-    this.fetchWeather(lat, lon);
-  }
+  // setLocation(lat: number, lon: number): void {
+  //   console.log('Setting location to:', lat, lon);
+  //   this.fetchWeather(lat, lon);
+  // }
   
   fetchWeather(lat: number, lon: number): void {
     console.log('Fetching weather for:', lat, lon);
