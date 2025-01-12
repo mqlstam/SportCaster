@@ -83,9 +83,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.5); /* Doorzichtige achtergrond */
+    background: #e5e7eb; 
     padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.2); /* Lichte zwarte rand */
     border-radius: 5px;
     margin-bottom: 10px;
   }
