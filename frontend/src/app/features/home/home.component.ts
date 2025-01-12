@@ -52,6 +52,8 @@ interface AppState {
           </label>
         </div>
 
+        <app-sport-preferences></app-sport-preferences>
+
         <!-- Grid section -->
         <div class="grid grid-cols-2 gap-4 mt-8">
           <app-sport-recommendations></app-sport-recommendations>
