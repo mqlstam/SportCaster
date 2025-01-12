@@ -1,23 +1,29 @@
 // frontend/src/app/features/weather/weather-dashboard/weather-dashboard.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { WeatherService } from '../weather.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { WeatherState } from '../../../store/weather/weather.reducer';
 import * as WeatherActions from '../../../store/weather/weather.actions';
 
 @Component({
   selector: 'app-weather-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule,],
   templateUrl: './weather-dashboard.component.html',
   styleUrl: './weather-dashboard.component.css'
 })
 export class WeatherDashboardComponent implements OnInit {
+  city: string = '';
+  selectedLat: number = 0;
+  selectedLon: number = 0;
   weatherData: any;
   forecastWeatherData: any;
   forecastData: any[] = [];
   errorMessage: string | null = null;
+  manualLat: number = 0;
+  manualLon: number = 0;
 
   constructor(
     private weatherService: WeatherService,
@@ -25,14 +31,11 @@ export class WeatherDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Subscribe to mockEnabled state
     this.store.select(state => state.weather.mockWeatherEnabled).subscribe(isMockEnabled => {
       if (isMockEnabled) {
-        // Subscribe to selected weather type
         this.store.select(state => state.weather.selectedWeatherType).subscribe(weatherType => {
           this.weatherService.getMockWeather(weatherType as any).subscribe(data => {
             this.weatherData = { current: data };
-            // Create mock forecast data based on the current weather
             this.createMockForecast(data);
           });
         });
@@ -132,15 +135,38 @@ export class WeatherDashboardComponent implements OnInit {
     }
   }
 
+  getCoordinatesFromCity(city: string): void {
+    this.weatherService.getLocation(city).subscribe(
+      (coords) => {
+        console.log(`Coordinates for ${city}: Latitude ${coords.lat}, Longitude ${coords.lon}`);
+        this.fetchWeather(coords.lat, coords.lon);
+        this.errorMessage = null;
+      },
+      (error) => {
+        console.error('Error fetching coordinates:', error);
+        this.errorMessage = 'Could not retrieve coordinates for the entered city. Please try again.';
+      }
+    );
+  }
+
+  setLocation(lat: number, lon: number): void {
+    console.log('Setting location to:', lat, lon);
+    this.fetchWeather(lat, lon);
+  }
+  
   fetchWeather(lat: number, lon: number): void {
+    console.log('Fetching weather for:', lat, lon);
     const location = `${lat},${lon}`;
     this.weatherService.getWeather(location).subscribe(
       (data) => {
+        console.log('Weather data received:', data);
         this.weatherData = data;
+  
         // Map the weather condition to animation type and update store
         const weatherType = this.mapWeatherConditionToType(data.current.condition.text);
         console.log('Current weather:', data.current.condition.text, '→', weatherType);
         this.store.dispatch(WeatherActions.setWeatherType({ weatherType }));
+  
         this.fetchForecast(location);
       },
       () => {
@@ -148,6 +174,7 @@ export class WeatherDashboardComponent implements OnInit {
       }
     );
   }
+  
 
   fetchForecast(location: string): void {
     this.weatherService.getForecast(location).subscribe(
@@ -164,4 +191,29 @@ export class WeatherDashboardComponent implements OnInit {
       }
     );
   }
+
+  // onSubmit(): void {
+  //   console.log('Manual input:', this.manualLat, this.manualLon);
+  //   if (
+  //     this.manualLat !== null &&
+  //     this.manualLon !== null &&
+  //     this.manualLat >= -90 && this.manualLat <= 90 &&
+  //     this.manualLon >= -180 && this.manualLon <= 180
+  //   ) {
+  //     this.setLocation(this.manualLat, this.manualLon);
+  //     this.errorMessage = null;
+  //   } else {
+  //     this.errorMessage = 'Please enter valid latitude (-90 to 90) and longitude (-180 to 180).';
+  //   }
+  // }
+
+  onSubmit(): void {
+    if (this.city.trim()) {
+      console.log('Fetching location for city:', this.city);
+      this.getCoordinatesFromCity(this.city);
+    } else {
+      this.errorMessage = 'Please enter a valid city name.';
+    }
+  }
+  
 }
