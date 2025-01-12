@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +14,26 @@ export class LocationService {
 
   getCurrentLocation(): { lat: number; lon: number } | null {
     return this.locationSubject.getValue();
+  }
+
+  fetchUserLocation(): Observable<{ lat: number; lon: number }> {
+    return new Observable((observer) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            this.setLocation(lat, lon);
+            observer.next({ lat, lon });
+            observer.complete();
+          },
+          (error) => {
+            observer.error('Unable to retrieve location. Please allow location access.');
+          }
+        );
+      } else {
+        observer.error('Geolocation is not supported by your browser.');
+      }
+    });
   }
 }
