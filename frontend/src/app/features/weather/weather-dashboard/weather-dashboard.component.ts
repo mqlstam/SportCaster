@@ -138,22 +138,22 @@ export class WeatherDashboardComponent implements OnInit {
     );
   }
 
-  getUserLocation(): void {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          this.fetchWeather(lat, lon);
-        },
-        (error) => {
-          this.errorMessage = 'Unable to retrieve your location. Please allow location access.';
-        }
-      );
-    } else {
-      this.errorMessage = 'Geolocation is not supported by your browser.';
-    }
-  }
+  // getUserLocation(): void {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         const lat = position.coords.latitude;
+  //         const lon = position.coords.longitude;
+  //         this.fetchWeather(lat, lon);
+  //       },
+  //       (error) => {
+  //         this.errorMessage = 'Unable to retrieve your location. Please allow location access.';
+  //       }
+  //     );
+  //   } else {
+  //     this.errorMessage = 'Geolocation is not supported by your browser.';
+  //   }
+  // }
 
   // getCoordinatesFromCity(city: string): void {
   //   this.weatherService.getLocation(city).subscribe(

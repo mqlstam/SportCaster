@@ -27,10 +27,17 @@ export class SportPreferencesComponent {
     }
   }
 
-  onUseCurrentLocation(): void {
+onUseCurrentLocation(): void {
+    console.log(`onUseCurrentLocation Pressed`);
     this.locationService.fetchUserLocation().subscribe(
-      location => console.log('Using current location:', location),
-      error => console.error('Error fetching current location:', error)
+      location => {
+        console.log('Using current location:', location);
+        this.errorMessage = null;
+      },
+      error => {
+        console.error('Error fetching current location:', error);
+        this.errorMessage = error;
+      }
     );
   }
   
