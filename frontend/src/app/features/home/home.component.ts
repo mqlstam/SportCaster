@@ -38,7 +38,7 @@ interface AppState {
       </app-weather-animation>
       <div class="container mx-auto p-4">
         <!-- Weather Controls -->
-        <div class="bg-white/80 rounded-lg p-4 mb-4 backdrop-blur-sm">
+        <div class="bg-white/80 rounded-lg p-4 mb-4 backdrop-blur-sm" hidden>
           <h2 class="text-2xl font-bold mb-4">Weather Controls</h2>
           <div class="flex flex-wrap gap-4 mb-4">
             <button
