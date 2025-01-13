@@ -5,9 +5,13 @@ import { WeatherAnimationComponent } from '../../shared/components/weather-anima
 import { WeatherDashboardComponent } from '../weather/weather-dashboard/weather-dashboard.component';
 import * as WeatherActions from '../../store/weather/weather.actions';
 import { CommonModule } from '@angular/common';
+
+import { EventsComponent } from '../events/event-dashboard.component';
+
 import { RcmdService } from '../../service/rcmd.service';
 import { SportPreferencesComponent } from "../sports/sport-preferences/sport-preferences.component";
 import { SportRecommendationsComponent } from "../sports/sport-recommendations/sport-recommendations.component";
+
 
 interface AppState {
   weather: {
@@ -19,14 +23,13 @@ interface AppState {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [WeatherAnimationComponent, WeatherDashboardComponent, CommonModule, SportPreferencesComponent, SportRecommendationsComponent],
+  imports: [WeatherAnimationComponent, WeatherDashboardComponent, CommonModule, SportPreferencesComponent, SportRecommendationsComponent, EventsComponent],
   template: `
     <div class="relative min-h-screen">
       <app-weather-animation
         [weatherType]="(currentWeather$ | async) || 'sunny'"
       >
       </app-weather-animation>
-
       <div class="container mx-auto p-4">
         <!-- Weather Controls -->
         <div class="bg-white/80 rounded-lg p-4 mb-4 backdrop-blur-sm">
@@ -58,6 +61,10 @@ interface AppState {
           <app-weather-dashboard></app-weather-dashboard>
         </div>
 
+        <!-- Events Dashboard -->
+        <div class="mt-8">
+          <app-events></app-events>
+        </div>
       </div>
     </div>
   `,

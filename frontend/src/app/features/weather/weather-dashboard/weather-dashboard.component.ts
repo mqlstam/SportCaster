@@ -1,5 +1,4 @@
-// frontend/src/app/features/weather/weather-dashboard/weather-dashboard.component.ts
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { WeatherService } from '../weather.service';
 import { CommonModule } from '@angular/common';

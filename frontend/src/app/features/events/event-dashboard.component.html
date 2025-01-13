@@ -1,0 +1,34 @@
+<div class="event-dashboard">
+  <h2>Upcoming Marathons in the Netherlands</h2>
+
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="events.length > 0; else noEvents" class="event-detail">
+    <div class="event-card">
+      <h3>{{ currentEvent.title }}</h3>
+      <p><strong>Date:</strong> {{ currentEvent.start | date: 'fullDate' }}</p>
+      <p><strong>City:</strong> {{ currentEvent.geo.address.locality }}</p>
+      <p><strong>Region:</strong> {{ currentEvent.geo.address.region }}</p>
+      <p><strong>Address:</strong> {{ currentEvent.geo.address.formatted_address }}</p>
+    </div>
+
+    <div class="navigation-buttons">
+      <button 
+        (click)="previousEvent()" 
+        [disabled]="currentEventIndex === 0" 
+        class="nav-button">
+        Previous
+      </button>
+      <button 
+        (click)="nextEvent()" 
+        [disabled]="currentEventIndex === events.length - 1" 
+        class="nav-button">
+        Next
+      </button>
+    </div>
+  </div>
+
+  <ng-template #noEvents>
+    <p>No marathons found.</p>
+  </ng-template>
+</div>
