@@ -2,6 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { WeatherState } from '../../store/weather/weather.reducer';
 
@@ -78,4 +79,12 @@ export class WeatherService {
     return of(mockWeatherData[type]);
   }
 
+  getLocation(city: string): Observable<{ lat: number; lon: number }> {
+    return this.http.get<any>(`${this.apiUrl}/current.json?key=${this.apiKey}&q=${city}`).pipe(
+      map(response => ({
+        lat: response.location.lat,
+        lon: response.location.lon
+      }))
+    );
+  }
 }

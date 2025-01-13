@@ -1,9 +1,10 @@
 .weather-dashboard {
-    background: rgba(255, 255, 255, 0.7); /* Lichtere doorzichtige achtergrond */
+    background: white; /* Lichtere doorzichtige achtergrond */
     color: black; /* Zwarte tekst */
     padding: 20px;
     max-width: 600px;
     margin: 20px auto;
+    margin-top: 0px;
     border-radius: 10px;
     font-family: 'Arial', sans-serif;
   }
@@ -83,9 +84,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.5); /* Doorzichtige achtergrond */
+    background: #e5e7eb; 
     padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.2); /* Lichte zwarte rand */
     border-radius: 5px;
     margin-bottom: 10px;
   }
