@@ -1,7 +1,31 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
+<!-- Formulier voor handmatige locatie-invoer -->
+<form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4">
+  <div class="flex gap-4">
+    <label>
+      City:
+      <input
+        type="text"
+        [(ngModel)]="city"
+        name="city"
+        required
+        class="border p-2 rounded"
+        placeholder="Enter city name"
+      />
+    </label>
+    <button
+      type="submit"
+      [disabled]="locationForm.invalid"
+      class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+    >
+      Set Location
+    </button>
+  </div>
+</form>
+
 <div class="weather-dashboard">
-  <h2>Current Weather</h2>
+  <h2 class="font-bold">Current Weather</h2>
 
   <div class="current-weather">
     <div class="left-section">
@@ -23,9 +47,9 @@
   </div>
 
   <div class="weather-details">
-    <p>Wind: {{ weatherData?.current?.wind_kph }} kph</p>
-    <p>Chance of Rain: {{ forecastWeatherData?.forecast?.forecastday[0]?.hour[0]?.chance_of_rain }}%</p>
-    <p>UV Index: {{ weatherData?.current?.uv }}</p>
+    <p class="bg-gray-200 px-3 py-1 rounded-md">Wind: {{ weatherData?.current?.wind_kph }} kph</p>
+    <p class="bg-gray-200 px-3 py-1 rounded-md">Chance of Rain: {{ forecastWeatherData?.forecast?.forecastday[0]?.hour[0]?.chance_of_rain }}%</p>
+    <p class="bg-gray-200 px-3 py-1 rounded-md">UV Index: {{ weatherData?.current?.uv }}</p>
   </div>
 
   <h3>Weather Forecast</h3>
