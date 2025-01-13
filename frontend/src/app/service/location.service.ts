@@ -17,6 +17,7 @@ export class LocationService {
   }
 
   fetchUserLocation(): Observable<{ lat: number; lon: number }> {
+    console.log(`fetchUserLoaction called`)
     return new Observable((observer) => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
