@@ -9,9 +9,8 @@ import { CommonModule } from '@angular/common';
 import { EventsComponent } from '../events/event-dashboard.component';
 
 import { RcmdService } from '../../service/rcmd.service';
-import { SportPreferencesComponent } from "../sports/sport-preferences/sport-preferences.component";
-import { SportRecommendationsComponent } from "../sports/sport-recommendations/sport-recommendations.component";
-
+import { SportPreferencesComponent } from '../sports/sport-preferences/sport-preferences.component';
+import { SportRecommendationsComponent } from '../sports/sport-recommendations/sport-recommendations.component';
 
 interface AppState {
   weather: {
@@ -23,7 +22,14 @@ interface AppState {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [WeatherAnimationComponent, WeatherDashboardComponent, CommonModule, SportPreferencesComponent, SportRecommendationsComponent, EventsComponent],
+  imports: [
+    WeatherAnimationComponent,
+    WeatherDashboardComponent,
+    CommonModule,
+    SportPreferencesComponent,
+    SportRecommendationsComponent,
+    EventsComponent,
+  ],
   template: `
     <div class="relative min-h-screen">
       <app-weather-animation
@@ -59,14 +65,18 @@ interface AppState {
 
         <!-- Grid section -->
         <div class="grid grid-cols-2 gap-4 mt-8">
-          <app-sport-recommendations></app-sport-recommendations>
-          <app-weather-dashboard></app-weather-dashboard>
+          <div class="space-y-4">
+            <app-sport-recommendations></app-sport-recommendations>
+          </div>
+
+          <div class="space-y-4">
+            <app-weather-dashboard></app-weather-dashboard>
+            <app-events></app-events>
+          </div>
         </div>
 
         <!-- Events Dashboard -->
-        <div class="mt-8">
-          <app-events></app-events>
-        </div>
+        <div class="mt-8"></div>
       </div>
     </div>
   `,
@@ -81,7 +91,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private rcmdService: RcmdService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(WeatherActions.loadWeather());
