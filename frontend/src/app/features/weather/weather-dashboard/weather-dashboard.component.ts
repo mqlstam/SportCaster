@@ -24,6 +24,7 @@ export class WeatherDashboardComponent implements OnInit {
   errorMessage: string | null = null;
   manualLat: number = 0;
   manualLon: number = 0;
+  suggestions: string[] = [];
 
   constructor(
     private weatherService: WeatherService,
@@ -190,6 +191,27 @@ export class WeatherDashboardComponent implements OnInit {
         this.errorMessage = 'Error fetching weather forecast.';
       }
     );
+  }
+
+  onCityInputChange(): void {
+    if (this.city.trim().length > 2) { // Start met zoeken vanaf 3 karakters
+      this.weatherService.getCitySuggestions(this.city).subscribe(
+        (data: string[]) => {
+          this.suggestions = data;
+        },
+        (error) => {
+          console.error('Error fetching city suggestions:', error);
+        }
+      );
+    } else {
+      this.suggestions = []; // Wis suggesties als de invoer te kort is
+    }
+  }
+
+  selectSuggestion(suggestion: string): void {
+    this.city = suggestion;
+    this.suggestions = []; // Wis de suggesties na selectie
+    console.log('Geselecteerde stad:', suggestion);
   }
 
   // onSubmit(): void {

@@ -1,19 +1,34 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
-<!-- Formulier voor handmatige locatie-invoer -->
-<form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4">
-  <div class="flex gap-4">
-    <label>
-      City:
+
+  <!-- Formulier voor handmatige locatie-invoer -->
+<form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4 relative">
+  <div class="flex items-center gap-2">
+    <div class="relative w-full">
+      <label for="city" class="sr-only">City:</label>
       <input
         type="text"
         [(ngModel)]="city"
+        (input)="onCityInputChange()"
         name="city"
+        id="city"
         required
-        class="border p-2 rounded"
+        class="border p-2 rounded w-full"
         placeholder="Enter city name"
+        autocomplete="off"
       />
-    </label>
+      <!-- Dropdown met stadssuggesties -->
+      <ul *ngIf="suggestions.length > 0" class="suggestions-list absolute left-0 right-0 bg-white border border-gray-300 rounded shadow-lg mt-1 z-10">
+        <li
+          *ngFor="let suggestion of suggestions"
+          (click)="selectSuggestion(suggestion)"
+          class="suggestion-item px-4 py-2 hover:bg-gray-100 cursor-pointer"
+        >
+          {{ suggestion }}
+        </li>
+      </ul>
+    </div>
+
     <button
       type="submit"
       [disabled]="locationForm.invalid"
@@ -23,6 +38,7 @@
     </button>
   </div>
 </form>
+
 
 <div class="weather-dashboard">
   <h2>Current Weather</h2>
