@@ -4,31 +4,33 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 29rem;
   pointer-events: none;
   z-index: -1;
   overflow: hidden;
 }
 
+
+
 /* Base Weather Backgrounds */
 .weather-sunny {
-  background: linear-gradient(to bottom, #87CEEB 0%, #e0f6ff 100%);
+  background: linear-gradient(to bottom, #87CEEB 0%, #F1F1F1 100%);
 }
 
 .weather-rainy {
-  background: linear-gradient(to bottom, #485461 0%, #28313b 100%);
+  background: linear-gradient(to bottom, #485461 0%, #F1F1F1 100%);
 }
 
 .weather-snowy {
-  background: linear-gradient(to bottom, #5b5b5b 0%, #ffffff 100%);
+  background: linear-gradient(to bottom, #5b5b5b 0%, #F1F1F1 100%);
 }
 
 .weather-cloudy {
-  background: linear-gradient(to bottom, #b8c6db 0%, #f5f7fa 100%);
+  background: linear-gradient(to bottom, #b8c6db 0%, #F1F1F1 100%);
 }
 
 .weather-stormy {
-  background: linear-gradient(to bottom, #2C3E50 0%, #1c2833 100%);
+  background: linear-gradient(to bottom, #2C3E50 0%, #F1F1F1 100%);
 }
 
 /* Sun Animation */
