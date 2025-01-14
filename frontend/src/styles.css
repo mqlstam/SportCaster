@@ -24,3 +24,11 @@ h4 {
     font-size: 1rem;
     margin-bottom: 1rem;
 }
+
+select {
+    border-radius: 1rem;
+}
+
+input {
+    border-radius: 1rem;
+}

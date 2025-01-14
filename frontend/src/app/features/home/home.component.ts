@@ -65,13 +65,13 @@ interface AppState {
         <app-sport-preferences></app-sport-preferences>
 
         <!-- Grid section -->
-        <div class="grid grid-cols-2 gap-4 mt-8">
-          <div class="space-y-4">
+        <div class="grid grid-cols-2 mt-8">
+          <div class="flex flex-col gap-y-12">
             <app-sport-recommendations></app-sport-recommendations>
             
           </div>
 
-          <div class="space-y-4">
+          <div class="flex flex-col gap-y-12">
             <app-weather-dashboard></app-weather-dashboard>
             <app-events></app-events>
           </div>
