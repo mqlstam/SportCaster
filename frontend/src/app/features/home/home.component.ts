@@ -31,7 +31,8 @@ interface AppState {
     EventsComponent,
   ],
   template: `
-    <div class="relative min-h-screen">
+  <div class="root min-h-screen min-w-screen">
+    <div class="main-content-wrapper">
       <app-weather-animation
         [weatherType]="(currentWeather$ | async) || 'sunny'"
       >
@@ -67,6 +68,7 @@ interface AppState {
         <div class="grid grid-cols-2 gap-4 mt-8">
           <div class="space-y-4">
             <app-sport-recommendations></app-sport-recommendations>
+            
           </div>
 
           <div class="space-y-4">
@@ -79,7 +81,9 @@ interface AppState {
         <div class="mt-8"></div>
       </div>
     </div>
+    </div>
   `,
+    styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   weatherTypes = ['sunny', 'rainy', 'snowy', 'cloudy', 'stormy'];
