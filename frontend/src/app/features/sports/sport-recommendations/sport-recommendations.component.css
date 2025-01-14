@@ -1,22 +1,30 @@
 .suggestedEquipmentCard {
     background-color: #F1F1F1;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
 }
 
 .suggestedEquipmentCardSecondary {
     background-color: #ffffff;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
 }
 
-
+.sports-icon {
+    background-color: #F1F1F1;
+}
 
 .sports-card {
-    max-width: 33.75rem;
+    max-width: 32.75rem;
 }
 
 .sports-card-secondary {
-    max-width: 33.75rem;
+    max-width: 32.75rem;
     
+}
+
+.weather-section-item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem; 
 }
 
 .sports-card-secondary h2 {
