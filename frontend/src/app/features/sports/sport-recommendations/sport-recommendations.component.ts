@@ -13,7 +13,6 @@ import { WeatherService } from '../../weather/weather.service';
 export class SportRecommendationsComponent implements OnInit {
   suggestedSports: any[] = [];
 
-  //TEMPORARY IMPLEMENTATION
   iconMap: { [key: string]: string } = {
     'Soccer': 'https://www.reshot.com/preview-assets/icons/5Y3TB47EMK/football-player-5Y3TB47EMK.svg',
     'Boxing': 'https://www.svgrepo.com/show/171268/soccer-player-running-behind-the-ball.svg',
@@ -28,12 +27,28 @@ export class SportRecommendationsComponent implements OnInit {
   lat: any;
   lon: any;
 
-  constructor(private rcmdService: RcmdService, private weatherService: WeatherService) { }
+  constructor(
+    private rcmdService: RcmdService,
+    private weatherService: WeatherService
+  ) { }
 
   ngOnInit(): void {
     console.log(`Sport recommendations console called`)
     this.getSuggestedSports();
     this.fetchWeather();
+  }
+
+  onIntensityChange(event: any) {
+    this.rcmdService.updateFilters({ intensity: event.target.value });
+  }
+
+  onDurationChange(event: any) {
+    const duration = event.target.value ? parseInt(event.target.value) : null;
+    this.rcmdService.updateFilters({ duration: duration });
+  }
+
+  onLocationChange(event: any) {
+    this.rcmdService.updateFilters({ location: event.target.value });
   }
 
   getSuggestedSports() {
@@ -46,47 +61,42 @@ export class SportRecommendationsComponent implements OnInit {
 
   async fetchWeather(): Promise<void> {
     try {
-    await this.getUserLocation();
-    console.log(`lat: ${this.lat}`)
-    const location = `${this.lat},${this.lon}`;
-    this.weatherService.getWeather(location).subscribe(
-      (data) => {
-        this.weatherData = data;
-        console.log(`Fetched weater: ${this.weatherData}`)
-      },
-      () => {
-        this.errorMessage = 'Error fetching current weather.';
-      }
-    );
-  } catch (error) {
-    console.log(`Failed to fetch weather due to loc error`)
-  }
+      await this.getUserLocation();
+      console.log(`lat: ${this.lat}`)
+      const location = `${this.lat},${this.lon}`;
+      this.weatherService.getWeather(location).subscribe(
+        (data) => {
+          this.weatherData = data;
+          console.log(`Fetched weather: ${this.weatherData}`)
+        },
+        () => {
+          this.errorMessage = 'Error fetching current weather.';
+        }
+      );
+    } catch (error) {
+      console.log(`Failed to fetch weather due to loc error`)
+    }
   }
 
   getUserLocation(): Promise<void> {
     return new Promise((resolve, reject) => {
-
-  
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.lat = position.coords.latitude;
-          this.lon = position.coords.longitude;
-          console.log(`Position: ${position.coords.latitude}`)
-          resolve();
-        },
-        (error) => {
-          this.errorMessage = 'Unable to retrieve your location. Please allow location access.';
-          reject();
-        }
-      );
-    } else {
-      this.errorMessage = 'Geolocation is not supported by your browser.';
-      reject();
-    }
-      })
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.lat = position.coords.latitude;
+            this.lon = position.coords.longitude;
+            console.log(`Position: ${position.coords.latitude}`)
+            resolve();
+          },
+          (error) => {
+            this.errorMessage = 'Unable to retrieve your location. Please allow location access.';
+            reject();
+          }
+        );
+      } else {
+        this.errorMessage = 'Geolocation is not supported by your browser.';
+        reject();
+      }
+    })
   }
-
-  
-
 }
