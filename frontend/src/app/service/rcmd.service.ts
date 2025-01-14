@@ -1,5 +1,3 @@
-// rcmd.service.ts
-
 import { WeatherService } from "../features/weather/weather.service";
 import { Injectable } from '@angular/core';
 import { SportService } from "./sport.service";
@@ -8,6 +6,7 @@ import { BehaviorSubject } from "rxjs";
 interface SportFilters {
   intensity?: string;
   duration?: number | null;
+  location?: 'indoor' | 'outdoor' | 'both';
 }
 
 interface Sport {
@@ -38,7 +37,8 @@ export class RcmdService {
   
   private filters: SportFilters = {
     intensity: '',
-    duration: null
+    duration: null,
+    location: 'both'
   };
 
   lat: number = 0;
@@ -68,6 +68,7 @@ export class RcmdService {
           
           this.weatherService.getWeather(location).subscribe(
             (data: any) => {
+              console.log(data);
               this.temp = data.current.temp_c;
               this.wind_kph = data.current.wind_kph;
               this.precip_mm = data.current.precip_mm;
@@ -76,10 +77,21 @@ export class RcmdService {
                 let sports = response.sports as Sport[];
 
                 if (Array.isArray(sports)) {
-                  // Weer-gebaseerde filtering
+                  // Locatie filter toepassen
+                  if (this.filters.location && this.filters.location !== 'both') {
+                    sports = sports.filter((sport: Sport) => {
+                      if (this.filters.location === 'indoor') {
+                        return !sport.isOutdoor;
+                      } else {
+                        return sport.isOutdoor;
+                      }
+                    });
+                  }
+
+                  // Weer-gebaseerde filtering (alleen voor buitensporten)
                   sports = sports.filter((sport: Sport) => {
                     if (!sport.isOutdoor) {
-                      return true;
+                      return true;  // binnensporten altijd toestaan
                     } else {
                       return sport.minTemp <= this.temp &&
                         sport.maxTemp >= this.temp &&
@@ -104,6 +116,8 @@ export class RcmdService {
 
                   console.log('Filtered Sports:', sports);
                   this.suggestedSports.next(sports);
+                } else {
+                  console.error('Sports data is not an array:', response);
                 }
               });
             },
@@ -116,6 +130,8 @@ export class RcmdService {
           console.error('Unable to retrieve location:', error);
         }
       );
+    } else {
+      console.error('Geolocation is not supported by your browser.');
     }
   }
 }

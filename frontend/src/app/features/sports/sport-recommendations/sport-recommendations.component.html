@@ -5,7 +5,7 @@
   <div class="mb-6">
     <h2 class="text-xl font-bold mb-4">Filter Sports</h2>
     
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-3 gap-4 mb-4">  
       <!-- Intensity Filter -->
       <div>
         <label class="block text-sm font-medium mb-2">Intensity Level</label>
@@ -18,7 +18,7 @@
           <option value="high">High</option>
         </select>
       </div>
-
+    
       <!-- Duration Filter -->
       <div>
         <label class="block text-sm font-medium mb-2">Duration</label>
@@ -32,8 +32,19 @@
           <option value="120">120 minutes</option>
         </select>
       </div>
+    
+      <!-- Location Filter -->
+      <div>
+        <label class="block text-sm font-medium mb-2">Location</label>
+        <select 
+          class="w-full p-2 border rounded-md"
+          (change)="onLocationChange($event)">
+          <option value="both">Indoor & Outdoor</option>
+          <option value="indoor">Indoor Only</option>
+          <option value="outdoor">Outdoor Only</option>
+        </select>
+      </div>
     </div>
-  </div>
 
   <!-- Title -->
   <h2 class="text-2xl font-bold">Suggested workouts</h2>

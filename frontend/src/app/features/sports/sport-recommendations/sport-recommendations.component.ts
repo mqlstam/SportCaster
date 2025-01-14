@@ -47,6 +47,10 @@ export class SportRecommendationsComponent implements OnInit {
     this.rcmdService.updateFilters({ duration: duration });
   }
 
+  onLocationChange(event: any) {
+    this.rcmdService.updateFilters({ location: event.target.value });
+  }
+
   getSuggestedSports() {
     this.rcmdService.listSuggestedSports();
     this.rcmdService.suggestedSports$.subscribe(sports => {
