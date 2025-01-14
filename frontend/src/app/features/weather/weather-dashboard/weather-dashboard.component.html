@@ -37,7 +37,7 @@
       <div class="weather-section-item">
       <span class="material-symbols-rounded">
         air
-        </span><span class="mr-2">{{ weatherData?.current.wind_kph }} km/h</span>
+        </span><span class="mr-2">{{ weatherData?.current.wind_kph | number:'1.0-0' }} km/h</span>
       </div>
       <div class="weather-section-item">
       <span class="material-symbols-rounded mr">
@@ -63,8 +63,8 @@
     <div *ngFor="let hour of forecastData" class="forecast-row">
       <p>{{ hour.time | date:'HH:mm' }}</p>
       <img [src]="hour.condition.icon" alt="Condition icon" />
-      <p>{{ hour.temp_c  | number:'1.0-1' }}°</p>
-      <p>{{ hour.wind_kph }} km/h</p>
+      <p>{{ hour.temp_c  | number:'1.0-0' }}°</p>
+      <p>{{ hour.wind_kph | number:'1.0-0'  }} km/h</p>
       <p>{{ hour.chance_of_rain }}%</p>
     </div>
   </div>
