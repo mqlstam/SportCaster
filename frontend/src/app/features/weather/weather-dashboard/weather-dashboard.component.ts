@@ -229,13 +229,6 @@ export class WeatherDashboardComponent implements OnInit {
   //   }
   // }
 
-  onSubmit(): void {
-    if (this.city.trim()) {
-      console.log('Fetching location for city:', this.city);
-      this.getCoordinatesFromCity(this.city);
-    } else {
-      this.errorMessage = 'Please enter a valid city name.';
-    }
-  }
+
   
 }
