@@ -12,9 +12,9 @@
             {{ weatherData?.location?.name }}
           </h3>
           </div>
-      <h2 class="temperature">{{ weatherData?.current?.temp_c }}°</h2>
+      <h2 class="temperature">{{ weatherData?.current?.temp_c | number:'1.0-0' }}°</h2>
       <h3 class="condition-description">{{ weatherData?.current?.condition?.text }}</h3>
-      <p class="feels-like">Feels like: {{ weatherData?.current?.feelslike_c }}°</p>
+      <p class="feels-like">Feels like: {{ weatherData?.current?.feelslike_c | number:'1.0-0'  }}°</p>
     </div>
 
     <div class="right-section">
@@ -63,7 +63,7 @@
     <div *ngFor="let hour of forecastData" class="forecast-row">
       <p>{{ hour.time | date:'HH:mm' }}</p>
       <img [src]="hour.condition.icon" alt="Condition icon" />
-      <p>{{ hour.temp_c }}°C</p>
+      <p>{{ hour.temp_c  | number:'1.0-1' }}°</p>
       <p>{{ hour.wind_kph }} km/h</p>
       <p>{{ hour.chance_of_rain }}%</p>
     </div>
