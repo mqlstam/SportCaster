@@ -230,5 +230,14 @@ export class WeatherDashboardComponent implements OnInit {
   // }
 
 
+  onSubmit(): void {
+    if (this.city.trim()) {
+      console.log('Submitting form for city:', this.city);
+      this.getCoordinatesFromCity(this.city);
+      this.errorMessage = null;
+    } else {
+      this.errorMessage = 'Please enter a city name.';
+    }
+  }
   
 }
