@@ -18,7 +18,7 @@
         <div class="weather-section-item">
         <span class="material-symbols-rounded">
           air
-          </span><span>{{ weatherData?.current.wind_kph }} km/h</span>
+          </span><span>{{ weatherData?.current.wind_kph | number:'1.0-0'}} km/h</span>
         </div>
         <div class="weather-section-item">
         <span class="material-symbols-rounded mr">
