@@ -1,11 +1,11 @@
 .weather-dashboard {
-    /* background: white; */
-    background-color: #f1f1f1;
+    background: white;
+    /* background-color: #f1f1f1; */
     color: black; /* Zwarte tekst */
-    max-width: 650px;
-    border: 0.15rem;
+    max-width: 690px;
+    /* border: 0.15rem;
     border-style:solid;
-    border-color: #959595;
+    border-color: #959595; */
   }
   
 
@@ -23,6 +23,7 @@
   
   .temperature {
     font-size: 4.5em;
+    font-weight: 500;
   }
   
   .feels-like {

@@ -11,7 +11,7 @@
           [(ngModel)]="city"
           name="city"
           required
-          class="border p-2 rounded"
+          class="border p-3"
           placeholder="Enter city name"
         />
       </label>
@@ -25,13 +25,20 @@
 
       <button (click)="onUseCurrentLocation()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Use Current Location</button>
 
+    </div>
+    
+   
+  </form>
+      <div class="grid grid-cols-3 gap-4 mb-14">  
 
-      <div class="grid grid-cols-3 gap-4 mb-4">  
+        
+
+
         <!-- Intensity Filter -->
         <div>
           <label class="block text-sm font-medium mb-2">Intensity Level</label>
           <select 
-            class="w-full p-2 border rounded-md"
+            class="w-full p-3 border"
             (change)="onIntensityChange($event)">
             <option value="">All Intensities</option>
             <option value="low">Low</option>
@@ -44,7 +51,7 @@
         <div>
           <label class="block text-sm font-medium mb-2">Duration</label>
           <select 
-            class="w-full p-2 border rounded-md"
+            class="w-full p-3 border"
             (change)="onDurationChange($event)">
             <option value="">All Durations</option>
             <option value="30">30 minutes</option>
@@ -58,7 +65,7 @@
         <div>
           <label class="block text-sm font-medium mb-2">Location</label>
           <select 
-            class="w-full p-2 border rounded-md"
+            class="w-full p-3 border"
             (change)="onLocationChange($event)">
             <option value="both">Indoor & Outdoor</option>
             <option value="indoor">Indoor Only</option>
@@ -66,7 +73,4 @@
           </select>
         </div>
       </div>
-    </div>
-    
-   
-  </form>
+ 
