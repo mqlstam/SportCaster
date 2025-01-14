@@ -1,82 +1,42 @@
 <div *ngIf="errorMessage" class="bg-red-100 text-red-700 p-4 rounded-lg mb-4">{{ errorMessage }}</div>
 
-<div class="p-8 bg-white rounded-2xl mb-6 max-w-xl">
-  <!-- Filters -->
-  <div class="mb-6">
-    <h2 class="text-xl font-bold mb-4">Filter Sports</h2>
-    
-    <div class="grid grid-cols-3 gap-4 mb-4">  
-      <!-- Intensity Filter -->
-      <div>
-        <label class="block text-sm font-medium mb-2">Intensity Level</label>
-        <select 
-          class="w-full p-2 border rounded-md"
-          (change)="onIntensityChange($event)">
-          <option value="">All Intensities</option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-    
-      <!-- Duration Filter -->
-      <div>
-        <label class="block text-sm font-medium mb-2">Duration</label>
-        <select 
-          class="w-full p-2 border rounded-md"
-          (change)="onDurationChange($event)">
-          <option value="">All Durations</option>
-          <option value="30">30 minutes</option>
-          <option value="60">60 minutes</option>
-          <option value="90">90 minutes</option>
-          <option value="120">120 minutes</option>
-        </select>
-      </div>
-    
-      <!-- Location Filter -->
-      <div>
-        <label class="block text-sm font-medium mb-2">Location</label>
-        <select 
-          class="w-full p-2 border rounded-md"
-          (change)="onLocationChange($event)">
-          <option value="both">Indoor & Outdoor</option>
-          <option value="indoor">Indoor Only</option>
-          <option value="outdoor">Outdoor Only</option>
-        </select>
-      </div>
-    </div>
-
-  <!-- Title -->
-  <h2 class="text-2xl font-bold">Suggested workouts</h2>
-</div>
-
 <!-- Sport Recommendations -->
-<div *ngIf="suggestedSports.length > 0" class="p-8 bg-white rounded-2xl mb-6 max-w-xl">
+<div *ngIf="suggestedSports.length > 0" class="p-8 bg-white rounded-2xl mb-6 max-w-xl sports-card">
   <div>
+    <h3 class="mb-4">Your suggested workout:</h3>
     <div class="inline-flex items-center space-x-5 mb-5">
       <div class="w-20 h-20 bg-gray-200 rounded-full justify-center items-center inline-flex">
         <img class="w-11 h-11" src="{{ iconMap[suggestedSports[0].name] || iconMap['Default'] }}">
       </div>
-      <h2 class="text-3xl font-bold">{{ suggestedSports[0].name }}</h2>
+      <h2>{{ suggestedSports[0].name }}</h2>
     </div>
-    <h2 class="text-base mb-4">Weather during your workout:</h2>
+    <h3 class="mb-4">Weather during your workout:</h3>
+    
     <div class="bg-gray-200 p-5 mb-5 rounded-2xl">
       <p class="mb-2">{{ weatherData?.current.condition.text }} at {{ weatherData?.current.temp_c }}°</p>
-      <div class="flex flex-col gap-2">
-        <span><i class="not-italic mr-1">💨</i>{{ weatherData?.current.wind_kph }}</span>
-        <span><i class="not-italic mr-1">☂️</i>{{ weatherData?.current.precip_mm }}</span>
-        <span><i class="not-italic mr-1">💧</i>{{ weatherData?.current.humidity }}</span>
+      <div class="flex flex-row gap-1">
+        <span class="material-symbols-rounded">
+          air
+          </span><span class="mr-2">{{ weatherData?.current.wind_kph }} km/h</span>
+
+        <span class="material-symbols-rounded mr">
+          beach_access
+          </span><span class="mr-2">{{ weatherData?.current.precip_mm }} mm</span>
+          <span class="material-symbols-rounded">
+            water_drop
+            </span><span class="mr-2">{{ weatherData?.current.humidity }} %</span>
       </div>
     </div>
-    <h2 class="text-base mb-4">Suggested equipment:</h2>
+    <h3 class="mb-4">Suggested equipment:</h3>
     <div class="inline-flex space-x-2 items-center justify-center">
-      <span *ngFor="let item of suggestedSports[0].equipment" class="bg-gray-200 px-3 py-1 rounded-md">{{ item.item }}</span>
+      <span *ngFor="let item of suggestedSports[0].equipment" class="suggestedEquipmentCard px-3 py-1 rounded-md">{{ item.item }}</span>
     </div>
   </div>
+
 </div>
 
 <!-- Additional Sport Recommendations -->
-<div *ngFor="let sport of suggestedSports.slice(1)" class="p-8 bg-white rounded-2xl mb-6 max-w-xl">
+<div *ngFor="let sport of suggestedSports.slice(1)" class="p-8 bg-white rounded-2xl mb-6 max-w-xl sports-card">
   <div>
     <div class="inline-flex items-center space-x-5 mb-5">
       <div class="w-20 h-20 bg-gray-200 rounded-full justify-center items-center inline-flex">

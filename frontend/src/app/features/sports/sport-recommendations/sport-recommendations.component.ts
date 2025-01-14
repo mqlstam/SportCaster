@@ -38,19 +38,6 @@ export class SportRecommendationsComponent implements OnInit {
     this.fetchWeather();
   }
 
-  onIntensityChange(event: any) {
-    this.rcmdService.updateFilters({ intensity: event.target.value });
-  }
-
-  onDurationChange(event: any) {
-    const duration = event.target.value ? parseInt(event.target.value) : null;
-    this.rcmdService.updateFilters({ duration: duration });
-  }
-
-  onLocationChange(event: any) {
-    this.rcmdService.updateFilters({ location: event.target.value });
-  }
-
   getSuggestedSports() {
     this.rcmdService.listSuggestedSports();
     this.rcmdService.suggestedSports$.subscribe(sports => {
