@@ -3,6 +3,31 @@
     font-size: 0.95rem;
 }
 
-.sports-card {
-    max-width: 32.5rem;
+.suggestedEquipmentCardSecondary {
+    background-color: #ffffff;
+    font-size: 0.95rem;
 }
+
+
+
+.sports-card {
+    max-width: 33.75rem;
+}
+
+.sports-card-secondary {
+    max-width: 33.75rem;
+    
+}
+
+.sports-card-secondary h2 {
+    font-size: 1.55rem;
+}
+
+.sports-card-weather-section {
+    background-color: #F1F1F1;
+}
+
+.sports-card-secondary-item {
+    background-color: #F1F1F1;
+}
+

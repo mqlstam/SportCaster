@@ -12,7 +12,7 @@
     </div>
     <h3 class="mb-4">Weather during your workout:</h3>
     
-    <div class="bg-gray-200 p-5 mb-5 rounded-2xl">
+    <div class="p-5 mb-5 rounded-2xl sports-card-weather-section">
       <p class="mb-2">{{ weatherData?.current.condition.text }} at {{ weatherData?.current.temp_c }}°</p>
       <div class="flex flex-row gap-1">
         <span class="material-symbols-rounded">
@@ -28,26 +28,31 @@
       </div>
     </div>
     <h3 class="mb-4">Suggested equipment:</h3>
-    <div class="inline-flex space-x-2 items-center justify-center">
-      <span *ngFor="let item of suggestedSports[0].equipment" class="suggestedEquipmentCard px-3 py-1 rounded-md">{{ item.item }}</span>
+    <div class="inline-flex gap-x-2 items-center justify-start flex-wrap gap-y-2">
+      <span *ngFor="let item of suggestedSports[0].equipment" class="suggestedEquipmentCard px-3 py-1 rounded-md whitespace-nowrap">{{ item.item }}</span>
     </div>
   </div>
 
 </div>
 
-<!-- Additional Sport Recommendations -->
-<div *ngFor="let sport of suggestedSports.slice(1)" class="p-8 bg-white rounded-2xl mb-6 max-w-xl sports-card">
+<div class="p-8 bg-white rounded-2xl mb-6 max-w-xl sports-card-secondary">
   <div>
-    <div class="inline-flex items-center space-x-5 mb-5">
-      <div class="w-20 h-20 bg-gray-200 rounded-full justify-center items-center inline-flex">
-        <img class="w-11 h-11" src="{{ iconMap[sport.name] || iconMap['Default'] }}">
+    <h3 class="mb-4">Other suggested workouts:</h3>
+    <div class="flex flex-col gap-4">
+    <div *ngFor="let sport of suggestedSports.slice(1)" class="p-5 rounded-2xl gap-x-4 sports-card-secondary-item">
+      <div class="inline-flex items-center space-x-5 mb-5">
+        <div class="w-16 h-16 bg-white rounded-full justify-center items-center inline-flex">
+          <img class="w-11 h-11" src="{{ iconMap[suggestedSports[0].name] || iconMap['Default'] }}">
+        </div>
+        <h2>{{ sport.name }}</h2>
       </div>
-      <h2 class="text-3xl font-bold">{{ sport.name }}</h2>
-    </div>
-  
-    <h2 class="text-base mb-4">Suggested equipment:</h2>
-    <div class="inline-flex space-x-2 items-center justify-center">
-      <span *ngFor="let item of sport.equipment" class="bg-gray-200 px-3 py-1 rounded-md">{{ item.item }}</span>
+
+      <h3 class="mb-4">Suggested equipment:</h3>
+      <div class="inline-flex gap-x-2 items-center justify-start flex-wrap gap-y-2">
+        <span *ngFor="let item of sport.equipment" class="suggestedEquipmentCardSecondary px-3 py-1 rounded-md whitespace-nowrap">{{ item.item }}</span>
+      </div>
     </div>
   </div>
+  </div>
+
 </div>
