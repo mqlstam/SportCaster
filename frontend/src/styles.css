@@ -2,3 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F1F1F1;
+  }
+
+h2 {
+    font-weight: 650;
+    font-size: 2rem;
+    color: #282828;
+}
+
+h3 {
+    font-weight: 550;
+    font-size: 1.5rem;
+    color: #282828;
+}
+
+h4 {
+    color: #717B8E;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
