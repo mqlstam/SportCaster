@@ -77,7 +77,6 @@ interface AppState {
           </div>
         </div>
 
-        <!-- Events Dashboard -->
         <div class="mt-8"></div>
       </div>
     </div>

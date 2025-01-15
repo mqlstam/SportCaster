@@ -1,5 +1,5 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,21 +7,25 @@ import { Observable } from 'rxjs';
 })
 export class EventService {
   private apiUrl = 'https://api.predicthq.com/v1/events/';
-  private accessToken = 'OvYCtB6ocYh28eTxj1V8e59i42Sr5qR9uLBh_91j'; // Voeg je PredictHQ API-token hier toe
+  private apiKey = 'OvYCtB6ocYh28eTxj1V8e59i42Sr5qR9uLBh_91j'; 
 
   constructor(private http: HttpClient) {}
 
-  getMarathonsInNetherlands(): Observable<any> {
+  getEventsNearby(lat: number, lon: number, country: string, radius: number = 50000): Observable<any> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.accessToken}`
+      'Authorization': `Bearer ${this.apiKey}`
     });
-
-    const params = {
-      category: 'sports',
-      label: 'running',
-      country: 'NL'
-    };
-
+  
+    const params = new HttpParams()
+      .set('category', 'sports')
+      .set('label', 'running')
+      .set('limit', '20')
+      .set('offset', '0') 
+      .set('latitude', lat.toString())
+      .set('longitude', lon.toString())
+      .set('radius', radius.toString())
+      .set('country', country); 
+  
     return this.http.get<any>(this.apiUrl, { headers, params });
   }
 }
