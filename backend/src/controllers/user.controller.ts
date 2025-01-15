@@ -22,6 +22,15 @@ export const userController = {
         }
     },
 
+    getUserByEmail: async (req : Request, res: Response) => {
+        try{
+            let user = await User.findOne({email: req.params.email});
+            res.status(200).json({user});
+        } catch(error){
+            res.status(500).json({error: 'Internal server error'});
+        }
+    },
+
     createUser: async (req : Request, res: Response) => {
         try{
             let user = await User.create(req.body);
