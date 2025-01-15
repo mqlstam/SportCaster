@@ -7,6 +7,20 @@
   font-family: 'Arial', sans-serif;
 }
 
+.events-card {
+  max-width: 690px;
+}
+
+.sports-card-secondary-item {
+  /* background-color: #F1F1F1; */
+}
+
+.weather-section-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; 
+}
+
 h2 {
   font-size: 1.8em;
   margin-bottom: 20px;

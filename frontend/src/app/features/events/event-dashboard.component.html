@@ -1,6 +1,5 @@
-<div class="event-dashboard">
-  <h2>Upcoming Marathons Near You</h2>
-
+<div class="p-6 bg-white rounded-2xl events-card mb-12">
+  <h4>Upcoming events in your area</h4>
   <!-- Error Message Section -->
   <div *ngIf="errorMessage" class="error" role="alert">
     {{ errorMessage }}
@@ -8,13 +7,22 @@
 
   <!-- Event Details Section -->
   <div *ngIf="events.length > 0; else noEvents" class="event-detail">
-    <div class="event-card">
-      <h3>{{ currentEvent?.title || 'N/A' }}</h3>
-      <p><strong>Date:</strong> {{ currentEvent?.start | date: 'fullDate' }}</p>
-      <p><strong>City:</strong> {{ currentEvent?.geo?.address?.locality || 'N/A' }}</p>
-      <p><strong>Region:</strong> {{ currentEvent?.geo?.address?.region || 'N/A' }}</p>
-      <p><strong>Address:</strong> {{ currentEvent?.geo?.address?.formatted_address || 'N/A' }}</p>
-    </div>
+
+
+
+      <div class="p-5 rounded-2xl gap-y-4 flex-col flex sports-card-secondary-item">
+        <p>{{ currentEvent?.start | date: 'fullDate' }}</p>
+        <h3>{{ currentEvent?.title || 'N/A' }}</h3>
+        <div class="weather-section-item">
+          <span class="material-symbols-rounded mr">
+            location_on
+            </span>      <span>
+              {{ currentEvent?.geo?.address?.locality }}
+          </span>
+            </div>
+        <p>{{ currentEvent?.geo?.address?.formatted_address || 'N/A' }}</p>
+      </div>
+
 
     <!-- Navigation Buttons -->
     <div class="navigation-buttons">
@@ -38,3 +46,5 @@
     <p>No marathons found near your location. Try adjusting your location settings or check back later.</p>
   </ng-template>
 </div>
+
+
