@@ -28,7 +28,7 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-      - MONGO_URI=mongodb://mongodb:27017/sportcaster
+      - MONGO_URI=mongodb+srv://ntpn294:Avans1234@ntpnavans.g3clv.mongodb.net/SportCaster
     depends_on:
       - mongodb
 
