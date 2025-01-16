@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { PopupService } from '../../service/popup.service';
 
 @Component({
   selector: 'app-header',
@@ -10,5 +13,10 @@ export class HeaderComponent {
 
   triggerLogin() {
     this.onCircleClick.emit();
+
+  constructor(private popupService: PopupService) {}
+
+  openPopup() {
+    this.popupService.openPopup();  // Popup openen via de service
   }
 }

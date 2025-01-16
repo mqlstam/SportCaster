@@ -13,6 +13,7 @@ import { SportPreferencesComponent } from '../sports/sport-preferences/sport-pre
 import { SportRecommendationsComponent } from '../sports/sport-recommendations/sport-recommendations.component';
 import { LoginComponent } from '../login/login.component';
 import { PopupService } from '../../service/popup.service';
+import { LoginService } from '../../service/login.service';
 
 interface AppState {
   weather: {
@@ -105,6 +106,7 @@ export class HomeComponent implements OnInit {
     private store: Store<AppState>,
     private rcmdService: RcmdService,
     private popupService: PopupService
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
@@ -116,6 +118,10 @@ export class HomeComponent implements OnInit {
 
     this.popupService.loginPopup$.subscribe((isVisible) => {
       this.isLoginPopupVisible = isVisible; 
+
+    console.log('LOGIN SERVICE!!');
+    this.loginService.getUserByEmail("john.doe@example.com").subscribe((data:any) => {
+      console.log(data);
     });
   }
 

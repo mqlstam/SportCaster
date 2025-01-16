@@ -1,20 +1,24 @@
 import { Component, ViewChild } from '@angular/core';
-import { HomeComponent } from './features/home/home.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';
 import { Router, RouterModule } from '@angular/router';
 import { PopupService } from './service/popup.service';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from "./layout/header/header.component";
+import { FooterComponent } from "./layout/footer/footer.component";
+import { FormsModule } from '@angular/forms';
+import { RegistrationPopupComponent } from "./features/registration-popup/registration-popup.component";
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent, FooterComponent,FormsModule,RouterModule,RegistrationPopupComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [RouterModule, HeaderComponent, FooterComponent],
 })
 export class AppComponent {
   constructor(private popupService: PopupService) {}
 
   triggerHomeLoginPopup() {
-    this.popupService.toggleLoginPopup();  // Gebruik de service om de popup te tonen
+    this.popupService.toggleLoginPopup();
   }
 }

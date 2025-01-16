@@ -2,6 +2,7 @@ import { WeatherService } from "../features/weather/weather.service";
 import { Injectable } from '@angular/core';
 import { SportService } from "./sport.service";
 import { BehaviorSubject } from "rxjs";
+import { LocationService } from "./location.service";
 
 interface SportFilters {
   intensity?: string;
@@ -32,15 +33,22 @@ interface Sport {
   providedIn: 'root'
 })
 export class RcmdService {
+
+  constructor(
+    private weatherService: WeatherService,
+    private sportService: SportService,
+    private locationService: LocationService
+
+  ) { }
+
   private suggestedSports = new BehaviorSubject<Sport[]>([]);
   suggestedSports$ = this.suggestedSports.asObservable();
-  
   private filters: SportFilters = {
     intensity: '',
     duration: null,
     location: 'both'
   };
-
+  
   lat: number = 0;
   lon: number = 0;
 
@@ -48,10 +56,6 @@ export class RcmdService {
   wind_kph: number = 0;
   precip_mm: number = 0;
 
-  constructor(
-    private weatherService: WeatherService,
-    private sportService: SportService,
-  ) { }
 
   updateFilters(newFilters: Partial<SportFilters>) {
     this.filters = { ...this.filters, ...newFilters };
@@ -59,79 +63,64 @@ export class RcmdService {
   }
 
   listSuggestedSports(): void {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.lat = position.coords.latitude;
-          this.lon = position.coords.longitude;
-          const location = `${this.lat},${this.lon}`;
-          
-          this.weatherService.getWeather(location).subscribe(
-            (data: any) => {
-              console.log(data);
-              this.temp = data.current.temp_c;
-              this.wind_kph = data.current.wind_kph;
-              this.precip_mm = data.current.precip_mm;
 
-              this.sportService.getSports().subscribe((response: any) => {
-                let sports = response.sports as Sport[];
+    this.locationService.location$.subscribe(location2 => {
+      if (location2) {
+        console.log('CURRENT LAT ION AA');
+        console.log(location2.lat, location2.lon);
+        this.lat = location2.lat;
+        this.lon = location2.lon;
+        const location = `${this.lat},${this.lon}`;
 
-                if (Array.isArray(sports)) {
-                  // Locatie filter toepassen
-                  if (this.filters.location && this.filters.location !== 'both') {
-                    sports = sports.filter((sport: Sport) => {
-                      if (this.filters.location === 'indoor') {
-                        return !sport.isOutdoor;
-                      } else {
-                        return sport.isOutdoor;
-                      }
-                    });
+        this.weatherService.getWeather(location).subscribe(
+          (data: any) => {
+            console.log(data);
+            this.temp = data.current.temp_c;
+            this.wind_kph = data.current.wind_kph;
+            this.precip_mm = data.current.precip_mm;
+            console.log(`Precip in mm: ${this.precip_mm}`)
+
+            //get sports
+            this.sportService.getSports().subscribe((response: any) => {
+              console.log(response);
+
+              const sports = response.sports;
+
+              if (Array.isArray(sports)) {
+                const filteredSports = sports.filter((sport: any) => {
+                  if (!sport.isOutdoor) {
+                    return sport;
+                  } else {
+                    return sport.minTemp <= this.temp &&
+                      sport.maxTemp >= this.temp &&
+                      sport.windSpeedLimit >= this.wind_kph &&
+                      (this.precip_mm > 0 ? sport.rainSuitable === true : true)
                   }
+                });
 
-                  // Weer-gebaseerde filtering (alleen voor buitensporten)
-                  sports = sports.filter((sport: Sport) => {
-                    if (!sport.isOutdoor) {
-                      return true;  // binnensporten altijd toestaan
-                    } else {
-                      return sport.minTemp <= this.temp &&
-                        sport.maxTemp >= this.temp &&
-                        sport.windSpeedLimit >= this.wind_kph &&
-                        (this.precip_mm > 0 ? sport.rainSuitable === true : true)
-                    }
-                  });
+                console.log('Filtered Sports:', filteredSports);
+                this.suggestedSports.next(filteredSports);
+              } else {
+                console.error('Sports data is not an array:', response);
+              }
 
-                  // Gebruikersfilters toepassen
-                  if (this.filters.intensity) {
-                    sports = sports.filter((sport: Sport) => 
-                      sport.intensity === this.filters.intensity
-                    );
-                  }
+            });
+          },
+          (error: any) => {
+            console.error('Error fetching weather data:', error);
+          }
+        );
 
-                  if (this.filters.duration !== null) {
-                    sports = sports.filter((sport: Sport) =>
-                      this.filters.duration! >= sport.duration.min &&
-                      this.filters.duration! <= sport.duration.max
-                    );
-                  }
-
-                  console.log('Filtered Sports:', sports);
-                  this.suggestedSports.next(sports);
-                } else {
-                  console.error('Sports data is not an array:', response);
-                }
-              });
-            },
-            (error: any) => {
-              console.error('Error fetching weather data:', error);
-            }
-          );
-        },
-        (error) => {
-          console.error('Unable to retrieve location:', error);
-        }
-      );
-    } else {
-      console.error('Geolocation is not supported by your browser.');
+      }
     }
-  }
+  )
 }
+
+}
+
+
+
+
+
+
+

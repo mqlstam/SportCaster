@@ -3,7 +3,9 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const mongoUri = process.env.MONGO_URI ?? 'mongodb://localhost:27017/sportcaster';
+const mongoUri = process.env.MONGO_URI ?? 'mongodb+srv://ntpn294:Avans1234@ntpnavans.g3clv.mongodb.net/SportCaster';
+
+
 
 export const connectDB = async (): Promise<void> => {
   try {
