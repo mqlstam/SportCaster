@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PopupService } from '../../service/popup.service';
 import { UserService } from '../../service/user.service';
+import { RcmdService } from '../../service/rcmd.service'; 
 
 @Component({
   selector: 'app-registration-popup',
@@ -13,37 +14,45 @@ import { UserService } from '../../service/user.service';
 export class RegistrationPopupComponent implements OnInit {
   user = { userName: '', email: '', password: '' };
   isLogin = true;
-  loggedInUser = { userName: '', email: '', password: '' };
+  loggedInUser: any = { userName: '', email: '', location: { city: '' }, preferences: {}, equipment: [] };
   alreadyLoggedIn = false;
+  editMode = false;
+
+  // Nieuwe property voor equipment
+  availableEquipment: string[] = [];
 
   constructor(
     public popupService: PopupService,
-    private userService: UserService
+    private userService: UserService,
+    private rcmdService: RcmdService // Injecteer de RcmdService
   ) {}
 
   ngOnInit() {
     console.log('Cookie:', document.cookie);
+    
 
     const cookieValue = this.getCookie('loggedInUser');
     if (cookieValue){
       console.log("already logged in");
       this.alreadyLoggedIn = true;
-      const loggedInUser = JSON.parse(cookieValue);
+      this.loggedInUser = JSON.parse(cookieValue);
 
-      console.log(loggedInUser._id);
-
-      this.userService.getUserById(loggedInUser._id).subscribe({
-        next: (response : any) => {
+      this.userService.getUserById(this.loggedInUser._id).subscribe({
+        next: (response: any) => {
           this.loggedInUser = response.user;
           console.log('User found:', this.loggedInUser);
         },
-        error: (error : any) => {
+        error: (error) => {
           console.error('Error finding user:', error);
         },
       });
-
-      
     }
+
+    // Haal de equipment lijst op
+    this.rcmdService.fetchEquipment();
+    this.rcmdService.availableEquipment$.subscribe((equipmentList) => {
+      this.availableEquipment = equipmentList;
+    });
   }
 
   openPopup() {
@@ -54,12 +63,54 @@ export class RegistrationPopupComponent implements OnInit {
     this.popupService.closePopup();
   }
 
+  enableEdit() {
+    this.editMode = true;
+  }
+
+  cancelEdit() {
+    this.editMode = false;
+    this.popupService.closePopup();
+  }
+
+  saveChanges() {
+    // Ensure the nested properties are updated
+    const updatedUser = {
+      ...this.loggedInUser,  // Spread the current data
+      location: {
+        ...this.loggedInUser.location // Make sure location is updated correctly
+      },
+      preferences: {
+        ...this.loggedInUser.preferences // Ensure preferences are updated
+      },
+    };
+  
+    // Send updated data to the backend
+    this.userService.updateUser(updatedUser).subscribe({
+      next: (response: any) => {
+        console.log('User updated:', response);
+  
+        // After a successful update, save the updated user data in a cookie
+        document.cookie = `loggedInUser=${JSON.stringify(updatedUser)}; path=/;`;
+  
+        // Update the local logged-in user
+        this.loggedInUser = updatedUser;
+        
+        // Set edit mode to false, as the changes are saved
+        this.editMode = false;
+        this.popupService.closePopup();
+      },
+      error: (error) => {
+        console.error('Error updating user:', error);
+      },
+    });
+  }
+
   onSubmit() {
     console.log('User registered:', this.user);
 
     if (this.isLogin) {
       this.userService.getUserByEmail(this.user.email).subscribe({
-        next: (response : any) => {
+        next: (response: any) => {
           console.log('User found:', response);
           if (this.user.password === response.user.password) {
             this.loggedInUser = response.user;
@@ -69,57 +120,60 @@ export class RegistrationPopupComponent implements OnInit {
 
             this.alreadyLoggedIn = true;
             this.closePopup();
-
           } else {
             alert('Invalid password');
-            console.error('Invalid password');
           }
         },
-        error: (error : any) => {
+        error: (error) => {
           alert('User not found');
-          console.error('Error finding user:', error);
         },
       });
 
-    } else{
-
+    } else {
       this.userService.createUser(this.user).subscribe({
-        next: (response : any) => {
+        next: (response: any) => {
           console.log('User created successfully:', response);
         },
-        error: (error : any) => {
+        error: (error) => {
           console.error('Error creating user:', error);
         },
       });
     }
   }
 
-  isRegister(){
-    console.log('Register');
-    this.isLogin = false;
-  }
+  logOut() {
+    document.cookie = 'loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+    console.log('User logged out, cookie deleted.');
 
-  isLogin2(){
-    console.log('Login');
-    this.isLogin = true;
+    this.loggedInUser = { userName: '', email: '', location: { city: '' }, preferences: {}, equipment: [] };
+    this.alreadyLoggedIn = false;
+    this.closePopup();
   }
 
   getCookie(name: string): string | null {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
-    return null;
+    return parts.length === 2 ? parts.pop()?.split(';').shift() || null : null;
   }
 
-  logOut(){
-    document.cookie = 'loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
-    console.log('User logged out, cookie deleted.');
+  isRegister() {
+    this.isLogin = false;
+  }
 
-    // Reset the logged-in user state
-    this.loggedInUser = { userName: '', email: '', password: '' };
-    this.alreadyLoggedIn = false;
+  isLogin2() {
+    this.isLogin = true;
+  }
 
-    // Optionally, you can close any popup or redirect the user to a login page
-    this.closePopup();
+  selectedEquipment: string = '';
+
+  addEquipment() {
+    if (this.selectedEquipment && !this.loggedInUser.equipment.some((e: { item: string; }) => e.item === this.selectedEquipment)) {
+        this.loggedInUser.equipment.push({ item: this.selectedEquipment });
+        this.selectedEquipment = ""; 
+    }
+}
+
+  removeEquipment(item: string) {
+    this.loggedInUser.equipment = this.loggedInUser.equipment.filter((equip: { item: string }) => equip.item !== item);
   }
 }
