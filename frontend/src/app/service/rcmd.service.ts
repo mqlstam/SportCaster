@@ -56,10 +56,6 @@ export class RcmdService {
   wind_kph: number = 0;
   precip_mm: number = 0;
 
-  constructor(
-    private weatherService: WeatherService,
-    private sportService: SportService,
-  ) { }
 
   updateFilters(newFilters: Partial<SportFilters>) {
     this.filters = { ...this.filters, ...newFilters };
