@@ -34,7 +34,8 @@ interface AppState {
     LoginComponent
   ],
   template: `
-    <div class="relative min-h-screen">
+  <div class="root min-h-screen min-w-screen">
+    <div class="main-content-wrapper">
       <app-weather-animation
         [weatherType]="(currentWeather$ | async) || 'sunny'"
       >
@@ -67,12 +68,13 @@ interface AppState {
         <app-sport-preferences></app-sport-preferences>
 
         <!-- Grid section -->
-        <div class="grid grid-cols-2 gap-4 mt-8">
-          <div class="space-y-4">
+        <div class="grid grid-cols-2 mt-8">
+          <div class="flex flex-col gap-y-12">
             <app-sport-recommendations></app-sport-recommendations>
+            
           </div>
 
-          <div class="space-y-4">
+          <div class="flex flex-col gap-y-12">
             <app-weather-dashboard></app-weather-dashboard>
             <app-events></app-events>
           </div>
@@ -86,7 +88,9 @@ interface AppState {
         (closeLogin)="closeLoginPopup()"
       ></app-login>
     </div>
+    </div>
   `,
+    styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   weatherTypes = ['sunny', 'rainy', 'snowy', 'cloudy', 'stormy'];
