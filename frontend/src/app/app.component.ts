@@ -9,7 +9,7 @@ import { PopupService } from './service/popup.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [FooterComponent, HeaderComponent, RouterModule],
+  imports: [RouterModule, HeaderComponent, FooterComponent],
 })
 export class AppComponent {
   constructor(private popupService: PopupService) {}
