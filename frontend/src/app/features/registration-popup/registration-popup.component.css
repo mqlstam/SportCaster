@@ -101,3 +101,9 @@
     margin-bottom: 16px;
   }
   
+  .register{
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: small;
+  }

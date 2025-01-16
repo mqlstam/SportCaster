@@ -6,7 +6,7 @@
         <form (ngSubmit)="onSubmit()">
             <div *ngIf="!isLogin">
                 <label for="name">Name:</label>
-                <input type="text" id="name" [(ngModel)]="user.name" name="name" required />
+                <input type="text" id="name" [(ngModel)]="user.userName" name="name" required />
             </div>
 
             <div>
@@ -20,10 +20,12 @@
             </div>
 
             <div>
-                <a>Create an account</a>
+                <a class="register" (click)="isRegister()" *ngIf="isLogin">No account? Register now</a>
+                <a class="register" (click)="isLogin2()" *ngIf="!isLogin">Return to login</a>
             </div>
 
-            <button type="submit">Log in</button>
+            <button type="submit" *ngIf="!isLogin">Register</button>
+            <button type="submit" *ngIf="isLogin">Log in</button>
         </form>
     </div>
 </div>
