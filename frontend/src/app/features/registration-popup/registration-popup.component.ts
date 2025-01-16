@@ -16,11 +16,11 @@ export class RegistrationPopupComponent {
   constructor(public popupService: PopupService) {}
 
   openPopup() {
-    this.popupService.openPopup();
+    this.popupService.toggleRegisterPopup();
   }
 
   closePopup() {
-    this.popupService.closePopup();
+    this.popupService.toggleRegisterPopup();
   }
 
   onSubmit() {

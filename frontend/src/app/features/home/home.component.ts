@@ -105,20 +105,21 @@ export class HomeComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private rcmdService: RcmdService,
-    private popupService: PopupService
+    private popupService: PopupService,
     private loginService: LoginService
   ) {}
 
   ngOnInit() {
     this.store.dispatch(WeatherActions.loadWeather());
-
+  
     console.log('RCMD SERVICE!!');
     this.rcmdService.listSuggestedSports();
     this.store.dispatch(WeatherActions.loadWeather());
-
+  
     this.popupService.loginPopup$.subscribe((isVisible) => {
       this.isLoginPopupVisible = isVisible; 
-
+    }); // <-- Correct sluiten
+  
     console.log('LOGIN SERVICE!!');
     this.loginService.getUserByEmail("john.doe@example.com").subscribe((data:any) => {
       console.log(data);
