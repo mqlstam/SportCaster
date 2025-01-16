@@ -1,10 +1,9 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
-<!-- Formulier voor handmatige locatie-invoer -->
 <div class="flex flex-row justify-center gap-6 mb-10">
   <div class="relative">
     <form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4">
-      <label class="block text-sm font-medium mb-2" for="city">
+      <label class="block text-sm font-medium mb-2 preference-label" for="city">
         City
       </label>
       <div class="flex items-stretch">
@@ -36,12 +35,9 @@
     </form>
   </div>
 
-
-
-
   <!-- Intensity Filter -->
   <div>
-    <label class="block text-sm font-medium mb-2">Intensity Level</label>
+    <label class="block text-sm font-medium mb-2 preference-label">Intensity Level</label>
     <select class="w-full p-3 border-none" (change)="onIntensityChange($event)">
       <option value="">All Intensities</option>
       <option value="low">Low</option>
@@ -52,7 +48,7 @@
 
   <!-- Duration Filter -->
   <div>
-    <label class="block text-sm font-medium mb-2">Duration</label>
+    <label class="block text-sm font-medium mb-2 preference-label">Duration</label>
     <select class="w-full p-3 border-none" (change)="onDurationChange($event)">
       <option value="">All Durations</option>
       <option value="30">30 minutes</option>
@@ -64,7 +60,7 @@
 
   <!-- Location Filter -->
   <div>
-    <label class="block text-sm font-medium mb-2">Location</label>
+    <label class="block text-sm font-medium mb-2 preference-label">Location</label>
     <select class="w-full p-3 border-none" (change)="onLocationChange($event)">
       <option value="both">Indoor & Outdoor</option>
       <option value="indoor">Indoor Only</option>
