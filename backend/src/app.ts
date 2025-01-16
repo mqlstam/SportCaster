@@ -27,9 +27,9 @@ const startServer = async () => {
     await connectDB();
     console.log('Database connection established.');
 
-    console.log('Seeding database...');
-    await seedDatabase(); // Seed the database before starting the server
-    console.log('Database seeded successfully.');
+    // console.log('Seeding database...');
+    // await seedDatabase(); // Seed the database before starting the server
+    // console.log('Database seeded successfully.');
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

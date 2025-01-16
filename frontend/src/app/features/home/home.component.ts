@@ -11,6 +11,7 @@ import { EventsComponent } from '../events/event-dashboard.component';
 import { RcmdService } from '../../service/rcmd.service';
 import { SportPreferencesComponent } from '../sports/sport-preferences/sport-preferences.component';
 import { SportRecommendationsComponent } from '../sports/sport-recommendations/sport-recommendations.component';
+import { LoginService } from '../../service/login.service';
 
 interface AppState {
   weather: {
@@ -93,7 +94,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private rcmdService: RcmdService
+    private rcmdService: RcmdService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
@@ -101,6 +103,12 @@ export class HomeComponent implements OnInit {
 
     console.log('RCMD SERVICE!!');
     this.rcmdService.listSuggestedSports();
+
+
+    console.log('LOGIN SERVICE!!');
+    this.loginService.getUserByEmail("john.doe@example.com").subscribe((data:any) => {
+      console.log(data);
+    });
   }
 
   setWeatherType(type: string) {
