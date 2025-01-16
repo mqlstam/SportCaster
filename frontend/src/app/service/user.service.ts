@@ -24,4 +24,8 @@ export class UserService{
     createUser(user : any){
         return this.http.post(this.baseUrl + "api/users", user);
     }
+
+    updateUser(user : any){
+        return this.http.put(this.baseUrl + "api/users/" + user._id, user);
+    }
 }
