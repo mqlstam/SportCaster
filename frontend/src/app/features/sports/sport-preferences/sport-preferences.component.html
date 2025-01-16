@@ -1,12 +1,15 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
-
 <!-- Formulier voor handmatige locatie-invoer -->
-<form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4">
-    <div class="flex gap-4">
-      <label>
-        City:
+<div class="flex flex-row gap-4 mb-14">
+  <div class="flex gap-4">
+    <form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4">
+      <div>
+        <label class="block text-sm font-medium mb-2" for="city">
+          City:
+        </label>
         <input
+          id="city"
           type="text"
           [(ngModel)]="city"
           name="city"
@@ -14,63 +17,55 @@
           class="border p-3"
           placeholder="Enter city name"
         />
-      </label>
-      <button
-        type="submit"
-        [disabled]="locationForm.invalid"
-        class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      >
-        Set Location
-      </button>
-
-      <button (click)="onUseCurrentLocation()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Use Current Location</button>
-
-    </div>
-    
-   
-  </form>
-      <div class="grid grid-cols-3 gap-4 mb-14">  
-
-        
-
-
-        <!-- Intensity Filter -->
-        <div>
-          <label class="block text-sm font-medium mb-2">Intensity Level</label>
-          <select 
-            class="w-full p-3 border"
-            (change)="onIntensityChange($event)">
-            <option value="">All Intensities</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </div>
-      
-        <!-- Duration Filter -->
-        <div>
-          <label class="block text-sm font-medium mb-2">Duration</label>
-          <select 
-            class="w-full p-3 border"
-            (change)="onDurationChange($event)">
-            <option value="">All Durations</option>
-            <option value="30">30 minutes</option>
-            <option value="60">60 minutes</option>
-            <option value="90">90 minutes</option>
-            <option value="120">120 minutes</option>
-          </select>
-        </div>
-      
-        <!-- Location Filter -->
-        <div>
-          <label class="block text-sm font-medium mb-2">Location</label>
-          <select 
-            class="w-full p-3 border"
-            (change)="onLocationChange($event)">
-            <option value="both">Indoor & Outdoor</option>
-            <option value="indoor">Indoor Only</option>
-            <option value="outdoor">Outdoor Only</option>
-          </select>
-        </div>
       </div>
- 
+      <div class="flex gap-2 mt-2">
+        <button
+          type="submit"
+          [disabled]="locationForm.invalid"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Set Location
+        </button>
+
+        <button
+          (click)="onUseCurrentLocation()"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Use Current Location
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- Intensity Filter -->
+  <div>
+    <label class="block text-sm font-medium mb-2">Intensity Level</label>
+    <select class="w-full p-3 border" (change)="onIntensityChange($event)">
+      <option value="">All Intensities</option>
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+
+  <!-- Duration Filter -->
+  <div>
+    <label class="block text-sm font-medium mb-2">Duration</label>
+    <select class="w-full p-3 border" (change)="onDurationChange($event)">
+      <option value="">All Durations</option>
+      <option value="30">30 minutes</option>
+      <option value="60">60 minutes</option>
+      <option value="90">90 minutes</option>
+      <option value="120">120 minutes</option>
+    </select>
+  </div>
+
+  <!-- Location Filter -->
+  <div>
+    <label class="block text-sm font-medium mb-2">Location</label>
+    <select class="w-full p-3 border" (change)="onLocationChange($event)">
+      <option value="both">Indoor & Outdoor</option>
+      <option value="indoor">Indoor Only</option>
+      <option value="outdoor">Outdoor Only</option>
+    </select>
+  </div>
+</div>

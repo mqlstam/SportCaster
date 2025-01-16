@@ -1,10 +1,11 @@
 .event-dashboard {
-  background: #f9f9f9;
+  background: white;
   padding: 20px;
   max-width: 600px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: 'Arial', sans-serif;
+  box-shadow: rgb(17 12 46 / 6%) 0px 48px 100px 0px;
 }
 
 .events-card {
