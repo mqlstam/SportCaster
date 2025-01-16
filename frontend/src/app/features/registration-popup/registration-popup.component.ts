@@ -12,6 +12,7 @@ import { PopupService } from '../../service/popup.service';
 })
 export class RegistrationPopupComponent {
   user = { name: '', email: '', password: '' };
+  isLogin = true;
 
   constructor(public popupService: PopupService) {}
 
