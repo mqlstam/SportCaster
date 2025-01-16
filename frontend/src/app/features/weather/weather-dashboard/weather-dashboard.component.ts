@@ -155,19 +155,19 @@ export class WeatherDashboardComponent implements OnInit {
   //   }
   // }
 
-  // getCoordinatesFromCity(city: string): void {
-  //   this.weatherService.getLocation(city).subscribe(
-  //     (coords) => {
-  //       console.log(`Coordinates for ${city}: Latitude ${coords.lat}, Longitude ${coords.lon}`);
-  //       this.fetchWeather(coords.lat, coords.lon);
-  //       this.errorMessage = null;
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching coordinates:', error);
-  //       this.errorMessage = 'Could not retrieve coordinates for the entered city. Please try again.';
-  //     }
-  //   );
-  // }
+  getCoordinatesFromCity(city: string): void {
+    this.weatherService.getLocation(city).subscribe(
+      (coords) => {
+        console.log(`Coordinates for ${city}: Latitude ${coords.lat}, Longitude ${coords.lon}`);
+        this.fetchWeather(coords.lat, coords.lon);
+        this.errorMessage = null;
+      },
+      (error) => {
+        console.error('Error fetching coordinates:', error);
+        this.errorMessage = 'Could not retrieve coordinates for the entered city. Please try again.';
+      }
+    );
+  }
 
   // setLocation(lat: number, lon: number): void {
   //   console.log('Setting location to:', lat, lon);
