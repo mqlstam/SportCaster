@@ -1,45 +1,48 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
 <!-- Formulier voor handmatige locatie-invoer -->
-<div class="flex flex-row gap-4 mb-14">
-  <div class="flex gap-4">
+<div class="flex flex-row justify-center gap-6 mb-10">
+  <div class="relative">
     <form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4">
-      <div>
-        <label class="block text-sm font-medium mb-2" for="city">
-          City:
-        </label>
+      <label class="block text-sm font-medium mb-2" for="city">
+        City
+      </label>
+      <div class="flex items-stretch">
         <input
           id="city"
-          type="text"
+          type=""
           [(ngModel)]="city"
           name="city"
           required
-          class="border p-3"
+          class="border p-3 flex-grow rounded-l-2xl rounded-r-none"
           placeholder="Enter city name"
         />
-      </div>
-      <div class="flex gap-2 mt-2">
         <button
           type="submit"
           [disabled]="locationForm.invalid"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          class="px-2 py-2 bg-white text-white border-t border-b border-r-0 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          aria-label="Search"
         >
-          Set Location
+          <span class="material-symbols-rounded icon-centered text-black">search</span>
         </button>
-
         <button
           (click)="onUseCurrentLocation()"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          class="px-2 py-2 bg-white text-white rounded-r-2xl border-l  border-t border-b hover:bg-blue-600"
+          aria-label="Use Current Location"
         >
-          Use Current Location
+          <span class="material-symbols-rounded icon-centered text-black">my_location</span>
         </button>
       </div>
     </form>
   </div>
+
+
+
+
   <!-- Intensity Filter -->
   <div>
     <label class="block text-sm font-medium mb-2">Intensity Level</label>
-    <select class="w-full p-3 border" (change)="onIntensityChange($event)">
+    <select class="w-full p-3 border-none" (change)="onIntensityChange($event)">
       <option value="">All Intensities</option>
       <option value="low">Low</option>
       <option value="medium">Medium</option>
@@ -50,7 +53,7 @@
   <!-- Duration Filter -->
   <div>
     <label class="block text-sm font-medium mb-2">Duration</label>
-    <select class="w-full p-3 border" (change)="onDurationChange($event)">
+    <select class="w-full p-3 border-none" (change)="onDurationChange($event)">
       <option value="">All Durations</option>
       <option value="30">30 minutes</option>
       <option value="60">60 minutes</option>
@@ -62,7 +65,7 @@
   <!-- Location Filter -->
   <div>
     <label class="block text-sm font-medium mb-2">Location</label>
-    <select class="w-full p-3 border" (change)="onLocationChange($event)">
+    <select class="w-full p-3 border-none" (change)="onLocationChange($event)">
       <option value="both">Indoor & Outdoor</option>
       <option value="indoor">Indoor Only</option>
       <option value="outdoor">Outdoor Only</option>

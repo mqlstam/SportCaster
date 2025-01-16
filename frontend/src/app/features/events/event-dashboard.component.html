@@ -1,5 +1,5 @@
-<div class="p-6 bg-white rounded-2xl events-card mb-12">
-  <h4>Upcoming events in your area</h4>
+<div class="px-12 p-6 bg-white rounded-2xl events-card mb-12">
+
   <!-- Error Message Section -->
   <div *ngIf="errorMessage" class="error" role="alert">
     {{ errorMessage }}
@@ -8,37 +8,32 @@
   <!-- Event Details Section -->
   <div *ngIf="events.length > 0; else noEvents" class="event-detail">
 
-
-
-      <div class="p-5 rounded-2xl gap-y-4 flex-col flex sports-card-secondary-item">
-        <p>{{ currentEvent?.start | date: 'fullDate' }}</p>
-        <h3>{{ currentEvent?.title || 'N/A' }}</h3>
-        <div class="weather-section-item">
-          <span class="material-symbols-rounded mr">
-            location_on
-            </span>      <span>
-              {{ currentEvent?.geo?.address?.locality }}
-          </span>
-            </div>
-        <p>{{ currentEvent?.geo?.address?.formatted_address || 'N/A' }}</p>
+      <h4>Upcoming event • {{ currentEvent?.start | date: 'fullDate' }}</h4>
+      <h3>{{ currentEvent?.title || 'N/A' }}</h3>
+      <div class="p6 gap-y-5 rounded-2xl flex-col flex sports-card-secondary-item">
+      <div class="weather-section-item">
+        <span class="material-symbols-rounded mr">
+          location_on
+        </span>
+        <span>
+          {{ currentEvent?.geo?.address?.locality }}
+        </span>
       </div>
-
-
-    <!-- Navigation Buttons -->
-    <div class="navigation-buttons">
-      <button 
-        (click)="previousEvent()" 
-        [disabled]="currentEventIndex === 0" 
-        class="nav-button">
-        <span aria-hidden="true">◀</span> Previous
-      </button>
-      <button 
-        (click)="nextEvent()" 
-        [disabled]="currentEventIndex === events.length - 1" 
-        class="nav-button">
-        Next <span aria-hidden="true">▶</span>
-      </button>
+      <p>{{ currentEvent?.geo?.address?.formatted_address || 'N/A' }}</p>
     </div>
+
+    <button 
+      (click)="previousEvent()" 
+      [disabled]="currentEventIndex === 0" 
+      class="carousel-arrow carousel-arrow-prev">
+      <span class="material-symbols-rounded">arrow_back_ios_new</span>
+    </button>
+    <button 
+      (click)="nextEvent()" 
+      [disabled]="currentEventIndex === events.length - 1" 
+      class="carousel-arrow carousel-arrow-next">
+      <span class="material-symbols-rounded">arrow_forward_ios</span>
+    </button>
   </div>
 
   <!-- No Events Found Section -->
@@ -46,5 +41,3 @@
     <p>No marathons found near your location. Try adjusting your location settings or check back later.</p>
   </ng-template>
 </div>
-
-
