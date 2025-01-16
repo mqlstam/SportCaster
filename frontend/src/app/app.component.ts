@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./layout/header/header.component";
-import { FooterComponent } from "./layout/footer/footer.component";
+import { Component, ViewChild } from '@angular/core';
+import { HomeComponent } from './features/home/home.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { Router, RouterModule } from '@angular/router';
+import { PopupService } from './service/popup.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  imports: [FooterComponent, HeaderComponent, RouterModule],
 })
 export class AppComponent {
-  title = 'frontend';
+  constructor(private popupService: PopupService) {}
+
+  triggerHomeLoginPopup() {
+    this.popupService.toggleLoginPopup();  // Gebruik de service om de popup te tonen
+  }
 }
