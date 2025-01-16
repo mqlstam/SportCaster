@@ -14,14 +14,21 @@ import { LocationService } from '../../../service/location.service';
 export class SportRecommendationsComponent implements OnInit {
   suggestedSports: any[] = [];
 
-  //TEMPORARY IMPLEMENTATION
   iconMap: { [key: string]: string } = {
-    'Soccer': 'https://www.reshot.com/preview-assets/icons/5Y3TB47EMK/football-player-5Y3TB47EMK.svg',
-    'Boxing': 'https://www.svgrepo.com/show/171268/soccer-player-running-behind-the-ball.svg',
-    'Yoga': 'https://www.reshot.com/preview-assets/icons/9NGDPVTH4B/yoga-9NGDPVTH4B.svg',
-    'Skiing': 'https://www.svgrepo.com/show/171268/soccer-player-running-behind-the-ball.svg',
-    'Table Tennis': 'https://www.reshot.com/preview-assets/icons/T42E8JLPBU/tennis-player-T42E8JLPBU.svg',
-    'Default': ''
+    'Running': 'directions_run',
+    'Tennis': 'sports_tennis',
+    'Cycling': 'pedal_bike',
+    'Surfing': 'surfing',
+    'Basketball': 'sports_basketball',
+    'Yoga': 'self_improvement',
+    'Boxing': 'sports_mma',
+    'Climbing': 'terrain',
+    'Martial Arts': 'sports_kabaddi',
+    'Skiing': 'downhill_skiing',
+    'Table Tennis': 'sports_tennis',
+    'Volleyball': 'sports_volleyball',
+    'Riding': 'sports_horse_riding',
+    'Default': 'help_outline',
   };
 
   weatherData: any;
@@ -33,7 +40,7 @@ export class SportRecommendationsComponent implements OnInit {
     private rcmdService: RcmdService, 
     private weatherService: WeatherService,
     private locationService: LocationService,
-  
+
   ) { }
 
   ngOnInit(): void {
@@ -81,3 +88,4 @@ export class SportRecommendationsComponent implements OnInit {
 
 
 }
+

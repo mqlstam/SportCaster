@@ -1,16 +1,20 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
-<div class="weather-dashboard">
-  <h2 class="font-bold">Current Weather</h2>
+<div class="weather-dashboard p-6 rounded-2xl">
+  <h4>Current Weather</h4>
 
   <div class="current-weather">
     <div class="left-section">
-      <p class="location">
-        <span class="location-icon">📍</span> {{ weatherData?.location?.name }}
-      </p>
-      <p class="temperature">{{ weatherData?.current?.temp_c }}°C</p>
-      <p class="feels-like">Feels like: {{ weatherData?.current?.feelslike_c }}°C</p>
-      <p class="condition-description">{{ weatherData?.current?.condition?.text }}</p>
+      <div class="weather-section-item">
+        <span class="material-symbols-rounded mr">
+          location_on
+          </span>      <h3 class="location">
+            {{ weatherData?.location?.name }}
+          </h3>
+          </div>
+      <h2 class="temperature">{{ weatherData?.current?.temp_c | number:'1.0-0' }}°</h2>
+      <h3 class="condition-description">{{ weatherData?.current?.condition?.text }}</h3>
+      <p class="feels-like">Feels like: {{ weatherData?.current?.feelslike_c | number:'1.0-0'  }}°</p>
     </div>
 
     <div class="right-section">
@@ -22,21 +26,46 @@
     </div>
   </div>
 
-  <div class="weather-details">
+  <!-- <div class="weather-details">
     <p class="bg-gray-200 px-3 py-1 rounded-md">Wind: {{ weatherData?.current?.wind_kph }} kph</p>
     <p class="bg-gray-200 px-3 py-1 rounded-md">Chance of Rain: {{ forecastWeatherData?.forecast?.forecastday[0]?.hour[0]?.chance_of_rain }}%</p>
     <p class="bg-gray-200 px-3 py-1 rounded-md">UV Index: {{ weatherData?.current?.uv }}</p>
-  </div>
+  </div> -->
 
-  <h3>Weather Forecast</h3>
+  <div class="mb-5 ">
+    <div class="flex flex-row gap-9">
+      <div class="weather-section-item">
+      <span class="material-symbols-rounded">
+        air
+        </span><span class="mr-2">{{ weatherData?.current.wind_kph | number:'1.0-0' }} km/h</span>
+      </div>
+      <div class="weather-section-item">
+      <span class="material-symbols-rounded mr">
+        beach_access
+        </span><span class="mr-2">{{ weatherData?.current.precip_mm }} mm</span>
+        </div>
+        <div class="weather-section-item">
+        <span class="material-symbols-rounded">
+          water_drop
+          </span><span class="mr-2">{{ weatherData?.current.humidity }} %</span>
+          </div>
+          <div class="weather-section-item">
+            <span class="text-sm font-bold">
+              UV
+              </span><span class="mr-2">{{ weatherData?.current.uv }} %</span>
+              </div>
+    </div>
+    </div>
+
+  <h4>Weather Forecast</h4>
 
   <div class="forecast">
     <div *ngFor="let hour of forecastData" class="forecast-row">
-      <p>Time: {{ hour.time }}</p>
+      <p>{{ hour.time | date:'HH:mm' }}</p>
       <img [src]="hour.condition.icon" alt="Condition icon" />
-      <p>Temperature: {{ hour.temp_c }}°C</p>
-      <p>Wind: {{ hour.wind_kph }} kph</p>
-      <p>Chance of Rain: {{ hour.chance_of_rain }}%</p>
+      <p>{{ hour.temp_c  | number:'1.0-0' }}°</p>
+      <p>{{ hour.wind_kph | number:'1.0-0'  }} km/h</p>
+      <p>{{ hour.chance_of_rain }}%</p>
     </div>
   </div>
 </div>

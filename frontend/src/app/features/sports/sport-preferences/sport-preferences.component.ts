@@ -3,6 +3,7 @@ import { LocationService } from '../../../service/location.service';
 import { WeatherService } from '../../weather/weather.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RcmdService } from '../../../service/rcmd.service';
 
 @Component({
   selector: 'app-sport-preferences',
@@ -15,7 +16,7 @@ export class SportPreferencesComponent {
   city: string = '';
   errorMessage: string | null = null;
 
-  constructor (private locationService: LocationService, private weatherService: WeatherService) {}
+  constructor (private locationService: LocationService, private weatherService: WeatherService, private rcmdService: RcmdService) {}
 
   onSubmit(): void {
     if (this.city.trim()) {
@@ -40,5 +41,20 @@ onUseCurrentLocation(): void {
       }
     );
   }
+
+  
+  onIntensityChange(event: any) {
+    this.rcmdService.updateFilters({ intensity: event.target.value });
+  }
+
+  onDurationChange(event: any) {
+    const duration = event.target.value ? parseInt(event.target.value) : null;
+    this.rcmdService.updateFilters({ duration: duration });
+  }
+
+  onLocationChange(event: any) {
+    this.rcmdService.updateFilters({ location: event.target.value });
+  }
+
   
 }

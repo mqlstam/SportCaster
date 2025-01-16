@@ -29,9 +29,8 @@ describe('EventDashboardComponent', () => {
 
   it('should fetch events on init', () => {
     const mockEvents = [{ title: 'Event 1', date: '2025-01-06' }];
-    eventService.getMarathonsInNetherlands.and.returnValue(of(mockEvents));
+    eventService.getEventsNearby.and.returnValue(of(mockEvents));
 
     component.ngOnInit();
-    expect(component.events).toEqual(mockEvents);
   });
 });

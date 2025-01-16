@@ -3,11 +3,37 @@ import { Injectable } from '@angular/core';
 import { SportService } from "./sport.service";
 import { BehaviorSubject } from "rxjs";
 import { LocationService } from "./location.service";
+
+interface SportFilters {
+  intensity?: string;
+  duration?: number | null;
+  location?: 'indoor' | 'outdoor' | 'both';
+}
+
+interface Sport {
+  name: string;
+  isOutdoor: boolean;
+  rainSuitable: boolean;
+  windSpeedLimit: number;
+  minTemp: number;
+  maxTemp: number;
+  duration: {
+    min: number;
+    max: number;
+  };
+  intensity: string;
+  isTeamSport: boolean;
+  equipment: Array<{
+    item: string;
+    required: boolean;
+  }>;
+}
+
 @Injectable({
   providedIn: 'root'
 })
-
 export class RcmdService {
+
   constructor(
     private weatherService: WeatherService,
     private sportService: SportService,
@@ -15,6 +41,14 @@ export class RcmdService {
 
   ) { }
 
+  private suggestedSports = new BehaviorSubject<Sport[]>([]);
+  suggestedSports$ = this.suggestedSports.asObservable();
+  private filters: SportFilters = {
+    intensity: '',
+    duration: null,
+    location: 'both'
+  };
+  
   lat: number = 0;
   lon: number = 0;
 
@@ -22,9 +56,15 @@ export class RcmdService {
   wind_kph: number = 0;
   precip_mm: number = 0;
 
+  constructor(
+    private weatherService: WeatherService,
+    private sportService: SportService,
+  ) { }
 
-  private suggestedSports = new BehaviorSubject<any[]>([]);
-  suggestedSports$ = this.suggestedSports.asObservable();
+  updateFilters(newFilters: Partial<SportFilters>) {
+    this.filters = { ...this.filters, ...newFilters };
+    this.listSuggestedSports();
+  }
 
   listSuggestedSports(): void {
 
@@ -81,6 +121,7 @@ export class RcmdService {
 }
 
 }
+
 
 
 
