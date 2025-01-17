@@ -1,18 +1,4 @@
-/* frontend/src/app/shared/components/weather-animation/weather-animation.component.css */
-.weather-animation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 29rem;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
-}
-
-
-
-/* Base Weather Backgrounds */
+/* Base Weather Backgrounds - Day */
 .weather-sunny {
   background: linear-gradient(to bottom, #87CEEB 0%, #f5f4f7 100%);
 }
@@ -33,6 +19,138 @@
   background: linear-gradient(to bottom, #2C3E50 0%, #f5f4f7 100%);
 }
 
+/* Base Weather Backgrounds - Night */
+.weather-sunny.night {
+  background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+}
+
+.weather-rainy.night {
+  background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+}
+
+.weather-snowy.night {
+  background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+}
+
+.weather-cloudy.night {
+  background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 50%, #0f172a 100%);
+}
+
+.weather-stormy.night {
+  background: linear-gradient(to bottom, #0f172a 0%, #16213e 50%, #0f172a 100%);
+}
+
+.test-controls {
+  position: fixed;
+  top: 100px;
+  right: 40px;
+  z-index: 9999;
+  pointer-events: all;
+}
+
+.menu-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.weather-select {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  padding: 10px;
+  border-radius: 25px;
+  margin-top: 60px; /* Space for the night mode button */
+}
+
+
+
+.weather-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.mode-toggle:hover, .weather-button:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.mode-toggle.night-mode, .weather-button.night-mode {
+  background: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.weather-button.active {
+  background: #007bff;
+  color: white;
+}
+
+.weather-button.active.night-mode {
+  background: #2c5282;
+}
+.weather-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 29rem;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Update the mode-toggle class positioning */
+.mode-toggle {
+  position: fixed;
+  top: 100px;  /* Changed from 20px to avoid header overlap */
+  right: 40px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  pointer-events: all;
+  z-index: 1001; /* Increased to be above other elements */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.mode-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.mode-toggle.night-mode {
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mode-toggle.night-mode:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+
 /* Sun Animation */
 .sun {
   position: absolute;
@@ -44,6 +162,45 @@
   border-radius: 50%;
   box-shadow: 0 0 50px #FDB813;
   animation: glow 2s infinite alternate;
+}
+
+/* Moon Animation for Night Mode */
+.moon {
+  position: absolute;
+  top: 50px;
+  right: 100px;
+  width: 80px;
+  height: 80px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+  animation: moonGlow 2s infinite alternate;
+}
+
+.moon:before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 15px;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+
+/* Stars Animation for Night Mode */
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 1s infinite alternate;
 }
 
 /* Rain Animation */
@@ -109,13 +266,13 @@
 
 /* Lightning Animation */
 .lightning {
-  position: fixed; /* Change from absolute to fixed */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.7); /* Change from solid white to semi-transparent */
-  clip-path: none; /* Remove the bolt shape */
+  background: rgba(255, 255, 255, 0.7);
+  clip-path: none;
   opacity: 0;
   animation: lightning 5s infinite;
 }
@@ -147,24 +304,34 @@
   100% { box-shadow: 0 0 100px #FDB813; }
 }
 
+@keyframes moonGlow {
+  0% { box-shadow: 0 0 50px rgba(255, 255, 255, 0.3); }
+  100% { box-shadow: 0 0 100px rgba(255, 255, 255, 0.4); }
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
 @keyframes lightning {
   0%, 95%, 100% { 
     opacity: 0; 
   }
   96%, 96.5% { 
-    opacity: 0.8; /* First flash */
+    opacity: 0.8;
   }
   97%, 97.5% { 
-    opacity: 0.4; /* Dimmer between flashes */
+    opacity: 0.4;
   }
   98%, 98.5% { 
-    opacity: 0.8; /* Second flash */
+    opacity: 0.8;
   }
 }
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
-  .sun {
+  .sun, .moon {
     width: 60px;
     height: 60px;
     top: 30px;
