@@ -16,7 +16,7 @@ export class HeaderComponent {
   }
 
   openPopup() {
-    this.popupService.toggleLoginPopup(); 
+    this.popupService.toggleRegisterPopup(); 
   }
 
   openRegisterPopup() {

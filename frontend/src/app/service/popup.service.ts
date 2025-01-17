@@ -23,4 +23,8 @@ export class PopupService {
   toggleRegisterPopup() {
     this.popupStatusSubject.next(!this.popupStatusSubject.value);
   }
+
+  closeRegisterPopup() {
+    this.popupStatusSubject.next(false);
+  }
 }

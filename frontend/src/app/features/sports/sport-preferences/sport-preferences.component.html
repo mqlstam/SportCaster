@@ -38,7 +38,7 @@
   <!-- Intensity Filter -->
   <div>
     <label class="block text-sm font-medium mb-2 preference-label">Intensity Level</label>
-    <select class="w-full p-3 border-none" (change)="onIntensityChange($event)">
+    <select class="w-full p-3 border-none" (change)="onIntensityChange($event)" [ngModel]="intensity">
       <option value="">All Intensities</option>
       <option value="low">Low</option>
       <option value="medium">Medium</option>
@@ -49,8 +49,8 @@
   <!-- Duration Filter -->
   <div>
     <label class="block text-sm font-medium mb-2 preference-label">Duration</label>
-    <select class="w-full p-3 border-none" (change)="onDurationChange($event)">
-      <option value="">All Durations</option>
+    <select class="w-full p-3 border-none" (change)="onDurationChange($event)" [ngModel]="duration">
+      <option value="0">All Durations</option>
       <option value="30">30 minutes</option>
       <option value="60">60 minutes</option>
       <option value="90">90 minutes</option>

@@ -1,7 +1,7 @@
 import { WeatherService } from "../features/weather/weather.service";
 import { Injectable } from '@angular/core';
 import { SportService } from "./sport.service";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, of, switchMap } from "rxjs";
 import { LocationService } from "./location.service";
 
 interface SportFilters {
@@ -91,58 +91,74 @@ export class RcmdService {
   }
 
   listSuggestedSports(): void {
-
-    this.locationService.location$.subscribe(location2 => {
-      if (location2) {
-        console.log('CURRENT LAT ION AA');
-        console.log(location2.lat, location2.lon);
-        this.lat = location2.lat;
-        this.lon = location2.lon;
-        const location = `${this.lat},${this.lon}`;
-
-        this.weatherService.getWeather(location).subscribe(
-          (data: any) => {
-            console.log(data);
-            this.temp = data.current.temp_c;
-            this.wind_kph = data.current.wind_kph;
-            this.precip_mm = data.current.precip_mm;
-            console.log(`Precip in mm: ${this.precip_mm}`)
-
-            //get sports
-            this.sportService.getSports().subscribe((response: any) => {
-              console.log(response);
-
-              const sports = response.sports;
-
-              if (Array.isArray(sports)) {
-                const filteredSports = sports.filter((sport: any) => {
-                  if (!sport.isOutdoor) {
-                    return sport;
-                  } else {
-                    return sport.minTemp <= this.temp &&
-                      sport.maxTemp >= this.temp &&
-                      sport.windSpeedLimit >= this.wind_kph &&
-                      (this.precip_mm > 0 ? sport.rainSuitable === true : true)
-                  }
-                });
-
-                console.log('Filtered Sports:', filteredSports);
-                this.suggestedSports.next(filteredSports);
-              } else {
-                console.error('Sports data is not an array:', response);
-              }
-
-            });
-          },
-          (error: any) => {
-            console.error('Error fetching weather data:', error);
-          }
-        );
-
+    // Combine location updates and weather data using switchMap for streamlined handling
+    this.locationService.location$.pipe(
+      switchMap(location => {
+        if (!location) {
+          console.error('Location not available');
+          return of(null);
+        }
+        this.lat = location.lat;
+        this.lon = location.lon;
+  
+        // Fetch weather for the current location
+        const locationString = `${this.lat},${this.lon}`;
+        return this.weatherService.getWeather(locationString);
+      }),
+      switchMap(weatherData => {
+        if (!weatherData) {
+          console.error('Weather data not available');
+          return of([]);
+        }
+  
+        // Update weather-related conditions
+        this.temp = weatherData.current.temp_c;
+        this.wind_kph = weatherData.current.wind_kph;
+        this.precip_mm = weatherData.current.precip_mm;
+  
+        // Fetch sports and apply weather-based filtering
+        return this.sportService.getSports();
+      })
+    ).subscribe(
+      (response: any) => {
+        const sports = response.sports;
+  
+        if (!Array.isArray(sports)) {
+          console.error('Sports data is not an array:', response);
+          this.suggestedSports.next([]);
+          return;
+        }
+  
+        // Apply weather and user-defined filters
+        const filteredSports = sports.filter((sport: Sport) => {
+          const matchesLocation = this.filters.location === 'both' ||
+            (this.filters.location === 'indoor' && !sport.isOutdoor) ||
+            (this.filters.location === 'outdoor' && sport.isOutdoor);
+  
+          const matchesIntensity = !this.filters.intensity || sport.intensity === this.filters.intensity;
+  
+          const matchesDuration = !this.filters.duration ||
+            (sport.duration.min <= this.filters.duration && sport.duration.max >= this.filters.duration);
+  
+          const matchesWeather = !sport.isOutdoor ||
+            (sport.minTemp <= this.temp &&
+              sport.maxTemp >= this.temp &&
+              sport.windSpeedLimit >= this.wind_kph &&
+              (this.precip_mm > 0 ? sport.rainSuitable : true));
+  
+          return matchesLocation && matchesIntensity && matchesDuration && matchesWeather;
+        });
+  
+        console.log('Filtered Sports:', filteredSports);
+        this.suggestedSports.next(filteredSports);
+      },
+      error => {
+        console.error('Error in fetching data:', error);
+        this.suggestedSports.next([]);
       }
-    }
-  )
-}
+    );
+  }
+  
 
 }
 

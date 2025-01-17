@@ -69,7 +69,7 @@ export class RegistrationPopupComponent implements OnInit {
 
   cancelEdit() {
     this.editMode = false;
-    this.popupService.closePopup();
+    this.popupService.closeLoginPopup();
   }
 
   saveChanges() {
@@ -96,8 +96,11 @@ export class RegistrationPopupComponent implements OnInit {
         this.loggedInUser = updatedUser;
         
         // Set edit mode to false, as the changes are saved
-        this.editMode = false;
-        this.popupService.closePopup();
+        this.editMode = false;    
+        this.popupService.closeRegisterPopup();
+
+        alert('User updated successfully');
+      
       },
       error: (error) => {
         console.error('Error updating user:', error);

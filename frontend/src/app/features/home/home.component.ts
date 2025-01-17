@@ -120,10 +120,7 @@ export class HomeComponent implements OnInit {
       this.isLoginPopupVisible = isVisible; 
     }); // <-- Correct sluiten
   
-    console.log('LOGIN SERVICE!!');
-    this.loginService.getUserByEmail("john.doe@example.com").subscribe((data:any) => {
-      console.log(data);
-    });
+
   }
 
   setWeatherType(type: string) {
