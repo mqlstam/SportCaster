@@ -91,6 +91,7 @@
                     <td class="label">Duration (minutes):</td>
                     <td class="value">
                         <select [(ngModel)]="loggedInUser.preferences.preferredDuration" name="preferredDuration">
+                            <option [value]="0">No preference</option>
                             <option [value]="30">30</option>
                             <option [value]="60">60</option>
                             <option [value]="90">90</option>
