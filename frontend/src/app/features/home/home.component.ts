@@ -11,6 +11,8 @@ import { EventsComponent } from '../events/event-dashboard.component';
 import { RcmdService } from '../../service/rcmd.service';
 import { SportPreferencesComponent } from '../sports/sport-preferences/sport-preferences.component';
 import { SportRecommendationsComponent } from '../sports/sport-recommendations/sport-recommendations.component';
+import { LoginComponent } from '../login/login.component';
+import { PopupService } from '../../service/popup.service';
 import { LoginService } from '../../service/login.service';
 
 interface AppState {
@@ -30,6 +32,7 @@ interface AppState {
     SportPreferencesComponent,
     SportRecommendationsComponent,
     EventsComponent,
+    LoginComponent
   ],
   template: `
   <div class="root min-h-screen min-w-screen">
@@ -80,6 +83,11 @@ interface AppState {
 
         <div class="mt-8"></div>
       </div>
+      
+      <app-login
+        *ngIf="isLoginPopupVisible"
+        (closeLogin)="closeLoginPopup()"
+      ></app-login>
     </div>
     </div>
   `,
@@ -91,20 +99,27 @@ export class HomeComponent implements OnInit {
     (state) => state.weather.selectedWeatherType
   );
   mockEnabled$ = this.store.select((state) => state.weather.mockWeatherEnabled);
+  isLoginPopupVisible = false;
+
 
   constructor(
     private store: Store<AppState>,
     private rcmdService: RcmdService,
+    private popupService: PopupService,
     private loginService: LoginService
   ) {}
 
   ngOnInit() {
     this.store.dispatch(WeatherActions.loadWeather());
-
+  
     console.log('RCMD SERVICE!!');
     this.rcmdService.listSuggestedSports();
-
-
+    this.store.dispatch(WeatherActions.loadWeather());
+  
+    this.popupService.loginPopup$.subscribe((isVisible) => {
+      this.isLoginPopupVisible = isVisible; 
+    }); // <-- Correct sluiten
+  
     console.log('LOGIN SERVICE!!');
     this.loginService.getUserByEmail("john.doe@example.com").subscribe((data:any) => {
       console.log(data);
@@ -117,5 +132,13 @@ export class HomeComponent implements OnInit {
 
   toggleMock() {
     this.store.dispatch(WeatherActions.toggleMockWeather());
+  }
+
+  toggleLoginPopup() {
+    this.popupService.toggleLoginPopup(); 
+  }
+
+  closeLoginPopup() {
+    this.popupService.closeLoginPopup();
   }
 }

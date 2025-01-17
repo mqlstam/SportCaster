@@ -24,6 +24,7 @@ export class WeatherDashboardComponent implements OnInit {
   errorMessage: string | null = null;
   manualLat: number = 0;
   manualLon: number = 0;
+  suggestions: string[] = [];
 
   constructor(
     private weatherService: WeatherService,
@@ -154,19 +155,19 @@ export class WeatherDashboardComponent implements OnInit {
   //   }
   // }
 
-  // getCoordinatesFromCity(city: string): void {
-  //   this.weatherService.getLocation(city).subscribe(
-  //     (coords) => {
-  //       console.log(`Coordinates for ${city}: Latitude ${coords.lat}, Longitude ${coords.lon}`);
-  //       this.fetchWeather(coords.lat, coords.lon);
-  //       this.errorMessage = null;
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching coordinates:', error);
-  //       this.errorMessage = 'Could not retrieve coordinates for the entered city. Please try again.';
-  //     }
-  //   );
-  // }
+  getCoordinatesFromCity(city: string): void {
+    this.weatherService.getLocation(city).subscribe(
+      (coords) => {
+        console.log(`Coordinates for ${city}: Latitude ${coords.lat}, Longitude ${coords.lon}`);
+        this.fetchWeather(coords.lat, coords.lon);
+        this.errorMessage = null;
+      },
+      (error) => {
+        console.error('Error fetching coordinates:', error);
+        this.errorMessage = 'Could not retrieve coordinates for the entered city. Please try again.';
+      }
+    );
+  }
 
   // setLocation(lat: number, lon: number): void {
   //   console.log('Setting location to:', lat, lon);
@@ -211,6 +212,27 @@ export class WeatherDashboardComponent implements OnInit {
     );
   }
 
+  onCityInputChange(): void {
+    if (this.city.trim().length > 2) { // Start met zoeken vanaf 3 karakters
+      this.weatherService.getCitySuggestions(this.city).subscribe(
+        (data: string[]) => {
+          this.suggestions = data;
+        },
+        (error) => {
+          console.error('Error fetching city suggestions:', error);
+        }
+      );
+    } else {
+      this.suggestions = []; // Wis suggesties als de invoer te kort is
+    }
+  }
+
+  selectSuggestion(suggestion: string): void {
+    this.city = suggestion;
+    this.suggestions = []; // Wis de suggesties na selectie
+    console.log('Geselecteerde stad:', suggestion);
+  }
+
   // onSubmit(): void {
   //   console.log('Manual input:', this.manualLat, this.manualLon);
   //   if (
@@ -227,5 +249,14 @@ export class WeatherDashboardComponent implements OnInit {
   // }
 
 
+  onSubmit(): void {
+    if (this.city.trim()) {
+      console.log('Submitting form for city:', this.city);
+      this.getCoordinatesFromCity(this.city);
+      this.errorMessage = null;
+    } else {
+      this.errorMessage = 'Please enter a city name.';
+    }
+  }
   
 }

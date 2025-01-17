@@ -1,18 +1,26 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PopupService {
-  private popupStatus = new BehaviorSubject<boolean>(false);
-  popupStatus$ = this.popupStatus.asObservable();
+  private loginPopupSubject = new Subject<boolean>();
+  loginPopup$ = this.loginPopupSubject.asObservable();
+  private popupStatusSubject = new BehaviorSubject<boolean>(false);
+  popupStatus$ = this.popupStatusSubject.asObservable();
 
-  openPopup() {
-    this.popupStatus.next(true);
+  toggleLoginPopup() {
+    this.loginPopupSubject.next(true);
   }
 
-  closePopup() {
-    this.popupStatus.next(false);
+  closeLoginPopup() {
+    this.loginPopupSubject.next(false);
+  }
+
+  toggleRegisterPopup() {
+    this.popupStatusSubject.next(!this.popupStatusSubject.value);
   }
 }
