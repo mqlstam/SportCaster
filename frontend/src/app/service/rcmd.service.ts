@@ -43,6 +43,10 @@ export class RcmdService {
 
   private suggestedSports = new BehaviorSubject<Sport[]>([]);
   suggestedSports$ = this.suggestedSports.asObservable();
+
+  private availableEquipment = new BehaviorSubject<string[]>([]);
+  availableEquipment$ = this.availableEquipment.asObservable();
+  
   private filters: SportFilters = {
     intensity: '',
     duration: null,
@@ -56,6 +60,30 @@ export class RcmdService {
   wind_kph: number = 0;
   precip_mm: number = 0;
 
+  fetchEquipment() {
+    this.sportService.getSports().subscribe((response: any) => {
+      console.log(response);
+
+      const sports = response.sports;
+      let equipmentList: string[] = [];
+
+      if (Array.isArray(sports)) {
+        // Loop door elk sport en haal de equipment items op
+        sports.forEach((sport: any) => {
+          sport.equipment.forEach((item: { item: string }) => {
+            if (!equipmentList.includes(item.item)) {
+              equipmentList.push(item.item);
+            }
+          });
+        });
+
+        console.log('Available Equipment:', equipmentList);
+        this.availableEquipment.next(equipmentList); // Update de lijst van equipment
+      } else {
+        console.error('Sports data is not an array:', response);
+      }
+    });
+  }
 
   updateFilters(newFilters: Partial<SportFilters>) {
     this.filters = { ...this.filters, ...newFilters };

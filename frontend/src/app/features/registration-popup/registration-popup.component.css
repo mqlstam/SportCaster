@@ -1,103 +1,256 @@
-/* registration-popup.component.css */
-
-/* Pop-up achtergrond (overlay) */
 .popup {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5); /* semi-transparante zwarte achtergrond */
-    z-index: 50;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; /* Popup is breder */
+  max-width: 90%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+  height: auto; /* Popup is minder hoog */
+  min-height: 400px; /* Minimalizeer de hoogte om te voorkomen dat het te smal wordt */
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Zorg ervoor dat de inhoud de breedte benut */
+  text-align: left;
+}
+
+/* ================== */
+/* Sluitknop */
+/* ================== */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: red;
+}
+
+/* ================== */
+/* Koptekst */
+/* ================== */
+h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* ================== */
+/* Formulier stijlen */
+/* ================== */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Zorgt ervoor dat de formulierelementen naar de start (links) van de container uitgelijnd worden */
+}
+
+/* Formulier velden */
+input, select {
+  width: auto; /* Formuliervelden zijn nu breder */
+  padding: 4px 6px; /* Verminder de padding voor compactere hoogte */
+  font-size: 14px; /* Verkleinde tekstgrootte */
+  line-height: 1.2; /* Compactere tekstlijn */
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+  margin-left: auto; /* Dit zorgt ervoor dat het veld naar rechts uitgelijnd wordt */
+  margin-right: 0;   /* Zorg ervoor dat de rechter marge 0 is */
+  display: block; /* Zorg ervoor dat de inputvelden als blokken worden weergegeven */
+  height: auto; /* Hoogte wordt automatisch ingesteld */
+}
+
+input:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* ================== */
+/* Knoppen */
+/* ================== */
+button {
+  background: #007bff;
+  color: white;
+  padding: 10px 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+button[type="button"] {
+  color: #ffffff;
+}
+
+button[type="button"]:hover {
+  background: #0e79f3;
+}
+
+/* "Cancel" knop stijlen */
+button.cancel {
+  background: #fff;
+  color: #333;
+  border: 1px solid #333;
+}
+
+button.cancel:hover {
+  background: #f8f9fa;
+}
+
+/* ================== */
+/* Registratie/Inlog Link */
+/* ================== */
+.register {
+  display: block;
+  color: #007bff;
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.register:hover {
+  color: #0056b3;
+}
+
+/* ================== */
+/* Tabel Stijlen */
+/* ================== */
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+td {
+  padding: 6px 10px; /* Verlaag de padding voor compactere cellen */
+  font-size: 14px; /* Pas de fontgrootte aan voor kleinere tekst */
+}
+
+td.label {
+  text-align: left;
+  font-weight: bold;
+  width: 100%; /* Maak de label smaller */
+  vertical-align: top; /* Zorg dat de tekst bovenaan uitlijnt */
+  color: #333;
+  display: block; /* Zorg ervoor dat het label zijn eigen regel heeft */
+}
+
+td.value {
+  text-align: left;
+  width: 100%; /* Geef de rest van de ruimte aan de waarde */
+  display: block; /* Zorg ervoor dat de waarde zijn eigen regel heeft */
+}
+
+/* Dunne grijze streep onder elke rij */
+.divider {
+  border: 0;
+  height: 1px;
+  background: #ccc;
+  width: 100%;
+  margin: auto;
+}
+
+.equipment-container {
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  min-height: 10px; /* Kleinere hoogte */
+}
+.equipment-tag {
+  background-color: #d6d6d6; /* Donkerder grijs */
+  color: black;
+  font-size: 10px; /* Kleinere tekst */
+  padding: 1px 4px; /* Compactere padding */
+  border-radius: 3px; /* Ronde hoeken kleiner */
+  margin-right: 3px; /* Minder ruimte tussen tags */
+}
+
+.equipment-tag .remove-btn {
+  background: none;
+  border: none;
+  color: black;
+  font-size: 12px;
+  margin-left: 2px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.remove-btn{
+  height: 0px;
+}
+
+
+
+/* ================== */
+/* Animaties */
+/* ================== */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translate(-50%, -55%);
+  }
+  to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+  }
+}
+
+/* ================== */
+/* Responsief Design */
+/* ================== */
+@media (max-width: 500px) {
+  .popup {
+      width: 90%;
   }
   
-  /* Pop-up inhoud */
-  .popup-content {
-    background-color: white;
-    padding: 24px;
-    width: 96%;
-    max-width: 480px; /* Maximale breedte voor pop-up */
-    border-radius: 8px; /* Afgeronde hoeken */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Schaduw voor diepte */
-    position: relative;
+  input {
+      font-size: 14px;
   }
-  
-  /* Sluitknop */
-  .close-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    font-size: 24px;
-    color: #4B5563; /* Grijze kleur */
-    cursor: pointer;
-    transition: color 0.3s ease;
+
+  select {
+      font-size: 12px; /* Kleinere tekst voor kleinere schermen */
+      padding: 3px 5px; /* Nog compactere padding */
   }
-  
-  .close-btn:hover {
-    color: #374151; /* Donkerder grijs bij hover */
+
+  button {
+      font-size: 14px;
   }
-  
-  /* Titel */
-  h2 {
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-    color: #1F2937; /* Donkergrijs voor de titel */
-    margin-bottom: 24px;
+
+  .profile-table {
+      width: 100%;
   }
-  
-  /* Formulierstijl */
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+
+  td.label, td.value {
+      text-align: left;
+      display: block;
+      width: 100%;
   }
-  
-  /* Invoervelden */
-  input[type="text"],
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
-    padding: 8px 16px;
-    border: 1px solid #D1D5DB;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  .button-group {
+      text-align: center;
   }
-  
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  input[type="password"]:focus {
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); /* Focus effect */
-  }
-  
-  /* Submit-knop */
-  button[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    background-color: #3B82F6; /* Blauw */
-    color: white;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #2563EB; /* Donkerder blauw bij hover */
-  }
-  
-  /* Algemene lay-out voor de popup-formulieren */
-  label {
-    font-size: 14px;
-    font-weight: 500;
-    color: #4B5563; /* Donkergrijs voor labels */
-  }
-  
-  div {
-    margin-bottom: 16px;
-  }
-  
+}

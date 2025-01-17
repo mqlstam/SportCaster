@@ -1,11 +1,12 @@
 <div class="popup" *ngIf="popupService.popupStatus$ | async">
     <div class="popup-content">
         <span class="close-btn" (click)="closePopup()">&times;</span>
-        <h2>Register</h2>
-        <form (ngSubmit)="onSubmit()">
-            <div>
+        <h2>Account</h2>
+        <!-- Registratie/Login Form -->
+        <form (ngSubmit)="onSubmit()" *ngIf="!alreadyLoggedIn && !editMode">
+            <div *ngIf="!isLogin">
                 <label for="name">Name:</label>
-                <input type="text" id="name" [(ngModel)]="user.name" name="name" required />
+                <input type="text" id="name" [(ngModel)]="user.userName" name="name" required />
             </div>
 
             <div>
@@ -18,7 +19,94 @@
                 <input type="password" id="password" [(ngModel)]="user.password" name="password" required />
             </div>
 
-            <button type="submit">Submit</button>
+            <div>
+                <a class="register" (click)="isRegister()" *ngIf="isLogin">No account? Register now</a>
+                <a class="register" (click)="isLogin2()" *ngIf="!isLogin">Return to login</a>
+            </div>
+
+            <button type="submit" *ngIf="!isLogin">Register</button>
+            <button type="submit" *ngIf="isLogin">Log in</button>
+        </form>
+
+        <!-- Bewerken van profielgegevens -->
+        <form *ngIf="alreadyLoggedIn">
+            <table class="profile-table">
+                <tr>
+                    <td class="label">Username:</td>
+                    <td class="value">
+                        <input type="text" id="username" [(ngModel)]="loggedInUser.userName" name="userName" required />
+                    </td>
+                </tr>
+                <tr><td colspan="2"><hr class="divider"></td></tr>
+
+                <tr>
+                    <td class="label">Email:</td>
+                    <td class="value">
+                        <input type="email" id="email" [(ngModel)]="loggedInUser.email" name="email" required />
+                    </td>
+                </tr>
+                <tr><td colspan="2"><hr class="divider"></td></tr>
+
+                <tr>
+                    <td class="label">City:</td>
+                    <td class="value">
+                        <input type="text" id="city" [(ngModel)]="loggedInUser.location.city" name="city" required />
+                    </td>
+                </tr>
+                <tr><td colspan="2"><hr class="divider"></td></tr>
+ 
+                <tr>
+                    <td class="label">Intensity Level:</td>
+                    <td class="value">
+                        <select [(ngModel)]="loggedInUser.preferences.preferredIntensity" name="preferredIntensity">
+                            <option [value]="'no preference'">No Preference</option>
+                            <option [value]="'low'">Low</option>
+                            <option [value]="'medium'">Medium</option>
+                            <option [value]="'high'">High</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td colspan="2"><hr class="divider"></td></tr>
+
+                <tr>
+                    <td class="label">Equipment:</td>
+                    <td class="value">
+                      <!-- Geselecteerde equipment als blokjes -->
+                      <div class="equipment-container">
+                        <span *ngFor="let item of loggedInUser.equipment" class="equipment-tag">
+                          {{ item.item }}
+                          <button class="remove-btn" (click)="removeEquipment(item.item)">&times;</button>
+                        </span>
+                      </div>
+                  
+                      <!-- Selectielijst voor nieuwe equipment -->
+                      <select [(ngModel)]="selectedEquipment" name="equipment" (change)="addEquipment()">
+                        <option *ngFor="let item of availableEquipment" [value]="item">{{ item }}</option>
+                      </select>
+                    </td>
+                </tr>
+                <tr><td colspan="2"><hr class="divider"></td></tr>
+
+                <tr>
+                    <td class="label">Duration (minutes):</td>
+                    <td class="value">
+                        <select [(ngModel)]="loggedInUser.preferences.preferredDuration" name="preferredDuration">
+                            <option [value]="0">No preference</option>
+                            <option [value]="30">30</option>
+                            <option [value]="60">60</option>
+                            <option [value]="90">90</option>
+                            <option [value]="120">120</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td colspan="2"><hr class="divider"></td></tr>
+            </table>
+
+            <div class="button-group">
+                <button type="button" (click)="cancelEdit()" class="cancel">Cancel</button>
+                <button type="button" (click)="saveChanges()">Save Changes</button>
+                <button type="button" (click)="logOut()">Log Out</button>
+            </div>
         </form>
     </div>
 </div>
