@@ -6,16 +6,33 @@
       <label class="block text-sm font-medium mb-2 preference-label" for="city">
         City
       </label>
+           
       <div class="flex items-stretch">
         <input
           id="city"
           type=""
           [(ngModel)]="city"
           name="city"
+          (input)="onCityInputChange()"
           required
           class="border p-3 flex-grow rounded-l-2xl rounded-r-none"
           placeholder="Enter city name"
+          autocomplete="off"
         />
+
+        <ul
+        *ngIf="suggestions.length > 0"
+        class="suggestions-list absolute left-0 right-0 top-full bg-white border border-gray-300 rounded shadow-lg mt-1 z-10"
+      >
+        <li
+          *ngFor="let suggestion of suggestions"
+          (click)="selectSuggestion(suggestion)"
+          class="suggestion-item px-4 py-2 hover:bg-gray-100 cursor-pointer"
+        >
+          {{ suggestion }}
+        </li>
+      </ul>
+        
         <button
           type="submit"
           [disabled]="locationForm.invalid"
