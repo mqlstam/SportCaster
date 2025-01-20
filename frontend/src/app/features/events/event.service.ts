@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EventService {
   private apiUrl = 'https://api.predicthq.com/v1/events/';
-  private apiKey = 'OvYCtB6ocYh28eTxj1V8e59i42Sr5qR9uLBh_91j'; 
+  private apiKey = 'PSXCn69Z-DUZ6zEzK74I5txi5Tjza2LGGpxQFZl6'; 
 
   constructor(private http: HttpClient) {}
 
