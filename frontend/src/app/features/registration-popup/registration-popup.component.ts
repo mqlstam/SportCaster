@@ -60,7 +60,7 @@ export class RegistrationPopupComponent implements OnInit {
   }
 
   closePopup() {
-    this.popupService.toggleRegisterPopup();
+    this.popupService.closeRegisterPopup();
   }
 
   enableEdit() {

@@ -1,34 +1,47 @@
 <div class="popup" *ngIf="popupService.popupStatus$ | async">
     <div class="popup-content">
         <span class="close-btn" (click)="closePopup()">&times;</span>
-        <h2>Account</h2>
-        <!-- Registratie/Login Form -->
-        <form (ngSubmit)="onSubmit()" *ngIf="!alreadyLoggedIn && !editMode">
-            <div *ngIf="!isLogin">
-                <label for="name">Name:</label>
-                <input type="text" id="name" [(ngModel)]="user.userName" name="name" required />
+
+        <!-- Dynamic Title -->
+        <h2 *ngIf="!alreadyLoggedIn && !isLogin">Register</h2>
+        <h2 *ngIf="!alreadyLoggedIn && isLogin">Login</h2>
+        <h2 *ngIf="alreadyLoggedIn">Profile</h2>
+
+        <!-- User Icon and Form -->
+        <div class="form-container" *ngIf="!alreadyLoggedIn">
+            <!-- User Icon -->
+            <div class="icon-container">
+                <img src="assets/weather-icons/user-icon.png" alt="User Icon" class="user-icon">
             </div>
 
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" [(ngModel)]="user.email" name="email" required />
-            </div>
+            <!-- Registration/Login Form -->
+            <form (ngSubmit)="onSubmit()" *ngIf="!alreadyLoggedIn && !editMode">
+                <div *ngIf="!isLogin">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" [(ngModel)]="user.userName" name="name" required />
+                </div>
 
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" id="password" [(ngModel)]="user.password" name="password" required />
-            </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" [(ngModel)]="user.email" name="email" required />
+                </div>
 
-            <div>
-                <a class="register" (click)="isRegister()" *ngIf="isLogin">No account? Register now</a>
-                <a class="register" (click)="isLogin2()" *ngIf="!isLogin">Return to login</a>
-            </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" [(ngModel)]="user.password" name="password" required />
+                </div>
 
-            <button type="submit" *ngIf="!isLogin">Register</button>
-            <button type="submit" *ngIf="isLogin">Log in</button>
-        </form>
+                <div>
+                    <a class="register" (click)="isRegister()" *ngIf="isLogin">Don't have an account?<br>register now</a>
+                    <a class="register" (click)="isLogin2()" *ngIf="!isLogin">Back to login</a>
+                </div>
 
-        <!-- Bewerken van profielgegevens -->
+                <button type="submit" *ngIf="!isLogin">Register</button>
+                <button type="submit" *ngIf="isLogin">Login</button>
+            </form>
+        </div>
+
+        <!-- Edit Profile -->
         <form *ngIf="alreadyLoggedIn">
             <table class="profile-table">
                 <tr>
@@ -54,12 +67,12 @@
                     </td>
                 </tr>
                 <tr><td colspan="2"><hr class="divider"></td></tr>
- 
+
                 <tr>
                     <td class="label">Intensity Level:</td>
                     <td class="value">
                         <select [(ngModel)]="loggedInUser.preferences.preferredIntensity" name="preferredIntensity">
-                            <option [value]="">No Preference</option>
+                            <option [value]="">No preference</option>
                             <option [value]="'low'">Low</option>
                             <option [value]="'medium'">Medium</option>
                             <option [value]="'high'">High</option>
@@ -71,18 +84,16 @@
                 <tr>
                     <td class="label">Equipment:</td>
                     <td class="value">
-                      <!-- Geselecteerde equipment als blokjes -->
-                      <div class="equipment-container">
-                        <span *ngFor="let item of loggedInUser.equipment" class="equipment-tag">
-                          {{ item.item }}
-                          <button class="remove-btn" (click)="removeEquipment(item.item)">&times;</button>
-                        </span>
-                      </div>
-                  
-                      <!-- Selectielijst voor nieuwe equipment -->
-                      <select [(ngModel)]="selectedEquipment" name="equipment" (change)="addEquipment()">
-                        <option *ngFor="let item of availableEquipment" [value]="item">{{ item }}</option>
-                      </select>
+                        <div class="equipment-container">
+                            <span *ngFor="let item of loggedInUser.equipment" class="equipment-tag">
+                                {{ item.item }}
+                                <button class="remove-btn" (click)="removeEquipment(item.item)">&times;</button>
+                            </span>
+                        </div>
+
+                        <select [(ngModel)]="selectedEquipment" name="equipment" (change)="addEquipment()">
+                            <option *ngFor="let item of availableEquipment" [value]="item">{{ item }}</option>
+                        </select>
                     </td>
                 </tr>
                 <tr><td colspan="2"><hr class="divider"></td></tr>
@@ -99,13 +110,12 @@
                         </select>
                     </td>
                 </tr>
-                <tr><td colspan="2"><hr class="divider"></td></tr>
             </table>
 
             <div class="button-group">
-                <button type="button" (click)="cancelEdit()" class="cancel">Cancel</button>
-                <button type="button" (click)="saveChanges()">Save Changes</button>
-                <button type="button" (click)="logOut()">Log Out</button>
+                <button type="button" (click)="closePopup()" class="cancel">Cancel</button>
+                <button type="button" (click)="saveChanges()">Save</button>
+                <button type="button" (click)="logOut()">Log out</button>
             </div>
         </form>
     </div>
