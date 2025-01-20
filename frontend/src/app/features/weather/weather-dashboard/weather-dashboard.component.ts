@@ -241,5 +241,61 @@ export class WeatherDashboardComponent implements OnInit {
       this.errorMessage = 'Please enter a city name.';
     }
   }
+  private weatherIconMapping = [
+    { code: 1000, customIcon: "assets/weather-icons/icons8-sun-100.png" }, // Sunny / Clear
+    { code: 1003, customIcon: "assets/weather-icons/icons8-partly-cloudy-day-100.png" }, // Partly cloudy
+    { code: 1006, customIcon: "assets/weather-icons/icons8-clouds-100.png" }, // Cloudy
+    { code: 1009, customIcon: "assets/weather-icons/icons8-clouds-100.png" }, // Overcast (no specific overcast icon, using cloudy)
+    { code: 1030, customIcon: "assets/weather-icons/icons8-foggy-100.png" }, // Mist
+    { code: 1063, customIcon: "assets/weather-icons/icons8-rain-cloud-100.png" }, // Patchy rain possible
+    { code: 1066, customIcon: "assets/weather-icons/icons8-light-snow-100.png" }, // Patchy snow possible
+    { code: 1069, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Patchy sleet possible
+    { code: 1072, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Patchy freezing drizzle possible
+    { code: 1087, customIcon: "assets/weather-icons/icons8-storm-100.png" }, // Thundery outbreaks possible
+    { code: 1114, customIcon: "assets/weather-icons/icons8-snow-storm-100.png" }, // Blowing snow
+    { code: 1117, customIcon: "assets/weather-icons/icons8-snow-storm-100.png" }, // Blizzard
+    { code: 1135, customIcon: "assets/weather-icons/icons8-foggy-100.png" }, // Fog
+    { code: 1147, customIcon: "assets/weather-icons/icons8-foggy-100.png" }, // Freezing fog
+    { code: 1150, customIcon: "assets/weather-icons/icons8-light-rain-100.png" }, // Patchy light drizzle
+    { code: 1153, customIcon: "assets/weather-icons/icons8-light-rain-100.png" }, // Light drizzle
+    { code: 1168, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Freezing drizzle
+    { code: 1171, customIcon: "assets/weather-icons/icons8-heavy-rain-100.png" }, // Heavy freezing drizzle
+    { code: 1180, customIcon: "assets/weather-icons/icons8-light-rain-100.png" }, // Patchy light rain
+    { code: 1183, customIcon: "assets/weather-icons/icons8-light-rain-100.png" }, // Light rain
+    { code: 1186, customIcon: "assets/weather-icons/icons8-moderate-rain-100.png" }, // Moderate rain at times
+    { code: 1189, customIcon: "assets/weather-icons/icons8-moderate-rain-100.png" }, // Moderate rain
+    { code: 1192, customIcon: "assets/weather-icons/icons8-heavy-rain-100-2.png" }, // Heavy rain at times
+    { code: 1195, customIcon: "assets/weather-icons/icons8-heavy-rain-100.png" }, // Heavy rain
+    { code: 1198, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Light freezing rain
+    { code: 1201, customIcon: "assets/weather-icons/icons8-heavy-rain-100.png" }, // Moderate or heavy freezing rain
+    { code: 1204, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Light sleet
+    { code: 1207, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Moderate or heavy sleet
+    { code: 1210, customIcon: "assets/weather-icons/icons8-light-snow-100.png" }, // Patchy light snow
+    { code: 1213, customIcon: "assets/weather-icons/icons8-light-snow-100.png" }, // Light snow
+    { code: 1216, customIcon: "assets/weather-icons/icons8-snow-100.png" }, // Patchy moderate snow
+    { code: 1219, customIcon: "assets/weather-icons/icons8-snow-100.png" }, // Moderate snow
+    { code: 1222, customIcon: "assets/weather-icons/icons8-snow-storm-100.png" }, // Patchy heavy snow
+    { code: 1225, customIcon: "assets/weather-icons/icons8-snow-storm-100.png" }, // Heavy snow
+    { code: 1237, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Ice pellets
+    { code: 1240, customIcon: "assets/weather-icons/icons8-light-rain-100.png" }, // Light rain shower
+    { code: 1243, customIcon: "assets/weather-icons/icons8-heavy-rain-100.png" }, // Moderate or heavy rain shower
+    { code: 1246, customIcon: "assets/weather-icons/icons8-torrential-rain-100.png" }, // Torrential rain shower
+    { code: 1249, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Light sleet showers
+    { code: 1252, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Moderate or heavy sleet showers
+    { code: 1255, customIcon: "assets/weather-icons/icons8-light-snow-100.png" }, // Light snow showers
+    { code: 1258, customIcon: "assets/weather-icons/icons8-snow-100.png" }, // Moderate or heavy snow showers
+    { code: 1261, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Light showers of ice pellets
+    { code: 1264, customIcon: "assets/weather-icons/icons8-sleet-100.png" }, // Moderate or heavy showers of ice pellets
+    { code: 1273, customIcon: "assets/weather-icons/icons8-storm-100.png" }, // Patchy light rain with thunder
+    { code: 1276, customIcon: "assets/weather-icons/icons8-storm-with-heavy-rain-100.png" }, // Moderate or heavy rain with thunder
+    { code: 1279, customIcon: "assets/weather-icons/icons8-storm-100.png" }, // Patchy light snow with thunder
+    { code: 1282, customIcon: "assets/weather-icons/icons8-storm-100.png" }  // Moderate or heavy snow with thunder
+];
+
+  // Function to map the condition code to the custom icon
+  mapConditionToIcon(code: number): string {
+    const condition = this.weatherIconMapping.find(icon => icon.code === code);
+    return condition ? condition.customIcon : "assets/weather-icons/icons8-clouds-100.png"; // Default to cloudy if no match
+  }
   
 }

@@ -1,7 +1,7 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
 <div class="weather-dashboard p-6 rounded-2xl">
-  <h4>Current Weather</h4>
+  <h4 class="mb-4">Current Weather</h4>
 
   <div class="current-weather">
     <div class="left-section">
@@ -18,11 +18,17 @@
     </div>
 
     <div class="right-section">
-      <img 
+      <!-- <img 
         class="condition-icon"
         [src]="weatherData?.current?.condition?.icon"
         alt="Weather condition"
-      />
+      /> -->
+
+      <img 
+  class="condition-icon"
+  [src]="mapConditionToIcon(weatherData?.current?.condition?.code)"
+  alt="Weather condition"
+/>
     </div>
   </div>
 
@@ -41,7 +47,7 @@
       </div>
       <div class="weather-section-item">
       <span class="material-symbols-rounded mr">
-        beach_access
+        rainy
         </span><span class="mr-2">{{ weatherData?.current.precip_mm }} mm</span>
         </div>
         <div class="weather-section-item">
@@ -57,12 +63,17 @@
     </div>
     </div>
 
-  <h4>Weather Forecast</h4>
+  <h4 class="mb-4">Weather Forecast</h4>
 
   <div class="forecast">
     <div *ngFor="let hour of forecastData" class="forecast-row">
       <p>{{ hour.time | date:'HH:mm' }}</p>
-      <img [src]="hour.condition.icon" alt="Condition icon" />
+      <!-- <img [src]="hour.condition.icon" alt="Condition icon" /> -->
+      <img 
+      class="condition-icon"
+      [src]="mapConditionToIcon(hour.condition.code)"
+      alt="Weather condition"
+    />
       <p>{{ hour.temp_c  | number:'1.0-0' }}°</p>
       <p>{{ hour.wind_kph | number:'1.0-0'  }} km/h</p>
       <p>{{ hour.chance_of_rain }}%</p>
