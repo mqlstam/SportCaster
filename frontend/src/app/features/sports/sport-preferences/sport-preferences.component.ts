@@ -61,6 +61,7 @@ export class SportPreferencesComponent implements OnInit {
     this.city = suggestion;
     this.suggestions = [];
     console.log('Geselecteerde stad:', suggestion);
+    this.onSubmit();
   }
 
 
