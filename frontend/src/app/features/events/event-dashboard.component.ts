@@ -13,6 +13,7 @@ interface Event {
       formatted_address: string;
     };
   };
+  labels: string[];
 }
 
 @Component({
@@ -94,6 +95,23 @@ export class EventsComponent implements OnInit {
   previousEvent(): void {
     if (this.currentEventIndex > 0) {
       this.currentEventIndex--;
+    }
+  }
+
+  formatLabel(label: string | undefined): string {
+    if (!label) return '';
+    const formatted = label.replace(/-/g, ' ');
+    return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  }
+
+  openGoogleMaps() {
+    if (this.currentEvent?.geo?.address?.formatted_address) {
+      const address = encodeURIComponent(this.currentEvent.geo.address.formatted_address);
+      const url = `https://www.google.com/maps/search/?api=1&query=${address}`;
+      window.open(url, '_blank');
+    } else {
+      // Handle the case where the address is not available
+      this.errorMessage = "Address not available for this event.";
     }
   }
 }

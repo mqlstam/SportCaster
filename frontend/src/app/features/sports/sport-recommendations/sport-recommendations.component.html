@@ -1,9 +1,9 @@
 <div *ngIf="errorMessage" class="bg-red-100 text-red-700 p-4 rounded-2xl mb-4">{{ errorMessage }}</div>
 
 <!-- Sport Recommendations -->
-<div *ngIf="suggestedSports.length > 0" class="p-6 rounded-2xl sports-card mb-12">
+<div *ngIf="suggestedSports.length > 0" class="p-6 rounded-2xl sports-card mb-14">
   <div>
-    <h4 class="mb-4">Suggested workout:</h4>
+    <h4 class="mb-4">Suggested workout</h4>
     <div class="inline-flex items-center space-x-5 mb-5">
       <div class="w-20 h-20 rounded-full justify-center items-center inline-flex sports-icon">
         <span class="material-symbols-rounded">
@@ -12,7 +12,7 @@
       </div>
       <h2>{{ suggestedSports[0].name }}</h2>
     </div>
-    <h4 class="mb-4">Weather during workout:</h4>
+    <h4 class="mb-4">Weather during workout</h4>
     
     <div class="p-6 mb-5 rounded-2xl sports-card-weather-section">
       <p class="mb-4">{{ weatherData?.current.condition.text }} at {{ weatherData?.current.temp_c | number:'1.0-0' }}°</p>
@@ -24,7 +24,7 @@
         </div>
         <div class="weather-section-item">
         <span class="material-symbols-rounded mr">
-          beach_access
+          rainy
           </span><span>{{ weatherData?.current.precip_mm }} mm</span>
           </div>
           <div class="weather-section-item">
@@ -34,7 +34,7 @@
             </div>
       </div>
     </div>
-    <h4 class="mb-4">Suggested equipment:</h4>
+    <h4 class="mb-4">Suggested equipment</h4>
     <div class="inline-flex gap-x-2 items-center justify-start flex-wrap gap-y-2">
       <span *ngFor="let item of suggestedSports[0].equipment" class="suggestedEquipmentCard px-3 py-1 rounded-md whitespace-nowrap">{{ item.item }}</span>
     </div>
@@ -44,7 +44,7 @@
 
 <div class="p-6 bg-white rounded-2xl sports-card-secondary">
   <div>
-    <h4 class="mb-4">Other suggested workouts:</h4>
+    <h4 class="mb-4">Other suggested workouts</h4>
     <div class="flex flex-col gap-6">
     <div *ngFor="let sport of suggestedSports.slice(1)" class="p-5 rounded-2xl gap-x-4 sports-card-secondary-item">
       <div class="inline-flex items-center space-x-5 mb-5">
@@ -56,7 +56,7 @@
         <h2>{{ sport.name }}</h2>
       </div>
 
-      <h4 class="mb-4">Suggested equipment:</h4>
+      <h4 class="mb-4">Suggested equipment</h4>
       <div class="inline-flex gap-x-2 items-center justify-start flex-wrap gap-y-2">
         <span *ngFor="let item of sport.equipment" class="suggestedEquipmentCardSecondary px-3 py-1 rounded-md whitespace-nowrap">{{ item.item }}</span>
       </div>

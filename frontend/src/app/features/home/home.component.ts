@@ -75,7 +75,7 @@ interface AppState {
             
           </div>
 
-          <div class="flex flex-col gap-y-12">
+          <div class="flex flex-col gap-y-14">
             <app-weather-dashboard></app-weather-dashboard>
             <app-events></app-events>
           </div>

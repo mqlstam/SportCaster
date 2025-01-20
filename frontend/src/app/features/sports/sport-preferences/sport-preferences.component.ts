@@ -17,6 +17,7 @@ export class SportPreferencesComponent implements OnInit {
   errorMessage: string | null = null;
   intensity: string = '';
   duration: number | null = null;
+  suggestions: string[] = [];
 
   constructor (private locationService: LocationService, private weatherService: WeatherService, private rcmdService: RcmdService) {}
   ngOnInit(): void {
@@ -41,11 +42,34 @@ export class SportPreferencesComponent implements OnInit {
     }  
   }
 
+  onCityInputChange(): void {
+    if (this.city.trim().length > 2) {
+      this.weatherService.getCitySuggestions(this.city).subscribe(
+        (data: string[]) => {
+          this.suggestions = data;
+        },
+        (error) => {
+          console.error('Error fetching city suggestions:', error);
+        }
+      );
+    } else {
+      this.suggestions = [];
+    }
+  }
+
+  selectSuggestion(suggestion: string): void {
+    this.city = suggestion;
+    this.suggestions = [];
+    console.log('Geselecteerde stad:', suggestion);
+    this.onSubmit();
+  }
+
 
 
   onSubmit(): void {
     if (this.city.trim()) {
       console.log('Fetching location for city:', this.city);
+      this.suggestions = [];
       this.weatherService.getLocation(this.city).subscribe(
         coordinates => this.locationService.setLocation(coordinates.lat, coordinates.lon),
         error => this.errorMessage = 'Please enter a valid city name. '

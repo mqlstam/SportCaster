@@ -1,19 +1,15 @@
 .weather-dashboard {
-  background: rgba(255, 255, 255, 0.7); /* Lichtere doorzichtige achtergrond */
+  background: white;
+  /* background-color: #f1f1f1; */
   color: black; /* Zwarte tekst */
-  padding: 20px;
-  max-width: 600px;
-  margin: 20px auto;
-  border-radius: 10px;
-  font-family: "Arial", sans-serif;
+  max-width: 690px;
+  /* border: 0.15rem;
+  border-style:solid;
+  border-color: #959595; */
+  box-shadow: rgb(17 12 46 / 6%) 0px 48px 100px 0px;
 }
 
-h2 {
-  font-size: 1.5em;
-  margin-bottom: 20px;
-  text-align: left;
-  color: black; /* Zwarte tekst */
-}
+
 
 .current-weather {
   display: flex;
@@ -22,20 +18,13 @@ h2 {
   margin-bottom: 20px;
 }
 
-.location {
-  font-size: 1.2em;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-}
-
 .location-icon {
   margin-right: 10px;
 }
 
 .temperature {
-  font-size: 2.5em;
-  font-weight: bold;
+  font-size: 4.5em;
+  font-weight: 500;
 }
 
 .feels-like {
@@ -44,14 +33,13 @@ h2 {
 }
 
 .condition-description {
-  font-size: 1em;
-  font-style: italic;
   color: black; /* Zwarte tekst */
 }
 
 .condition-icon {
   width: 100px;
   height: 100px;
+  
 }
 
 .weather-details {
@@ -67,26 +55,25 @@ h2 {
   color: black; /* Zwarte tekst */
 }
 
-h3 {
-  font-size: 1.3em;
-  margin-bottom: 10px;
-  text-align: left;
-  color: black; /* Zwarte tekst */
-}
-
 .forecast {
   display: flex;
   flex-direction: column;
+  
 }
 
 .forecast-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #e5e7eb;
+  /* background: #e5e7eb;  */
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.forecast-row:last-child {
+  border-bottom: none;
 }
 
 .forecast-row img {
@@ -106,30 +93,8 @@ h3 {
   margin-bottom: 20px;
 }
 
-.suggestions-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  max-height: 150px;
-  overflow-y: auto;
-  position: absolute;
-  background-color: white;
-  z-index: 1000;
-  width: 100%;
-}
-
-.suggestion-item {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.suggestion-item:hover {
-  background-color: #f0f0f0;
-}
-
-/* Zorg ervoor dat de knop niet mee schaalt met het invoerveld */
-button[type="submit"] {
-  flex-shrink: 0;
+.weather-section-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; 
 }
