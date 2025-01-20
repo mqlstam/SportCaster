@@ -13,6 +13,7 @@ interface Event {
       formatted_address: string;
     };
   };
+  labels: string[];
 }
 
 @Component({
@@ -95,5 +96,11 @@ export class EventsComponent implements OnInit {
     if (this.currentEventIndex > 0) {
       this.currentEventIndex--;
     }
+  }
+
+  formatLabel(label: string | undefined): string {
+    if (!label) return '';
+    const formatted = label.replace(/-/g, ' ');
+    return formatted.charAt(0).toUpperCase() + formatted.slice(1);
   }
 }
