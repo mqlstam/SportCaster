@@ -12,7 +12,6 @@
   z-index: 1000;
   animation: fadeIn 0.3s ease-in-out;
   height: auto; /* Popup is minder hoog */
-  min-height: 400px; /* Minimalizeer de hoogte om te voorkomen dat het te smal wordt */
 }
 
 .popup-content {
@@ -55,23 +54,22 @@ form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Zorgt ervoor dat de formulierelementen naar de start (links) van de container uitgelijnd worden */
+  align-items: flex-end; 
 }
 
-/* Formulier velden */
 input, select {
-  width: auto; /* Formuliervelden zijn nu breder */
-  padding: 4px 6px; /* Verminder de padding voor compactere hoogte */
-  font-size: 14px; /* Verkleinde tekstgrootte */
-  line-height: 1.2; /* Compactere tekstlijn */
+  width: auto; 
+  padding: 4px 6px; 
+  font-size: 14px; 
+  line-height: 1.2;
   margin: 8px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   transition: border-color 0.3s;
-  margin-left: auto; /* Dit zorgt ervoor dat het veld naar rechts uitgelijnd wordt */
-  margin-right: 0;   /* Zorg ervoor dat de rechter marge 0 is */
-  display: block; /* Zorg ervoor dat de inputvelden als blokken worden weergegeven */
-  height: auto; /* Hoogte wordt automatisch ingesteld */
+  margin-right: 0;
+  margin-left: auto;
+  display: block;
+  height: auto; 
 }
 
 input:focus, select:focus {
@@ -118,14 +116,10 @@ button.cancel:hover {
   background: #f8f9fa;
 }
 
-/* ================== */
-/* Registratie/Inlog Link */
-/* ================== */
 .register {
-  display: block;
   color: #007bff;
   cursor: pointer;
-  margin: 10px 0;
+  margin-top: 10px;
   font-size: 14px;
   text-decoration: underline;
 }
@@ -203,6 +197,26 @@ td.value {
   height: 0px;
 }
 
+.icon-container {
+  flex-shrink: 0; /* Voorkom dat de grootte van het icoon wordt aangepast */
+}
+
+.user-icon {
+  width: 80px; /* Pas de grootte van het icoon aan indien nodig */
+  height: 80px;
+  border-radius: 50%;
+}
+
+.icon-container img {
+  width: 40%;
+  height: 40%;
+}
+  
+.form-container {
+  display: flex;
+  align-items: flex-start; /* Zorg ervoor dat het icoon en het formulier bovenaan uitlijnen */
+  gap: 20px; /* Ruimte tussen het icoon en het formulier */
+}
 
 
 /* ================== */
