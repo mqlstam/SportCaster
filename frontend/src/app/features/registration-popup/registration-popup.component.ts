@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { PopupService } from '../../service/popup.service';
 import { UserService } from '../../service/user.service';
 import { RcmdService } from '../../service/rcmd.service'; 
+import { LoginService } from '../../service/login.service';
 
 @Component({
   selector: 'app-registration-popup',
@@ -24,7 +25,8 @@ export class RegistrationPopupComponent implements OnInit {
   constructor(
     public popupService: PopupService,
     private userService: UserService,
-    private rcmdService: RcmdService // Injecteer de RcmdService
+    private rcmdService: RcmdService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
@@ -34,6 +36,7 @@ export class RegistrationPopupComponent implements OnInit {
     const cookieValue = this.getCookie('loggedInUser');
     if (cookieValue){
       console.log("already logged in");
+      this.loginService.setLoggedIn(true);
       this.alreadyLoggedIn = true;
       this.loggedInUser = JSON.parse(cookieValue);
 
@@ -52,6 +55,10 @@ export class RegistrationPopupComponent implements OnInit {
     this.rcmdService.fetchEquipment();
     this.rcmdService.availableEquipment$.subscribe((equipmentList) => {
       this.availableEquipment = equipmentList;
+    });
+
+    this.loginService.loggedIn$.subscribe((loggedIn) => {
+      this.alreadyLoggedIn = loggedIn;
     });
   }
 
@@ -121,6 +128,7 @@ export class RegistrationPopupComponent implements OnInit {
             document.cookie = `loggedInUser=${JSON.stringify(this.loggedInUser)}; path=/;`;
             console.log('User logged in successfully:', this.loggedInUser);
 
+            this.loginService.setLoggedIn(true);
             this.alreadyLoggedIn = true;
             this.closePopup();
           } else {
@@ -144,14 +152,6 @@ export class RegistrationPopupComponent implements OnInit {
     }
   }
 
-  logOut() {
-    document.cookie = 'loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
-    console.log('User logged out, cookie deleted.');
-
-    this.loggedInUser = { userName: '', email: '', location: { city: '' }, preferences: {}, equipment: [] };
-    this.alreadyLoggedIn = false;
-    this.closePopup();
-  }
 
   getCookie(name: string): string | null {
     const value = `; ${document.cookie}`;
