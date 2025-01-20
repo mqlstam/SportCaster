@@ -27,7 +27,7 @@ export class SportRecommendationsComponent implements OnInit {
     'Skiing': 'downhill_skiing',
     'Table Tennis': 'sports_tennis',
     'Volleyball': 'sports_volleyball',
-    'Riding': 'sports_horse_riding',
+    'Riding': 'bedroom_baby',
     'Default': 'help_outline',
   };
 
