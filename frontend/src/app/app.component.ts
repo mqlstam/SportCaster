@@ -15,6 +15,7 @@ import { RegistrationPopupComponent } from "./features/registration-popup/regist
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  title = 'frontend';
   constructor(private popupService: PopupService) {}
 
   triggerHomeLoginPopup() {
