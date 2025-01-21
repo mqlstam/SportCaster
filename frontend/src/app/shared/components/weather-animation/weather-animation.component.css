@@ -1,22 +1,51 @@
 /* Base Weather Backgrounds - Day */
 .weather-sunny {
-  background: linear-gradient(to bottom, #72ADF4 0%,#73ADF0 40%, #f5f4f7 100%);
+  /* background: linear-gradient(to bottom, #72ADF4 0%,#73ADF0 40%, #f5f4f7 100%); */
+
+
+
+
+  background-attachment: local, scroll, scroll;
+
+  background: linear-gradient(to bottom, transparent 20% , #f1f0f5 100%) no-repeat bottom,
+linear-gradient(120deg, #7dafff 0%, #8fdcff 100%);
+
+  /* background: linear-gradient(to bottom, transparent, #f1f0f5 99%) no-repeat bottom,
+  linear-gradient(to left, transparent, rgb(89, 145, 250) 70%) no-repeat left,
+  linear-gradient(to right, transparent, rgb(30, 171, 253)) no-repeat right,
+  linear-gradient(to top, transparent, rgb(47, 0, 255) 60%) no-repeat top; */
+
+
+  
+
+  /*   background: linear-gradient(to bottom, transparent, #f5f4f7 99%) no-repeat bottom,
+  linear-gradient(to left, transparent, rgb(89, 145, 250) 70%) no-repeat left,
+  linear-gradient(to right, transparent, rgb(30, 171, 253)) no-repeat right,
+  linear-gradient(to top left, transparent, rgb(47, 0, 255) 30%) no-repeat top left; */
 }
 
 .weather-rainy {
-  background: linear-gradient(to bottom, #989aad 0%, #f5f4f7 100%);
+  background-attachment: local, scroll, scroll;
+  background: linear-gradient(to bottom, transparent 20% , #f1f0f5 100%) no-repeat bottom,
+  linear-gradient(to top, #868aa7 0%, #aab4d3 1%, #a9b1ca 100%);
 }
 
 .weather-snowy {
-  background: linear-gradient(to bottom, #5b5b5b 0%, #f5f4f7 100%);
+  background-attachment: local, scroll, scroll;
+  background: linear-gradient(to bottom, transparent 20% , #f1f0f5 100%) no-repeat bottom,
+  linear-gradient(to top, #868aa7 0%, #aab4d3 1%, #a9b1ca 100%);  
 }
 
 .weather-cloudy {
-  background: linear-gradient(to bottom, #b8c6db 0%, #f5f4f7 100%);
+  background-attachment: local, scroll, scroll;
+  background: linear-gradient(to bottom, transparent 20% , #f1f0f5 100%) no-repeat bottom,
+  linear-gradient(to top, #868aa7 0%, #aab4d3 1%, #a9b1ca 100%);
 }
 
 .weather-stormy {
-  background: linear-gradient(to bottom, #2C3E50 0%, #f5f4f7 100%);
+  background-attachment: local, scroll, scroll;
+  background: linear-gradient(to bottom, transparent 20% , #f1f0f5 100%) no-repeat bottom,
+  linear-gradient(to top, #868aa7 0%, #aab4d3 1%, #a9b1ca 100%);
 }
 
 /* Base Weather Backgrounds - Night */
@@ -104,14 +133,15 @@
   background: #2c5282;
 }
 .weather-animation {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 31rem;
+  height: 27rem;
   pointer-events: none;
   z-index: -1;
   overflow: hidden;
+
 }
 
 /* Update the mode-toggle class positioning */
