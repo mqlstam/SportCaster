@@ -4,7 +4,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f5f4f7;
+    background-color: #f1f0f5;
     transition: background-color 0.3s ease;
 }
 
@@ -32,6 +32,13 @@ h3 {
 h4 {
     color: #3f3f3f;
     font-weight: 400;
+    font-size: 1.05rem;
+}
+
+h5 {
+    color: #3f3f3f;
+    font-weight: 400;
+    font-size: 0.95rem;
 }
 
 select {
@@ -40,4 +47,9 @@ select {
 
 input {
     border-radius: 1rem;
+}
+
+
+.card-base {
+    border-radius: 1.3rem;
 }

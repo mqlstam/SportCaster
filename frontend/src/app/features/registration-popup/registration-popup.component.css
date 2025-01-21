@@ -1,9 +1,10 @@
 .popup {
+
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 800px; /* Popup is breder */
+  width: 400px; /* Popup is breder */
   max-width: 90%;
   background: #fff;
   padding: 30px;
@@ -16,9 +17,8 @@
 
 .popup-content {
   display: flex;
-  flex-direction: column;
-  align-items: stretch; /* Zorg ervoor dat de inhoud de breedte benut */
-  text-align: left;
+      flex-direction: column;
+      justify-content: center;
 }
 
 /* ================== */
@@ -52,22 +52,20 @@ h2 {
 /* ================== */
 form {
   width: 100%;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   align-items: flex-end; 
 }
 
 input, select {
-  width: auto; 
-  padding: 4px 6px; 
-  font-size: 14px; 
-  line-height: 1.2;
+  /* width: auto;  */
+
   margin: 8px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   transition: border-color 0.3s;
   margin-right: 0;
-  margin-left: auto;
+  /* margin-left: auto; */
   display: block;
   height: auto; 
 }
@@ -84,8 +82,7 @@ button {
   background: #007bff;
   color: white;
   padding: 10px 15px;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;

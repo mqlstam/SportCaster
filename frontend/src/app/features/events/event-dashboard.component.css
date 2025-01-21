@@ -1,6 +1,7 @@
 .events-card {
   position: relative;
   max-width: 690px;
+  box-shadow: rgb(17 12 46 / 6%) 0px 48px 100px 0px;
 }
 
 .event-detail {

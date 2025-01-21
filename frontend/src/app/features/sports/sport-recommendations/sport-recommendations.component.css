@@ -1,5 +1,5 @@
 .suggestedEquipmentCard {
-    background-color: #f5f4f7;
+    background-color: #f1f0f5;
     font-size: 0.85rem;
 }
 
@@ -35,7 +35,7 @@
 
 .sports-card-secondary {
     max-width: 32.75rem;
-    
+    box-shadow: rgb(17 12 46 / 6%) 0px 48px 100px 0px;
 }
 
 .weather-section-item {
@@ -49,10 +49,10 @@
 }
 
 .sports-card-weather-section {
-    background-color: #f5f4f7;
+    background-color: #f1f0f5;
 }
 
 .sports-card-secondary-item {
-    background-color: #f5f4f7;
+    background-color: #f1f0f5;
 }
 

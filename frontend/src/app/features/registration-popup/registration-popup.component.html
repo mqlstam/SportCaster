@@ -1,45 +1,57 @@
+
+
+
 <div class="popup" *ngIf="popupService.popupStatus$ | async">
+
+    <h2 *ngIf="!alreadyLoggedIn && !isLogin">Register</h2>
+    <h2 *ngIf="!alreadyLoggedIn && isLogin">Login</h2>
+    <h2 *ngIf="alreadyLoggedIn">Profile</h2>
+
     <div class="popup-content">
+
+        
         <span class="close-btn" (click)="closePopup()">&times;</span>
 
         <!-- Dynamic Title -->
-        <h2 *ngIf="!alreadyLoggedIn && !isLogin">Register</h2>
-        <h2 *ngIf="!alreadyLoggedIn && isLogin">Login</h2>
-        <h2 *ngIf="alreadyLoggedIn">Profile</h2>
+
+
 
         <!-- User Icon and Form -->
         <div class="form-container" *ngIf="!alreadyLoggedIn">
-            <!-- User Icon -->
-            <div class="icon-container">
-                <img src="assets/weather-icons/user-icon.png" alt="User Icon" class="user-icon">
-            </div>
 
             <!-- Registration/Login Form -->
             <form (ngSubmit)="onSubmit()" *ngIf="!alreadyLoggedIn && !editMode">
                 <div *ngIf="!isLogin">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" [(ngModel)]="user.userName" name="name" required />
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name:</label>
+                    <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Johnnie"  [(ngModel)]="user.userName" name="name" required />
                 </div>
 
                 <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" [(ngModel)]="user.email" name="email" required />
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Email</label>
+                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="user@email.com" [(ngModel)]="user.email" name="email" required />
                 </div>
 
                 <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" [(ngModel)]="user.password" name="password" required />
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password:</label>
+                    <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" [(ngModel)]="user.password" name="password" required />
                 </div>
 
                 <div>
-                    <a class="register" (click)="isRegister()" *ngIf="isLogin">Don't have an account?<br>register now</a>
-                    <a class="register" (click)="isLogin2()" *ngIf="!isLogin">Back to login</a>
+                    <h5 *ngIf="isLogin" class="mt-4">Don't have an account?</h5>
+                    
+                    <a class="register" (click)="isRegister()" *ngIf="isLogin"><h5 class="text-blue-400">Register now</h5></a>
+                    <a class="register  to-blue-600" (click)="isLogin2()" *ngIf="!isLogin"><h5 class="text-blue-400">Back to login</h5></a>
                 </div>
 
                 <button type="submit" *ngIf="!isLogin">Register</button>
                 <button type="submit" *ngIf="isLogin">Login</button>
             </form>
         </div>
+
+
+        
+
+
 
         <!-- Edit Profile -->
         <form *ngIf="alreadyLoggedIn">

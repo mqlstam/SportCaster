@@ -1,7 +1,7 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
-<div class="weather-dashboard p-6 rounded-2xl">
-  <h4 class="mb-4">Current Weather</h4>
+<div class="weather-dashboard p-6 rounded-2xl card-base">
+  <h4 class="mb-4">Weather</h4>
 
   <div class="current-weather">
     <div class="left-section">
@@ -14,7 +14,7 @@
           </div>
       <h2 class="temperature">{{ weatherData?.current?.temp_c | number:'1.0-0' }}°</h2>
       <h3 class="condition-description">{{ weatherData?.current?.condition?.text }}</h3>
-      <p class="feels-like">Feels like: {{ weatherData?.current?.feelslike_c | number:'1.0-0'  }}°</p>
+      <p class="feels-like">Feels like {{ weatherData?.current?.feelslike_c | number:'1.0-0'  }}°</p>
     </div>
 
     <div class="right-section">
@@ -63,7 +63,7 @@
     </div>
     </div>
 
-  <h4 class="mb-4">Weather Forecast</h4>
+  <h5 class="mb-4">Weather Forecast</h5>
 
   <div class="forecast">
     <div *ngFor="let hour of forecastData" class="forecast-row">
