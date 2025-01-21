@@ -13,7 +13,7 @@ import { LoginService } from '../../service/login.service';
   styleUrls: ['./registration-popup.component.css']
 })
 export class RegistrationPopupComponent implements OnInit {
-  user = { userName: '', email: '', password: '' };
+  user = { userName: '', email: '', password: '' ,password2:''};
   isLogin = true;
   loggedInUser: any = { userName: '', email: '', location: { city: '' }, preferences: {}, equipment: [] };
   alreadyLoggedIn = false;
@@ -141,9 +141,16 @@ export class RegistrationPopupComponent implements OnInit {
       });
 
     } else {
+      if (this.user.password !== this.user.password2) {
+        alert('Passwords do not match');
+        return;
+      }
       this.userService.createUser(this.user).subscribe({
         next: (response: any) => {
+          alert('User created successfully, you can login now');
           console.log('User created successfully:', response);
+          this.isLogin = true;
+          this.closePopup();
         },
         error: (error) => {
           console.error('Error creating user:', error);
