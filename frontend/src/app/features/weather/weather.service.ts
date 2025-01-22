@@ -58,7 +58,7 @@ const mockWeatherData: Record<WeatherType, MockWeatherData> = {
   providedIn: 'root'
 })
 export class WeatherService {
-  private apiUrl = 'http://api.weatherapi.com/v1';
+  private apiUrl = 'https://api.weatherapi.com/v1';
   private apiKey = '233e6c2040494734a82132204241712';
 
   constructor(
