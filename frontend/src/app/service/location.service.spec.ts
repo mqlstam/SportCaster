@@ -85,9 +85,17 @@ describe('LocationService', () => {
 
     it('should handle unsupported geolocation', (done) => {
       const geolocationMock = {
-        getCurrentPosition: jasmine.createSpy('getCurrentPosition'),
-        clearWatch: jasmine.createSpy('clearWatch'), // Voeg clearWatch toe
-        watchPosition: jasmine.createSpy('watchPosition') // Voeg watchPosition toe
+        getCurrentPosition: jasmine.createSpy('getCurrentPosition').and.callFake((successCallback, errorCallback) => {
+          // Simuleer het scenario waarin geolocatie niet wordt ondersteund
+          if (errorCallback) {
+            errorCallback({
+              code: 2,  // Geolocation is niet beschikbaar
+              message: 'Geolocation is not supported by your browser.'
+            });
+          }
+        }),
+        clearWatch: jasmine.createSpy('clearWatch'),
+        watchPosition: jasmine.createSpy('watchPosition')
       };
       spyOnProperty(navigator, 'geolocation', 'get').and.returnValue(geolocationMock);
 

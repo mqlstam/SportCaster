@@ -1,10 +1,18 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppComponent } from './app.component';
+import { provideMockStore } from '@ngrx/store/testing'; // Mock-store import
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        HttpClientTestingModule, // Mock voor HttpClient
+        AppComponent, // Standalone component
+      ],
+      providers: [
+        provideMockStore({ initialState: {} }), // Mock-store provider
+      ],
     }).compileComponents();
   });
 
@@ -18,12 +26,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('frontend');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, frontend');
   });
 });

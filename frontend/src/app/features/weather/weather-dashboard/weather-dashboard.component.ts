@@ -15,6 +15,7 @@ import { LocationService } from '../../../service/location.service';
   styleUrl: './weather-dashboard.component.css'
 })
 export class WeatherDashboardComponent implements OnInit {
+  weather: any; // Voeg de 'weather' eigenschap toe
   city: string = '';
   selectedLat: number = 0;
   selectedLon: number = 0;

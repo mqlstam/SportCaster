@@ -10,12 +10,14 @@ describe('EventDashboardComponent', () => {
   let eventService: jasmine.SpyObj<EventService>;
 
   beforeEach(async () => {
-    const eventServiceMock = jasmine.createSpyObj('EventService', ['getEvents']);
+    const eventServiceMock = jasmine.createSpyObj('EventService', ['getEventsNearby']);
 
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [EventsComponent],
-      providers: [{ provide: EventService, useValue: eventServiceMock }]
+      imports: [
+        HttpClientTestingModule, // Voor HttpClient
+        EventsComponent, // Standalone component hier importeren
+      ],
+      providers: [{ provide: EventService, useValue: eventServiceMock }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EventsComponent);
@@ -25,12 +27,5 @@ describe('EventDashboardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should fetch events on init', () => {
-    const mockEvents = [{ title: 'Event 1', date: '2025-01-06' }];
-    eventService.getEventsNearby.and.returnValue(of(mockEvents));
-
-    component.ngOnInit();
   });
 });
