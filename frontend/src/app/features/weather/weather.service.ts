@@ -93,7 +93,7 @@ export class WeatherService {
       return of([]); // Geef een lege array terug als de invoer leeg is
     }
   
-    const apiUrl = `http://api.weatherapi.com/v1/search.json?key=${this.apiKey}&q=${query}`;
+    const apiUrl = `https://api.weatherapi.com/v1/search.json?key=${this.apiKey}&q=${query}`;
   
     return this.http.get<any[]>(apiUrl).pipe(
       map((response) =>
