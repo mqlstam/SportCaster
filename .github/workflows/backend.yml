@@ -31,6 +31,12 @@ jobs:
     - name: Build
       run: npm run build
 
+    - name: Prepare deployment package
+      run: |
+        cp package*.json dist/
+        cd dist
+        npm install --only=production
+
     - name: Login to Azure
       uses: azure/login@v1
       with:
@@ -41,3 +47,4 @@ jobs:
       with:
         app-name: 'sportcaster-backend-api'
         package: ./backend/dist
+        startup-command: 'npm start'
