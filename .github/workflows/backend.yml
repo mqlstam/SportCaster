@@ -33,8 +33,10 @@ jobs:
 
     - name: Prepare deployment package
       run: |
-        cp package*.json dist/
-        cd dist
+        mkdir -p deploy
+        cp package*.json deploy/
+        cp -r dist/* deploy/
+        cd deploy
         npm install --only=production
 
     - name: Login to Azure
@@ -46,5 +48,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'sportcaster-backend-api'
-        package: ./backend/dist
-        startup-command: 'npm start'
+        package: ./backend/deploy
