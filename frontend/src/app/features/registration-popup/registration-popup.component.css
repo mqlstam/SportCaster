@@ -66,7 +66,7 @@ input, select {
   margin-right: 0;
   margin-left: auto;
   display: block;
-  height: 50px; 
+  height: 40px; 
   padding-left: 17px;
 }
 
@@ -135,7 +135,7 @@ button.cancel:hover {
 }
 
 td {
-  padding: 6px 10px; /* Verlaag de padding voor compactere cellen */
+  padding: 3px 10px; /* Verlaag de padding voor compactere cellen */
   font-size: 14px; /* Pas de fontgrootte aan voor kleinere tekst */
   font-weight: 500;
 }
