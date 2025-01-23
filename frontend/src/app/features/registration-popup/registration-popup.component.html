@@ -36,6 +36,11 @@
                     <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" [(ngModel)]="user.password" name="password" required />
                 </div>
 
+                <div *ngIf="!isLogin">
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password:</label>
+                    <input type="password" id="password2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Repeat password" [(ngModel)]="user.password2" name="password" required />
+                </div>
+
                 <div>
                     <h5 *ngIf="isLogin" class="mt-4">Don't have an account?</h5>
                     
@@ -71,6 +76,13 @@
                     </td>
                 </tr>
                 <tr><td colspan="2"><hr class="divider"></td></tr>
+
+                <tr>
+                    <td class="label">Password:</td>
+                    <td class="value">
+                        <input type="password" id="password" [(ngModel)]="loggedInUser.password" name="password" required />
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="label">City:</td>

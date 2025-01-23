@@ -13,7 +13,7 @@ import { LoginService } from '../../service/login.service';
   styleUrls: ['./registration-popup.component.css']
 })
 export class RegistrationPopupComponent implements OnInit {
-  user = { userName: '', email: '', password: '' };
+  user = { userName: '', email: '', password: '' ,password2:''};
   isLogin = true;
   loggedInUser: any = { userName: '', email: '', location: { city: '' }, preferences: {}, equipment: [] };
   alreadyLoggedIn = false;
@@ -114,20 +114,24 @@ export class RegistrationPopupComponent implements OnInit {
       },
     });
   }
-
   onSubmit() {
     console.log('User registered:', this.user);
-
+  
     if (this.isLogin) {
       this.userService.getUserByEmail(this.user.email).subscribe({
         next: (response: any) => {
           console.log('User found:', response);
+          // Add null check for response.user
+          if (!response || !response.user) {
+            alert('User not found');
+            return;
+          }
           if (this.user.password === response.user.password) {
             this.loggedInUser = response.user;
         
             document.cookie = `loggedInUser=${JSON.stringify(this.loggedInUser)}; path=/;`;
             console.log('User logged in successfully:', this.loggedInUser);
-
+  
             this.loginService.setLoggedIn(true);
             this.alreadyLoggedIn = true;
             this.closePopup();
@@ -136,14 +140,22 @@ export class RegistrationPopupComponent implements OnInit {
           }
         },
         error: (error) => {
+          console.error('Login error:', error);
           alert('User not found');
         },
       });
-
     } else {
+      // Registration logic remains unchanged
+      if (this.user.password !== this.user.password2) {
+        alert('Passwords do not match');
+        return;
+      }
       this.userService.createUser(this.user).subscribe({
         next: (response: any) => {
+          alert('User created successfully, you can login now');
           console.log('User created successfully:', response);
+          this.isLogin = true;
+          this.closePopup();
         },
         error: (error) => {
           console.error('Error creating user:', error);
@@ -151,7 +163,6 @@ export class RegistrationPopupComponent implements OnInit {
       });
     }
   }
-
 
   getCookie(name: string): string | null {
     const value = `; ${document.cookie}`;

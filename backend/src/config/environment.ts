@@ -8,8 +8,8 @@ interface Config {
   nodeEnv: string | undefined;
 }
 
-export const config: Config = {
-  port: process.env.PORT,
-  mongoUri: process.env.MONGO_URI,
-  nodeEnv: process.env.NODE_ENV,
-};
+export const config = {
+  port: process.env.PORT || 3000,
+  mongoUri: process.env.MONGO_URI || 'mongodb+srv://ntpn294:Avans1234@ntpnavans.g3clv.mongodb.net/SportCaster',
+  corsOrigin: process.env.CORS_ORIGIN || 'https://happy-sea-04e498803.4.azurestaticapps.net'
+}
