@@ -36,6 +36,8 @@ export class SportRecommendationsComponent implements OnInit {
   lat: any;
   lon: any;
 
+  otherSportsVisible = false;
+
   constructor(
     private rcmdService: RcmdService, 
     private weatherService: WeatherService,
@@ -83,9 +85,13 @@ export class SportRecommendationsComponent implements OnInit {
   } catch (error) {
     console.error('Error fetching current location:', error);
   }
+
 }
 
 
+toggleOtherSports() {
+  this.otherSportsVisible = !this.otherSportsVisible;
+}
 
 }
 

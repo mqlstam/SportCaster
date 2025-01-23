@@ -57,7 +57,7 @@
         <form *ngIf="alreadyLoggedIn">
             <table class="profile-table">
                 <tr>
-                    <td class="label">Username:</td>
+                    <td class="label block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username:</td>
                     <td class="value">
                         <input type="text" id="username" [(ngModel)]="loggedInUser.userName" name="userName" required />
                     </td>
@@ -81,8 +81,8 @@
                 <tr><td colspan="2"><hr class="divider"></td></tr>
 
                 <tr>
-                    <td class="label">Intensity Level:</td>
-                    <td class="value">
+                    <td class="label ">Intensity Level:</td>
+                    <td class="value ">
                         <select [(ngModel)]="loggedInUser.preferences.preferredIntensity" name="preferredIntensity">
                             <option [value]="">No preference</option>
                             <option [value]="'low'">Low</option>
@@ -125,7 +125,7 @@
             </table>
 
             <div class="button-group">
-                <button type="button" (click)="closePopup()" class="cancel">Cancel</button>
+                <button type="button" (click)="closePopup()" class="cancel mr-4">Cancel</button>
                 <button type="button" (click)="saveChanges()">Save</button>
             </div>
         </form>

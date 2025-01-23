@@ -18,6 +18,7 @@ export class SportPreferencesComponent implements OnInit {
   intensity: string = '';
   duration: number | null = null;
   suggestions: string[] = [];
+  filterOverlayVisible = false
 
   constructor (private locationService: LocationService, private weatherService: WeatherService, private rcmdService: RcmdService) {}
   ngOnInit(): void {
@@ -112,4 +113,10 @@ onUseCurrentLocation(): void {
     const parts = value.split(`; ${name}=`);
     return parts.length === 2 ? parts.pop()?.split(';').shift() || null : null;
   }
+
+  toggleFilterOverlay(): void {
+    this.filterOverlayVisible = !this.filterOverlayVisible;
+  } 
+
+  
 }

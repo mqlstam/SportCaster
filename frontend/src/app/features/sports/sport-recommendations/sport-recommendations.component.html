@@ -42,26 +42,32 @@
 
 </div>
 
-<div class="p-6 bg-white rounded-2xl sports-card-secondary card-base">
+<div class="p-6 bg-white rounded-2xl sports-card-secondary">
   <div>
-    <h4 class="mb-4">Other suggested sports</h4>
-    <div class="flex flex-col gap-6">
-    <div *ngFor="let sport of suggestedSports.slice(1)" class="p-5 rounded-2xl gap-x-4 sports-card-secondary-item">
-      <div class="inline-flex items-center space-x-5 mb-5">
-        <div class="w-16 h-16 sports-icon-secondary rounded-full justify-center items-center inline-flex">
-          <span class="material-symbols-rounded">
-            {{ iconMap[sport.name] || iconMap['Default'] }}
+    <div class="flex justify-between items-center mb-0">
+      <h4>Other suggested sports</h4>
+      <button (click)="toggleOtherSports()" class="toggle-button">
+        <span class="material-symbols-rounded">
+          {{ otherSportsVisible ? 'expand_less' : 'expand_more' }}
+        </span>
+      </button>
+    </div>
+    <div class="other-sports-content flex flex-col gap-6 mt-6" [class.show-on-mobile]="otherSportsVisible">
+      <div *ngFor="let sport of suggestedSports.slice(1)" class="p-5 rounded-2xl gap-x-4 sports-card-secondary-item">
+        <div class="inline-flex items-center space-x-5 mb-5">
+          <div class="w-16 h-16 sports-icon-secondary rounded-full justify-center items-center inline-flex">
+            <span class="material-symbols-rounded">
+              {{ iconMap[sport.name] || iconMap['Default'] }}
             </span>
+          </div>
+          <h2>{{ sport.name }}</h2>
         </div>
-        <h2>{{ sport.name }}</h2>
-      </div>
 
-      <h5 class="mb-4">Suggested equipment</h5>
-      <div class="inline-flex gap-x-2 items-center justify-start flex-wrap gap-y-2">
-        <span *ngFor="let item of sport.equipment" class="suggestedEquipmentCardSecondary px-3 py-1 rounded-md whitespace-nowrap">{{ item.item }}</span>
+        <h5 class="mb-4">Suggested equipment</h5>
+        <div class="inline-flex gap-x-2 items-center justify-start flex-wrap gap-y-2">
+          <span *ngFor="let item of sport.equipment" class="suggestedEquipmentCardSecondary px-3 py-1 rounded-md whitespace-nowrap">{{ item.item }}</span>
+        </div>
       </div>
     </div>
   </div>
-  </div>
-
 </div>

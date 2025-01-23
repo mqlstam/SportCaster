@@ -45,7 +45,7 @@ interface AppState {
         <!-- Weather Controls -->
         <div class="bg-white/80 rounded-lg p-4 mb-4 backdrop-blur-sm" hidden>
           <h2 class="text-2xl font-bold mb-4">Weather Controls</h2>
-          <div class="flex flex-wrap gap-4 mb-4">
+          <div class="flex flex-wrap mb-4">
             <button
               *ngFor="let type of weatherTypes"
               (click)="setWeatherType(type)"
@@ -69,13 +69,13 @@ interface AppState {
         <app-sport-preferences></app-sport-preferences>
 
         <!-- Grid section -->
-        <div class="grid grid-cols-2 mt-8">
-          <div class="flex flex-col gap-y-12">
+        <div class="grid mt-8 gap-14 justify-center grid-section">
+          <div class="flex flex-col gap-y-14 left-section">
             <app-sport-recommendations></app-sport-recommendations>
             
           </div>
 
-          <div class="flex flex-col gap-y-14">
+          <div class="flex flex-col gap-y-14 right-section">
             <app-weather-dashboard></app-weather-dashboard>
             <app-events></app-events>
           </div>

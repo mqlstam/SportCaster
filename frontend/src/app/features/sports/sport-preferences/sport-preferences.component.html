@@ -1,26 +1,123 @@
 <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
 
-<div class="flex flex-row justify-center gap-6 mb-10">
-  <div class="relative">
-    <form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4">
-      <label class="block text-sm font-medium mb-2 preference-label" for="city">
-        City
-      </label>
-           
-      <div class="flex items-stretch">
-        <input
-          id="city"
-          type=""
-          [(ngModel)]="city"
-          name="city"
-          (input)="onCityInputChange()"
-          required
-          class="border p-3 flex-grow rounded-l-2xl rounded-r-none"
-          placeholder="Enter city name"
-          autocomplete="off"
-        />
+<div class="">
+  <!-- Desktop Version -->
+  <div class="desktop-layout flex flex-row justify-center gap-6 mb-10 button-area">
+    <div class="relative">
+      <form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4">
+        <label class="block text-sm font-medium mb-2 preference-label" for="city">
+          City
+        </label>
+        
+        <div class="flex items-stretch search-bar-container">
+          <input
+            id="city"
+            type=""
+            [(ngModel)]="city"
+            name="city"
+            (input)="onCityInputChange()"
+            required
+            class="border p-3 flex-grow rounded-l-2xl"
+            placeholder="Enter city name"
+            autocomplete="off"
+          />
+    
+          <!-- Suggestions list -->
+          <ul
+            *ngIf="suggestions.length > 0"
+            class="suggestions-list absolute left-0 right-0 top-full bg-white border border-gray-300 rounded shadow-lg mt-0 z-10"
+          >
+            <li
+              *ngFor="let suggestion of suggestions"
+              (click)="selectSuggestion(suggestion)"
+              class="suggestion-item px-4 py-2 hover:bg-gray-100 cursor-pointer"
+            >
+              {{ suggestion }}
+            </li>
+          </ul>
+          
+          <!-- Search and Location buttons -->
+          <button
+            type="submit"
+            [disabled]="locationForm.invalid"
+            class="search-button px-2 py-2 bg-white text-white border-t border-b hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            aria-label="Search"
+          >
+            <span class="material-symbols-rounded icon-centered text-black">search</span>
+          </button>
+          <button
+            (click)="onUseCurrentLocation()"
+            class="location-button px-2 py-2 bg-white text-white rounded-r-2xl border-l border-t border-b hover:bg-blue-600"
+            aria-label="Use Current Location"
+          >
+            <span class="material-symbols-rounded icon-centered text-black">my_location</span>
+          </button>
+        </div>
+      </form>
+    </div>
 
-        <ul
+    <!-- Intensity Filter -->
+    <div>
+      <label class="block text-sm font-medium mb-2 preference-label mw">Intensity Level</label>
+      <select class="w-full p-3 border-none" (change)="onIntensityChange($event)" [ngModel]="intensity">
+        <option value="">All Intensities</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </div>
+
+    <!-- Duration Filter -->
+    <div>
+      <label class="block text-sm font-medium mb-2 preference-label">Duration</label>
+      <select class="w-full p-3 border-none" (change)="onDurationChange($event)" [ngModel]="duration">
+        <option value="0">All Durations</option>
+        <option value="30">30 minutes</option>
+        <option value="60">60 minutes</option>
+        <option value="90">90 minutes</option>
+        <option value="120">120 minutes</option>
+      </select>
+    </div>
+
+    <!-- Location Filter -->
+    <div>
+      <label class="block text-sm font-medium mb-2 preference-label">Location</label>
+      <select class="w-full p-3 border-none" (change)="onLocationChange($event)">
+        <option value="both">Indoor & Outdoor</option>
+        <option value="indoor">Indoor Only</option>
+        <option value="outdoor">Outdoor Only</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Mobile Filter Button -->
+  <div class="mobile-filter-button">
+    <button (click)="toggleFilterOverlay()" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-3xl border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+      <span class="material-symbols-rounded">tune      </span>
+    </button>
+  </div>
+</div>
+
+<!-- Filter Overlay for Mobile -->
+<div *ngIf="filterOverlayVisible" class="filter-overlay">
+  <div class="filter-content flex-col flex gap-y-4">
+    <h3 class="mb-4 overlay-label">Preferences</h3>
+    <form (ngSubmit)="onSubmit()" #locationForm="ngForm" class="mb-4">
+    <div class="flex items-stretch">
+      <input
+        id="city"
+        type=""
+        [(ngModel)]="city"
+        name="city"
+        (input)="onCityInputChange()"
+        required
+        class="border p-3 flex-grow rounded-l-2xl rounded-r-none"
+        placeholder="Enter city name"
+        autocomplete="off"
+      />
+
+      <!-- Suggestions list -->
+      <ul
         *ngIf="suggestions.length > 0"
         class="suggestions-list absolute left-0 right-0 top-full bg-white border border-gray-300 rounded shadow-lg mt-0 z-10"
       >
@@ -32,56 +129,60 @@
           {{ suggestion }}
         </li>
       </ul>
-        
-        <button
-          type="submit"
-          [disabled]="locationForm.invalid"
-          class="px-2 py-2 bg-white text-white border-t border-b border-r-0 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          aria-label="Search"
-        >
-          <span class="material-symbols-rounded icon-centered text-black">search</span>
-        </button>
-        <button
-          (click)="onUseCurrentLocation()"
-          class="px-2 py-2 bg-white text-white rounded-r-2xl border-l  border-t border-b hover:bg-blue-600"
-          aria-label="Use Current Location"
-        >
-          <span class="material-symbols-rounded icon-centered text-black">my_location</span>
-        </button>
-      </div>
-    </form>
-  </div>
+      
+      <!-- Search and Location buttons -->
+      <button
+        type="submit"
+        [disabled]="locationForm.invalid"
+        class="px-2 py-2 bg-white text-white border-t border-b border-r-0 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        aria-label="Search"
+      >
+        <span class="material-symbols-rounded icon-centered text-black">search</span>
+      </button>
+      <button
+        (click)="onUseCurrentLocation()"
+        class="px-2 py-2 bg-white text-white rounded-r-2xl border-l  border-t border-b hover:bg-blue-600"
+        aria-label="Use Current Location"
+      >
+        <span class="material-symbols-rounded icon-centered text-black">my_location</span>
+      </button>
 
-  <!-- Intensity Filter -->
-  <div>
-    <label class="block text-sm font-medium mb-2 preference-label">Intensity Level</label>
-    <select class="w-full p-3 border-none" (change)="onIntensityChange($event)" [ngModel]="intensity">
-      <option value="">All Intensities</option>
-      <option value="low">Low</option>
-      <option value="medium">Medium</option>
-      <option value="high">High</option>
-    </select>
-  </div>
+    </div>
+  </form>
+    <!-- Intensity -->
+    <div class="">
+      <label class="block text-sm font-medium mb-2 preference-label mw overlay-label">Intensity Level</label>
+      <select class="w-full p-3 border-none overlay-field" (change)="onIntensityChange($event)" [ngModel]="intensity">
+        <option value="">All Intensities</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </div>
 
-  <!-- Duration Filter -->
-  <div>
-    <label class="block text-sm font-medium mb-2 preference-label">Duration</label>
-    <select class="w-full p-3 border-none" (change)="onDurationChange($event)" [ngModel]="duration">
-      <option value="0">All Durations</option>
-      <option value="30">30 minutes</option>
-      <option value="60">60 minutes</option>
-      <option value="90">90 minutes</option>
-      <option value="120">120 minutes</option>
-    </select>
-  </div>
+    <!-- Duration -->
+    <div class="">
+      <label class="block text-sm font-medium mb-2 preference-label overlay-label">Duration</label>
+      <select class="w-full p-3 border-none overlay-field" (change)="onDurationChange($event)" [ngModel]="duration">
+        <option value="0">All Durations</option>
+        <option value="30">30 minutes</option>
+        <option value="60">60 minutes</option>
+        <option value="90">90 minutes</option>
+        <option value="120">120 minutes</option>
+      </select>
+    </div>
 
-  <!-- Location Filter -->
-  <div>
-    <label class="block text-sm font-medium mb-2 preference-label">Location</label>
-    <select class="w-full p-3 border-none" (change)="onLocationChange($event)">
-      <option value="both">Indoor & Outdoor</option>
-      <option value="indoor">Indoor Only</option>
-      <option value="outdoor">Outdoor Only</option>
-    </select>
+    <!-- Location -->
+    <div>
+      <label class="block text-sm font-medium mb-2 preference-label overlay-label">Location</label>
+      <select class="w-full p-3 border-none overlay-field" (change)="onLocationChange($event)">
+        <option value="both">Indoor & Outdoor</option>
+        <option value="indoor">Indoor Only</option>
+        <option value="outdoor">Outdoor Only</option>
+      </select>
+    </div>
+    <button (click)="toggleFilterOverlay()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+      OK
+    </button>
   </div>
 </div>

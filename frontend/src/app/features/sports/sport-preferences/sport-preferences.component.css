@@ -1,8 +1,142 @@
-.icon-centered {
+/* .icon-centered {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
   }
 
+  @media (max-width: 768px) {
+    .button-area {
+      flex-direction: column;
+    }
+  } */
+
+  .search-bar-container {
+
+    border-radius: 1rem; 
+    overflow: hidden;
+    display: flex;
+  }
   
+  .search-bar-container input {
+    border-right: none;
+    border-radius: 1rem 0px 0px 1rem;
+    flex-grow: 1;
+    outline: none;
+    box-shadow: none;
+  }
+
+  
+  
+  .search-bar-container:focus-within {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
+  }
+  
+  .search-button {
+    border-left: 1px solid #d1d5db;
+    border-right: none;
+    border-radius: 0;
+  }
+  
+  .location-button {
+    border-left: 1px solid #d1d5db;
+    border-radius: 0 1rem 1rem 0;
+  }
+  
+  .search-button:hover,
+  .location-button:hover {
+    background-color: #3b82f6;
+  }
+
+  .icon-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .button-area {
+      flex-direction: column;
+      align-items: center;
+    }
+    .mobile-filter-button {
+      margin-top: 10px;
+      display: block;
+    }
+    .desktop-layout {
+      display: none;
+    }
+    .filter-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .filter-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      overflow-y: auto;
+      position: relative;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .overlay-label {
+      color: black !important;
+    }
+    .overlay-field {
+      border-color: #d1d5db !important;
+      border-style: solid;
+    }
+    .suggestions-list {
+      align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 150px;
+      max-height: 200px;
+      overflow-y: auto;
+      width: calc(100% - 40px);
+      background: white;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      z-index: 1001;
+     
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .mobile-filter-button {
+      display: none;
+    }
+    .desktop-layout {
+      display: flex;
+    }
+    .filter-overlay {
+      display: none !important;
+    }
+
+  }
+
+
+ 

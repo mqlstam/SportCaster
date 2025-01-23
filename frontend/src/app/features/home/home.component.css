@@ -6,5 +6,48 @@
 }
 
 .root {
+}
 
+  .grid-section {
+    grid-template-columns: 32.75rem 1fr;
+  }
+
+  @media (max-width: 1280px) {
+    .grid-section {
+      grid-template-columns: 1fr 1.1fr;
+    }
+
+    @media (max-width: 1024px) {
+        .grid-section {
+          grid-template-columns: 1fr;
+        }
+      }
+
+  @media (max-width: 768px) {
+    .grid-section {
+      grid-template-columns: 1fr;
+    }
+
+    .main-content-wrapper {
+      margin-top: 8rem;
+      max-width: 75rem;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  }
+  
+
+  }
+
+
+@media (max-width: 768px) {
+    .grid-section {
+        gap: 2rem;
+      }
+    .left-section {
+      gap: 2rem;
+    }
+    .right-section {
+      gap: 2rem;
+    }
 }
